@@ -1,0 +1,122 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#333"/>
+    </marker>
+
+    <style>
+      .title { font: bold 34px sans-serif; fill: #222; }
+      .subtitle { font: 18px sans-serif; fill: #555; }
+      .step-title { font: bold 18px sans-serif; fill: #222; }
+      .label { font: 14px sans-serif; fill: #333; }
+      .small { font: 12px sans-serif; fill: #555; }
+      .pelvis { fill: none; stroke: #8b5e3c; stroke-width: 6; stroke-linecap: round; }
+      .birth-canal { fill: #f7d6c7; stroke: #c97b63; stroke-width: 3; }
+      .uterus { fill: #ffe8df; stroke: #d47c6a; stroke-width: 3; }
+      .head { fill: #f1c7a8; stroke: #7a4f3b; stroke-width: 3; }
+      .body { fill: #f5d2b8; stroke: #7a4f3b; stroke-width: 2; }
+      .fontanelle { fill: none; stroke: #7a4f3b; stroke-width: 2; stroke-dasharray: 4 3; }
+      .arrow { stroke: #333; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .rotate { stroke: #4b6cb7; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .panel { fill: #fff; stroke: #ddd; stroke-width: 2; rx: 18; }
+    </style>
+  </defs>
+
+  <!-- Header -->
+  <text x="600" y="45" text-anchor="middle" class="title">Mechanism of Labor</text>
+  <text x="600" y="75" text-anchor="middle" class="subtitle">
+    Cardinal movements of the fetal head during vaginal birth, shown schematically
+  </text>
+
+  <!-- Panel layout -->
+  <rect x="30" y="105" width="260" height="270" class="panel"/>
+  <rect x="320" y="105" width="260" height="270" class="panel"/>
+  <rect x="610" y="105" width="260" height="270" class="panel"/>
+  <rect x="900" y="105" width="260" height="270" class="panel"/>
+
+  <rect x="30" y="420" width="260" height="270" class="panel"/>
+  <rect x="320" y="420" width="260" height="270" class="panel"/>
+  <rect x="610" y="420" width="260" height="270" class="panel"/>
+  <rect x="900" y="420" width="260" height="270" class="panel"/>
+
+  <!-- Helper symbols -->
+  <!-- Function-like pelvic canal drawing reused manually -->
+
+  <!-- 1 Engagement -->
+  <text x="160" y="135" text-anchor="middle" class="step-title">1. Engagement</text>
+  <path d="M95 185 C75 230, 80 300, 130 340" class="pelvis"/>
+  <path d="M225 185 C245 230, 240 300, 190 340" class="pelvis"/>
+  <path d="M125 190 C145 160, 175 160, 195 190" class="uterus"/>
+  <ellipse cx="160" cy="215" rx="42" ry="55" class="head"/>
+  <path d="M138 210 C150 200, 170 200, 182 210" class="fontanelle"/>
+  <path d="M160 145 L160 170" class="arrow"/>
+  <text x="160" y="355" text-anchor="middle" class="small">Head enters pelvic inlet</text>
+
+  <!-- 2 Descent -->
+  <text x="450" y="135" text-anchor="middle" class="step-title">2. Descent</text>
+  <path d="M385 185 C365 230, 370 300, 420 340" class="pelvis"/>
+  <path d="M515 185 C535 230, 530 300, 480 340" class="pelvis"/>
+  <ellipse cx="450" cy="245" rx="42" ry="55" class="head"/>
+  <path d="M450 165 L450 200" class="arrow"/>
+  <path d="M450 275 L450 320" class="arrow"/>
+  <text x="450" y="355" text-anchor="middle" class="small">Head moves downward</text>
+
+  <!-- 3 Flexion -->
+  <text x="740" y="135" text-anchor="middle" class="step-title">3. Flexion</text>
+  <path d="M675 185 C655 230, 660 300, 710 340" class="pelvis"/>
+  <path d="M805 185 C825 230, 820 300, 770 340" class="pelvis"/>
+  <ellipse cx="740" cy="245" rx="38" ry="58" transform="rotate(-25 740 245)" class="head"/>
+  <circle cx="730" cy="230" r="5" fill="#7a4f3b"/>
+  <path d="M775 210 C805 230, 795 265, 765 270" class="rotate"/>
+  <text x="740" y="355" text-anchor="middle" class="small">Chin tucks toward chest</text>
+
+  <!-- 4 Internal rotation -->
+  <text x="1030" y="135" text-anchor="middle" class="step-title">4. Internal Rotation</text>
+  <path d="M965 185 C945 230, 950 300, 1000 340" class="pelvis"/>
+  <path d="M1095 185 C1115 230, 1110 300, 1060 340" class="pelvis"/>
+  <ellipse cx="1030" cy="255" rx="38" ry="58" transform="rotate(90 1030 255)" class="head"/>
+  <path d="M995 215 C1030 185, 1070 210, 1060 250" class="rotate"/>
+  <text x="1030" y="355" text-anchor="middle" class="small">Occiput rotates anteriorly</text>
+
+  <!-- 5 Extension -->
+  <text x="160" y="450" text-anchor="middle" class="step-title">5. Extension</text>
+  <path d="M95 500 C75 545, 80 615, 130 655" class="pelvis"/>
+  <path d="M225 500 C245 545, 240 615, 190 655" class="pelvis"/>
+  <path d="M125 585 C145 625, 175 625, 195 585" class="birth-canal"/>
+  <ellipse cx="160" cy="595" rx="38" ry="58" transform="rotate(35 160 595)" class="head"/>
+  <path d="M145 555 C180 540, 205 565, 195 600" class="rotate"/>
+  <text x="160" y="670" text-anchor="middle" class="small">Head extends under pubic arch</text>
+
+  <!-- 6 Head delivery -->
+  <text x="450" y="450" text-anchor="middle" class="step-title">6. Head Delivered</text>
+  <path d="M385 500 C365 545, 370 615, 420 655" class="pelvis"/>
+  <path d="M515 500 C535 545, 530 615, 480 655" class="pelvis"/>
+  <path d="M410 590 C430 625, 470 625, 490 590" class="birth-canal"/>
+  <ellipse cx="450" cy="625" rx="46" ry="38" class="head"/>
+  <path d="M450 560 L450 595" class="arrow"/>
+  <text x="450" y="670" text-anchor="middle" class="small">Face and head emerge</text>
+
+  <!-- 7 Restitution / External rotation -->
+  <text x="740" y="450" text-anchor="middle" class="step-title">7. Restitution / External Rotation</text>
+  <path d="M675 500 C655 545, 660 615, 710 655" class="pelvis"/>
+  <path d="M805 500 C825 545, 820 615, 770 655" class="pelvis"/>
+  <ellipse cx="740" cy="620" rx="46" ry="38" transform="rotate(25 740 620)" class="head"/>
+  <path d="M715 585 C745 560, 785 575, 785 610" class="rotate"/>
+  <text x="740" y="670" text-anchor="middle" class="small">Head realigns with shoulders</text>
+
+  <!-- 8 Expulsion -->
+  <text x="1030" y="450" text-anchor="middle" class="step-title">8. Expulsion</text>
+  <path d="M965 500 C945 545, 950 615, 1000 655" class="pelvis"/>
+  <path d="M1095 500 C1115 545, 1110 615, 1060 655" class="pelvis"/>
+  <path d="M1000 590 C1020 625, 1060 625, 1080 590" class="birth-canal"/>
+  <ellipse cx="1030" cy="595" rx="42" ry="34" class="head"/>
+  <ellipse cx="1030" cy="645" rx="34" ry="52" class="body"/>
+  <path d="M1030 545 L1030 575" class="arrow"/>
+  <path d="M1030 625 L1030 675" class="arrow"/>
+  <text x="1030" y="670" text-anchor="middle" class="small">Shoulders and body are born</text>
+
+  <!-- Bottom note -->
+  <text x="600" y="730" text-anchor="middle" class="label">
+    Simplified educational diagram: actual labor varies with fetal position, pelvic shape, contractions, and maternal pushing.
+  </text>
+</svg>

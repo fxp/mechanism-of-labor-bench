@@ -1,0 +1,243 @@
+<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="boneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f5e6d3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e6d0b3;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="fetusGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffdbac;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f1c27d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="headGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffdbac;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e0b17e;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Arrow Marker -->
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#e74c3c" />
+    </marker>
+    
+    <!-- Pelvis Path Template -->
+    <path id="pelvisPath" d="M 50,50 
+             Q 50,20 80,20 
+             L 180,20 
+             Q 210,20 210,50
+             L 210,150
+             Q 210,180 180,180
+             L 140,180
+             Q 120,220 100,250
+             Q 80,220 60,180
+             L 50,180
+             Q 20,180 20,150
+             L 20,50
+             Q 20,20 50,20 Z" />
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="#fafafa"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="bold" fill="#2c3e50">
+    Mechanism of Labor: Cardinal Movements
+  </text>
+  <text x="600" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#7f8c8d">
+    Occiput Anterior (OA) Presentation — Sagittal View
+  </text>
+
+  <!-- ==================== PANEL 1: ENGAGEMENT & DESCENT ==================== -->
+  <g transform="translate(50, 100)">
+    <rect x="0" y="0" width="360" height="360" fill="white" stroke="#ecf0f1" stroke-width="2" rx="8"/>
+    <text x="180" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+      1. Engagement &amp; Descent
+    </text>
+    
+    <!-- Pelvis -->
+    <path d="M 80,60 Q 80,40 100,40 L 260,40 Q 280,40 280,60 L 280,140 Q 280,160 260,160 L 220,160 Q 200,200 180,230 Q 160,200 140,160 L 100,160 Q 80,160 80,140 Z" 
+          fill="url(#boneGrad)" stroke="#d4a373" stroke-width="2"/>
+    
+    <!-- Sacrum/Coccyx -->
+    <path d="M 80,60 Q 60,100 70,140 Q 80,160 100,160" fill="none" stroke="#d4a373" stroke-width="3"/>
+    
+    <!-- Fetus Head (Biparietal diameter above inlet) -->
+    <ellipse cx="180" cy="85" rx="45" ry="35" fill="url(#headGrad)" stroke="#c0392b" stroke-width="1.5"/>
+    <!-- Fetal Body -->
+    <path d="M 180,120 Q 160,160 170,200 Q 180,220 190,200 Q 200,160 180,120" 
+          fill="url(#fetusGrad)" stroke="#c0392b" stroke-width="1"/>
+    <!-- Occiput label -->
+    <text x="145" y="85" font-family="Arial" font-size="11" fill="#c0392b">Occiput</text>
+    
+    <!-- Arrow -->
+    <line x1="240" y1="85" x2="240" y2="130" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="250" y="110" font-family="Arial" font-size="11" fill="#e74c3c">Descent</text>
+    
+    <text x="180" y="340" text-anchor="middle" font-family="Arial" font-size="12" fill="#555" width="320">
+      Biparietal diameter passes pelvic inlet. Head enters pelvic cavity.
+    </text>
+  </g>
+
+  <!-- ==================== PANEL 2: FLEXION ==================== -->
+  <g transform="translate(420, 100)">
+    <rect x="0" y="0" width="360" height="360" fill="white" stroke="#ecf0f1" stroke-width="2" rx="8"/>
+    <text x="180" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+      2. Flexion
+    </text>
+    
+    <!-- Pelvis -->
+    <path d="M 80,60 Q 80,40 100,40 L 260,40 Q 280,40 280,60 L 280,140 Q 280,160 260,160 L 220,160 Q 200,200 180,230 Q 160,200 140,160 L 100,160 Q 80,160 80,140 Z" 
+          fill="url(#boneGrad)" stroke="#d4a373" stroke-width="2"/>
+    
+    <!-- Fetus Head (Flexed - chin to chest) -->
+    <g transform="rotate(15, 180, 110)">
+      <ellipse cx="180" cy="110" rx="42" ry="32" fill="url(#headGrad)" stroke="#c0392b" stroke-width="1.5"/>
+      <path d="M 160,135 Q 180,145 200,135" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+    </g>
+    <!-- Fetal Body (more curved) -->
+    <path d="M 180,145 Q 155,175 165,210 Q 175,225 185,210 Q 195,175 180,145" 
+          fill="url(#fetusGrad)" stroke="#c0392b" stroke-width="1"/>
+    
+    <!-- Curved arrow showing flexion -->
+    <path d="M 230,90 Q 250,110 230,130" fill="none" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="240" y="115" font-family="Arial" font-size="11" fill="#e74c3c">Flexion</text>
+    
+    <text x="180" y="340" text-anchor="middle" font-family="Arial" font-size="12" fill="#555">
+      Chin approaches chest. Occiput presents to pelvis. Smallest diameter (suboccipitobregmatic) descends.
+    </text>
+  </g>
+
+  <!-- ==================== PANEL 3: INTERNAL ROTATION ==================== -->
+  <g transform="translate(790, 100)">
+    <rect x="0" y="0" width="360" height="360" fill="white" stroke="#ecf0f1" stroke-width="2" rx="8"/>
+    <text x="180" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+      3. Internal Rotation
+    </text>
+    
+    <!-- Pelvis -->
+    <path d="M 80,60 Q 80,40 100,40 L 260,40 Q 280,40 280,60 L 280,140 Q 280,160 260,160 L 220,160 Q 200,200 180,230 Q 160,200 140,160 L 100,160 Q 80,160 80,140 Z" 
+          fill="url(#boneGrad)" stroke="#d4a373" stroke-width="2"/>
+    
+    <!-- Fetus Head (Rotated - occiput anterior) -->
+    <g transform="rotate(-45, 180, 140)">
+      <ellipse cx="180" cy="140" rx="40" ry="30" fill="url(#headGrad)" stroke="#c0392b" stroke-width="1.5"/>
+      <circle cx="180" cy="140" r="3" fill="#c0392b"/> <!-- Occiput now anterior -->
+    </g>
+    <!-- Fetal Body -->
+    <path d="M 180,175 Q 165,200 170,230 Q 180,240 190,230 Q 195,200 180,175" 
+          fill="url(#fetusGrad)" stroke="#c0392b" stroke-width="1"/>
+    
+    <!-- Rotation arrow -->
+    <path d="M 140,100 Q 180,80 220,100" fill="none" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="180" y="75" text-anchor="middle" font-family="Arial" font-size="11" fill="#e74c3c">Rotation</text>
+    
+    <text x="180" y="340" text-anchor="middle" font-family="Arial" font-size="12" fill="#555">
+      Occiput rotates from lateral to anterior (toward symphysis). Aligns with pelvic outlet.
+    </text>
+  </g>
+
+  <!-- ==================== PANEL 4: EXTENSION ==================== -->
+  <g transform="translate(50, 480)">
+    <rect x="0" y="0" width="360" height="360" fill="white" stroke="#ecf0f1" stroke-width="2" rx="8"/>
+    <text x="180" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+      4. Extension
+    </text>
+    
+    <!-- Pelvis -->
+    <path d="M 80,60 Q 80,40 100,40 L 260,40 Q 280,40 280,60 L 280,140 Q 280,160 260,160 L 220,160 Q 200,200 180,230 Q 160,200 140,160 L 100,160 Q 80,160 80,140 Z" 
+          fill="url(#boneGrad)" stroke="#d4a373" stroke-width="2"/>
+    
+    <!-- Fetus Head (Extending under symphysis) -->
+    <g transform="rotate(-75, 180, 160)">
+      <ellipse cx="180" cy="160" rx="38" ry="28" fill="url(#headGrad)" stroke="#c0392b" stroke-width="1.5"/>
+      <!-- Face emerging -->
+      <path d="M 180,160 L 220,160" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+    </g>
+    <!-- Fetal Body (delivering) -->
+    <path d="M 175,195 Q 160,215 165,240 Q 175,250 185,240 Q 190,215 175,195" 
+          fill="url(#fetusGrad)" stroke="#c0392b" stroke-width="1"/>
+    
+    <!-- Extension arrow -->
+    <path d="M 230,140 Q 250,160 230,180" fill="none" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="255" y="165" font-family="Arial" font-size="11" fill="#e74c3c">Extension</text>
+    
+    <text x="180" y="340" text-anchor="middle" font-family="Arial" font-size="12" fill="#555">
+      Head extends under symphysis pubis. Occiput delivers first, then face/chin sweep perineum.
+    </text>
+  </g>
+
+  <!-- ==================== PANEL 5: EXTERNAL ROTATION ==================== -->
+  <g transform="translate(420, 480)">
+    <rect x="0" y="0" width="360" height="360" fill="white" stroke="#ecf0f1" stroke-width="2" rx="8"/>
+    <text x="180" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+      5. External Rotation (Restitution)
+    </text>
+    
+    <!-- Pelvis -->
+    <path d="M 80,60 Q 80,40 100,40 L 260,40 Q 280,40 280,60 L 280,140 Q 280,160 260,160 L 220,160 Q 200,200 180,230 Q 160,200 140,160 L 100,160 Q 80,160 80,140 Z" 
+          fill="url(#boneGrad)" stroke="#d4a373" stroke-width="2"/>
+    
+    <!-- Delivered Head (rotating back) -->
+    <g transform="rotate(-30, 180, 185)">
+      <ellipse cx="180" cy="185" rx="36" ry="26" fill="url(#headGrad)" stroke="#c0392b" stroke-width="1.5"/>
+    </g>
+    <!-- Fetal Body (shoulders aligning) -->
+    <path d="M 175,215 Q 160,230 165,250 Q 175,260 185,250 Q 190,230 175,215" 
+          fill="url(#fetusGrad)" stroke="#c0392b" stroke-width="1"/>
+    
+    <!-- Rotation arrow -->
+    <path d="M 220,170 Q 240,185 220,200" fill="none" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="245" y="190" font-family="Arial" font-size="11" fill="#e74c3c">Restitution</text>
+    
+    <text x="180" y="340" text-anchor="middle" font-family="Arial" font-size="12" fill="#555">
+      Head rotates back to align with shoulders (bisacromial diameter). Prepares for shoulder delivery.
+    </text>
+  </g>
+
+  <!-- ==================== PANEL 6: EXPULSION ==================== -->
+  <g transform="translate(790, 480)">
+    <rect x="0" y="0" width="360" height="360" fill="white" stroke="#ecf0f1" stroke-width="2" rx="8"/>
+    <text x="180" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+      6. Expulsion
+    </text>
+    
+    <!-- Pelvis -->
+    <path d="M 80,60 Q 80,40 100,40 L 260,40 Q 280,40 280,60 L 280,140 Q 280,160 260,160 L 220,160 Q 200,200 180,230 Q 160,200 140,160 L 100,160 Q 80,160 80,140 Z" 
+          fill="url(#boneGrad)" stroke="#d4a373" stroke-width="2"/>
+    
+    <!-- Delivered Baby (anterior shoulder under symphysis, posterior over perineum) -->
+    <!-- Head fully delivered -->
+    <ellipse cx="180" cy="195" rx="34" ry="24" fill="url(#headGrad)" stroke="#c0392b" stroke-width="1.5"/>
+    <!-- Body emerging -->
+    <path d="M 175,220 Q 150,240 155,260 Q 170,270 185,260 Q 200,240 175,220" 
+          fill="url(#fetusGrad)" stroke="#c0392b" stroke-width="1"/>
+    <!-- Shoulders -->
+    <ellipse cx="175" cy="225" rx="15" ry="8" fill="url(#fetusGrad)" stroke="#c0392b" stroke-width="1"/>
+    
+    <!-- Expulsion arrow -->
+    <line x1="230" y1="220" x2="230" y2="260" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="240" y="245" font-family="Arial" font-size="11" fill="#e74c3c">Expulsion</text>
+    
+    <text x="180" y="340" text-anchor="middle" font-family="Arial" font-size="12" fill="#555">
+      Anterior shoulder delivers under symphysis, posterior over perineum. Body follows rapidly.
+    </text>
+  </g>
+
+  <!-- ==================== LEGEND & ANATOMY LABELS ==================== -->
+  <g transform="translate(50, 860)">
+    <text x="0" y="0" font-family="Arial" font-size="13" font-weight="bold" fill="#2c3e50">Anatomy Key:</text>
+    
+    <rect x="120" y="-12" width="20" height="15" fill="url(#boneGrad)" stroke="#d4a373"/>
+    <text x="148" y="0" font-family="Arial" font-size="12" fill="#555">Pelvic Bones (Sacrum, Ischium, Pubis)</text>
+    
+    <ellipse cx="380" cy="-5" rx="10" ry="7" fill="url(#headGrad)" stroke="#c0392b"/>
+    <text x="398" y="0" font-family="Arial" font-size="12" fill="#555">Fetal Head &amp; Body</text>
+    
+    <line x1="530" y1="-5" x2="550" y2="-5" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="558" y="0" font-family="Arial" font-size="12" fill="#555">Direction of Movement</text>
+  </g>
+
+  <!-- ==================== BOTTOM NOTE ==================== -->
+  <text x="600" y="890" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#95a5a6">
+    Standard Cardinal Movements for Occiput Anterior (Left Occiput Anterior - LOA) Presentation
+  </text>
+</svg>

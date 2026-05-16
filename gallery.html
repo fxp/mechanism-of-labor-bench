@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>胎儿分娩机转 SVG 基准 — Gallery</title>
+<style>
+/* ─── TOKENS ─────────────────────────────────────── */
+:root{
+  --bg:#0b0a09;
+  --s1:#161412;
+  --s2:#1e1b18;
+  --b0:#2a2622;
+  --b1:#3a3632;
+  --tx:#e8e5e1;
+  --mu:#9e9690;
+  --fa:#5a5652;
+  --red:#dc2626;
+  --chat:#f97316;
+  --api:#06b6d4;
+  --ok:#4ade80;
+  --warn:#fbbf24;
+  --bad:#f87171;
+  --r:8px;
+  --serif:Georgia,"Times New Roman","宋体",serif;
+  --sans:-apple-system,"Helvetica Neue","微软雅黑",sans-serif;
+  --mono:"SF Mono","Fira Code","Courier New",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--tx);line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased}
+
+/* ─── PROGRESS ───────────────────────────────────── */
+#pgbar{position:fixed;top:0;left:0;height:2px;background:var(--red);width:0;z-index:999;pointer-events:none;transition:width .08s linear}
+
+/* ─── LAYOUT ─────────────────────────────────────── */
+.wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+
+/* ─── HERO ───────────────────────────────────────── */
+.hero{
+  min-height:72vh;
+  display:flex;align-items:flex-end;
+  padding:0 28px 64px;
+  background:
+    radial-gradient(ellipse 80% 60% at 5% 70%,rgba(220,38,38,.12) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 70% at 95% 15%,rgba(6,182,212,.08) 0%,transparent 50%),
+    var(--bg);
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1;max-width:900px}
+.hero-eyebrow{
+  font-size:10px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--red);
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:24px;
+}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--red)}
+.hero h1{
+  font-family:var(--serif);
+  font-size:clamp(36px,6vw,72px);
+  font-weight:400;line-height:1.15;
+  color:#fff;margin-bottom:18px;
+  letter-spacing:-.02em;
+}
+.hero-desc{font-size:17px;color:var(--mu);max-width:560px;line-height:1.65;margin-bottom:36px}
+.hero-meta{
+  display:flex;gap:28px;flex-wrap:wrap;font-size:12px;color:var(--fa);
+  border-top:1px solid var(--b0);padding-top:20px;
+}
+.hero-meta-item{display:flex;align-items:center;gap:7px}
+.hero-dot{width:5px;height:5px;border-radius:50%;background:var(--red)}
+.prompt-chip{
+  display:inline-block;background:var(--s2);border:1px solid var(--b0);
+  border-radius:6px;padding:10px 18px;
+  font-family:var(--mono);font-size:13px;color:var(--api);
+  margin-bottom:28px;
+}
+.nav-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;color:var(--mu);text-decoration:none;
+  border:1px solid var(--b1);border-radius:4px;padding:5px 12px;
+  transition:color .15s,border-color .15s;margin-right:8px;margin-bottom:8px;
+}
+.nav-link:hover{color:var(--tx);border-color:var(--mu)}
+
+/* ─── VIDEO ──────────────────────────────────────── */
+.vid-section{background:#000;padding:52px 28px;border-top:1px solid #111}
+.vid-kicker{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--fa);margin-bottom:10px}
+.vid-title{font-family:var(--serif);font-size:20px;color:#fff;margin-bottom:6px;font-weight:400}
+.vid-sub{font-size:13px;color:var(--mu);margin-bottom:22px}
+.vid-frame{position:relative;padding-bottom:56.25%;height:0;border-radius:10px;overflow:hidden;border:1px solid #1a1a1a;max-width:820px}
+.vid-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.vid-cap{margin-top:12px;font-size:12px;color:var(--fa);font-style:italic;max-width:820px}
+
+/* ─── SECTION HEADERS ─────────────────────────────── */
+.section{padding:64px 0;border-top:1px solid var(--b0)}
+.sec-num{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--fa);margin-bottom:6px;font-family:var(--mono)}
+.sec-h{font-family:var(--serif);font-size:clamp(24px,3.5vw,36px);font-weight:400;color:#fff;margin-bottom:10px;line-height:1.25}
+.sec-sub{font-size:14px;color:var(--mu);margin-bottom:40px}
+
+/* ─── METHODOLOGY GRID ────────────────────────────── */
+.method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:0}
+@media(max-width:700px){.method-grid{grid-template-columns:1fr}}
+.method-box{
+  background:var(--s1);border:1px solid var(--b0);border-radius:var(--r);padding:22px;
+}
+.method-box h3{font-size:13px;font-weight:700;color:var(--chat);margin-bottom:8px;letter-spacing:.02em}
+.method-box p{font-size:13px;color:#9e9690;line-height:1.65}
+
+/* ─── LEADERBOARD ─────────────────────────────────── */
+.lb-table{width:100%;border-collapse:collapse}
+.lb-table th{
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fa);
+  padding:10px 14px;border-bottom:1px solid var(--b0);text-align:left;
+  font-family:var(--mono);
+}
+.lb-table td{padding:14px 14px;border-bottom:1px solid var(--b0);vertical-align:middle}
+.lb-table tr:last-child td{border-bottom:none}
+.lb-table tr:hover td{background:var(--s1)}
+.lb-rank{font-size:18px;text-align:center}
+.lb-model{font-size:14px;font-weight:600;color:#fff}
+.lb-vendor{font-size:11px;color:var(--fa);font-weight:400}
+.lb-note{font-size:12px;color:var(--mu);margin-top:3px}
+.lb-score{
+  display:inline-block;font-size:13px;font-weight:700;
+  padding:3px 10px;border-radius:100px;
+}
+.sc-high{background:rgba(74,222,128,.15);color:var(--ok)}
+.sc-mid{background:rgba(251,191,36,.12);color:var(--warn)}
+.sc-low{background:rgba(248,113,113,.12);color:var(--bad)}
+.sc-gray{background:var(--b0);color:var(--mu)}
+
+/* ─── ANIMATED BAR ─────────────────────────────────── */
+.lb-bars{display:flex;flex-direction:column;gap:4px;min-width:180px}
+.lb-bar{display:flex;align-items:center;gap:8px;font-size:11px}
+.lb-bar-label{width:32px;flex-shrink:0;color:var(--fa);text-align:right}
+.lb-bar-track{flex:1;height:6px;background:var(--b0);border-radius:3px;overflow:hidden}
+.lb-bar-fill{height:100%;border-radius:3px;width:0;transition:width .7s cubic-bezier(.22,1,.36,1)}
+.lb-bar-fill.ch{background:var(--chat)}
+.lb-bar-fill.ap{background:var(--api)}
+
+/* ─── MODEL CARDS ─────────────────────────────────── */
+.model-block{
+  background:var(--s1);border:1px solid var(--b0);border-radius:12px;
+  margin-bottom:28px;overflow:hidden;
+  opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;
+}
+.model-block.in-view{opacity:1;transform:none}
+.card-header{
+  padding:20px 24px;border-bottom:1px solid var(--b0);
+  display:flex;align-items:flex-start;gap:14px;
+}
+.card-num{
+  width:34px;height:34px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;color:#fff;
+  background:var(--b0);font-family:var(--mono);
+}
+.card-title-wrap{flex:1}
+.card-model{font-size:17px;font-weight:700;color:#fff;margin-bottom:2px}
+.card-vendor{font-size:12px;color:var(--fa)}
+.card-tagline{font-size:13px;color:var(--mu);margin-top:4px}
+.card-score-wrap{display:flex;gap:8px;flex-shrink:0;align-items:flex-start}
+
+/* ─── TAB TOGGLE ──────────────────────────────────── */
+.tab-toggle{
+  display:flex;gap:0;border:1px solid var(--b0);border-radius:6px;
+  overflow:hidden;font-size:12px;font-weight:600;
+  margin-bottom:16px;align-self:flex-start;
+}
+.tab-btn{
+  padding:7px 16px;cursor:pointer;border:none;background:transparent;
+  color:var(--mu);transition:background .15s,color .15s;font-size:12px;font-weight:600;
+  font-family:var(--sans);
+}
+.tab-btn.active-chat{background:rgba(249,115,22,.15);color:var(--chat)}
+.tab-btn.active-api{background:rgba(6,182,212,.12);color:var(--api)}
+
+.img-panel{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:640px){.img-panel{grid-template-columns:1fr}}
+.img-cell{padding:20px 24px;border-right:1px solid var(--b0)}
+.img-cell:last-child{border-right:none}
+.img-label{
+  display:flex;align-items:center;gap:8px;
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.img-label-chat{color:var(--chat)}
+.img-label-api{color:var(--api)}
+.model-img{
+  width:100%;border-radius:6px;border:1px solid var(--b0);
+  display:block;background:var(--s2);cursor:zoom-in;
+  transition:border-color .2s,transform .2s;
+}
+.model-img:hover{border-color:var(--b1);transform:scale(1.01)}
+
+/* ─── CARD COMMENTARY ─────────────────────────────── */
+.card-commentary{
+  padding:16px 24px 20px;border-top:1px solid var(--b0);
+  background:rgba(255,255,255,.015);
+  font-size:13px;color:var(--mu);line-height:1.7;
+}
+.card-commentary strong{color:var(--tx)}
+.tag{
+  display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;
+  border-radius:4px;margin-right:4px;margin-bottom:2px;font-family:var(--mono);
+}
+.tag-chat{background:rgba(249,115,22,.15);color:var(--chat)}
+.tag-api{background:rgba(6,182,212,.12);color:var(--api)}
+.tag-ok{background:rgba(74,222,128,.12);color:var(--ok)}
+.tag-warn{background:rgba(248,113,113,.12);color:var(--bad)}
+.tag-gray{background:var(--b0);color:var(--mu)}
+
+/* ─── ERROR / FIXED BOXES ─────────────────────────── */
+.err-box{
+  background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.25);
+  border-radius:6px;padding:10px 14px;font-size:12px;color:var(--bad);
+  margin-top:10px;text-align:center;
+}
+.fix-box{
+  background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.2);
+  border-radius:6px;padding:10px 14px;font-size:12px;color:var(--ok);
+  margin-top:10px;text-align:center;
+}
+
+/* ─── FINDINGS ────────────────────────────────────── */
+.finds{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.find-card{
+  background:var(--s1);border:1px solid var(--b0);border-radius:var(--r);
+  padding:22px;border-left:3px solid var(--red);
+}
+.find-num{
+  font-family:var(--serif);font-size:32px;color:rgba(255,255,255,.06);
+  font-weight:400;line-height:1;margin-bottom:8px;
+}
+.find-card h3{font-size:14px;font-weight:700;color:#fff;margin-bottom:8px}
+.find-card p{font-size:13px;color:var(--mu);line-height:1.65}
+
+/* ─── FOOTER ──────────────────────────────────────── */
+.footer{
+  border-top:1px solid var(--b0);padding:36px 0;
+  text-align:center;font-size:12px;color:var(--fa);
+}
+.footer a{color:var(--mu);text-decoration:none}
+.footer a:hover{color:var(--tx)}
+
+/* ─── LIGHTBOX ────────────────────────────────────── */
+#lb-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.93);z-index:9999;
+  align-items:center;justify-content:center;cursor:zoom-out;
+}
+#lb-overlay.open{display:flex}
+#lb-overlay img{
+  max-width:92vw;max-height:92vh;border-radius:6px;
+  box-shadow:0 32px 100px rgba(0,0,0,.8);
+}
+#lb-close{
+  position:fixed;top:20px;right:24px;color:rgba(255,255,255,.5);
+  font-size:28px;cursor:pointer;z-index:10000;line-height:1;
+}
+
+/* ─── SPECIAL: Manus ──────────────────────────────── */
+.manus-card{border:1px dashed var(--b1)}
+
+/* ─── DIMENSION SCORE GRID ─────────────────────────── */
+.dim-grid{
+  padding:14px 24px 16px;border-top:1px solid var(--b0);
+  background:rgba(0,0,0,.14);
+}
+.dim-hdr-row{
+  display:flex;align-items:center;gap:6px;
+  margin-bottom:4px;padding-left:46px;
+}
+.dim-hdr-row span{
+  width:28px;text-align:center;font-size:9px;
+  font-weight:700;letter-spacing:.06em;
+  color:var(--fa);font-family:var(--mono);
+}
+.dim-row{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.dim-row:last-child{margin-bottom:0}
+.dim-label{
+  width:40px;font-size:10px;font-weight:700;
+  letter-spacing:.07em;text-transform:uppercase;flex-shrink:0;
+}
+.dim-label.ch{color:var(--chat)}
+.dim-label.ap{color:var(--api)}
+.dc{
+  display:flex;align-items:center;justify-content:center;
+  width:28px;height:20px;border-radius:3px;
+  font-size:11px;font-weight:700;font-family:var(--mono);flex-shrink:0;
+}
+.dc-5{background:rgba(74,222,128,.2);color:var(--ok)}
+.dc-4{background:rgba(74,222,128,.1);color:#86efac}
+.dc-3{background:rgba(251,191,36,.12);color:var(--warn)}
+.dc-2{background:rgba(248,113,113,.1);color:#fca5a5}
+.dc-1{background:rgba(248,113,113,.2);color:var(--bad)}
+.dc-x{background:rgba(90,86,82,.18);color:var(--fa)}
+</style>
+</head>
+<body>
+
+<div id="pgbar"></div>
+
+<!-- ────────────── HERO ────────────── -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">LLM Benchmark · SVG Generation · 2026-05-16</div>
+    <h1>胎儿分娩机转<br>SVG 生成基准</h1>
+    <div class="hero-desc">8 个顶级模型 × Chat + API 双版本 × GPT-5.5 盲评 7 维度 · 满分 35 分</div>
+    <div class="prompt-chip">"Generate SVG description of the process of mechanism of labor"</div>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span class="hero-dot"></span>8 Models Tested</div>
+      <div class="hero-meta-item"><span class="hero-dot" style="background:var(--chat)"></span>Chat版 = 网页对话</div>
+      <div class="hero-meta-item"><span class="hero-dot" style="background:var(--api)"></span>API版 = OpenRouter直调</div>
+      <div class="hero-meta-item"><span class="hero-dot" style="background:var(--mu)"></span>Judge: GPT-5.5</div>
+    </div>
+    <div style="margin-top:22px">
+      <a class="nav-link" href="blog.html">← 阅读博客文章</a>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────── VIDEO ────────────── -->
+<div class="vid-section">
+  <div class="wrap">
+    <div class="vid-kicker">参考资料 — 动画标杆</div>
+    <div class="vid-title">Seven Cardinal Movements of Labor</div>
+    <div class="vid-sub">Cal Shipley, M.D. · YouTube · 2.1M 次播放 · 9 分 56 秒 · 这是本次 Benchmark 的视觉参考标准</div>
+    <div class="vid-frame">
+      <iframe
+        src="https://www.youtube.com/embed/q1jmVN3ILpY"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="vid-cap">分娩机转共 7 步：衔接 → 下降 → 俯屈 → 内旋转 → 仰伸 → 外旋转 → 娩出。正确绘制需同时具备解剖知识、空间想象、序列表达三项能力。</div>
+  </div>
+</div>
+
+<!-- ────────────── METHODOLOGY ────────────── -->
+<div class="section">
+  <div class="wrap">
+    <div class="sec-num">§ 00 — 方法论</div>
+    <div class="sec-h">测试设计</div>
+    <div class="sec-sub">受 <a href="https://github.com/simonw/pelican-bicycle" style="color:var(--mu);text-decoration:underline;text-underline-offset:3px" target="_blank">Simon Willison 的 Pelican on a Bicycle 基准</a> 启发 · <a href="https://simonwillison.net/tags/pelican-riding-a-bicycle/" style="color:var(--fa);text-decoration:underline;text-underline-offset:3px" target="_blank">相关博客系列 →</a></div>
+    <div class="method-grid">
+      <div class="method-box">
+        <h3>为什么是分娩机转？</h3>
+        <p>选题满足三个条件：LLM 不该能画图，但 SVG 是代码可以尝试；需要空间想象力（内旋转必须换视角）；没有「标准的 SVG 分娩机转图」存在于训练数据里。</p>
+      </div>
+      <div class="method-box">
+        <h3>Chat vs API 双版本</h3>
+        <p>Chat 版：各模型网页界面直接对话，截图 → 渲染 SVG → PNG。API 版：OpenRouter 统一英文 Prompt，macOS <code style="color:var(--api);font-family:var(--mono)">qlmanage -t -s 1600</code> 渲染。</p>
+      </div>
+      <div class="method-box">
+        <h3>GPT-5.5 盲评 7 维度</h3>
+        <p>C1 步骤完整性 · C2 解剖准确性 · C3 胎儿方向 · C4 内旋转 · C5 外旋转 · C6 运动方向标注 · C7 整体清晰度。各维度 1–5 分，满分 35 分。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────── LEADERBOARD ────────────── -->
+<div class="section">
+  <div class="wrap">
+    <div class="sec-num">§ 01 — 总分排行榜</div>
+    <div class="sec-h">Leaderboard</div>
+    <div class="sec-sub">* 号表示因 GPT-5.5 输出截断，按可用维度计算；条形图显示得分占各自满分的百分比</div>
+    <div style="overflow-x:auto">
+    <table class="lb-table">
+      <thead>
+        <tr>
+          <th style="width:44px">#</th>
+          <th>模型</th>
+          <th>Chat 版</th>
+          <th>API 版</th>
+          <th style="min-width:200px">分布（橙=Chat，青=API）</th>
+          <th>亮点</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="lb-rank">🥇</td>
+          <td>
+            <div class="lb-model">GLM 5.1 Thinking</div>
+            <div class="lb-vendor">z-ai</div>
+            <div class="lb-note">唯一含 FROM ABOVE 俯视图</div>
+          </td>
+          <td><span class="lb-score sc-high">24/30*</span></td>
+          <td><span class="lb-score sc-high">21/30*</span></td>
+          <td>
+            <div class="lb-bars">
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--chat)">Chat</span><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="80"></div></div><span style="font-size:11px;color:var(--mu)">80%</span></div>
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--api)">API</span><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="70"></div></div><span style="font-size:11px;color:var(--mu)">70%</span></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--mu)">内旋转+外旋转双双 C4/C5=4</td>
+        </tr>
+        <tr>
+          <td class="lb-rank">🥈</td>
+          <td>
+            <div class="lb-model">Gemini 3 Pro</div>
+            <div class="lb-vendor">Google</div>
+            <div class="lb-note">Chat-API 差距 8 分</div>
+          </td>
+          <td><span class="lb-score sc-low">15/35</span></td>
+          <td><span class="lb-score sc-high">23/35</span></td>
+          <td>
+            <div class="lb-bars">
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--chat)">Chat</span><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="43"></div></div><span style="font-size:11px;color:var(--mu)">43%</span></div>
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--api)">API</span><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="66"></div></div><span style="font-size:11px;color:var(--mu)">66%</span></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--mu)">Chat版输出纯文字时间轴，无解剖图形</td>
+        </tr>
+        <tr>
+          <td class="lb-rank">🥉</td>
+          <td>
+            <div class="lb-model">Claude 4.7 Opus</div>
+            <div class="lb-vendor">Anthropic</div>
+            <div class="lb-note">Chat SVG 全批次最大 40KB</div>
+          </td>
+          <td><span class="lb-score sc-mid">18/35</span></td>
+          <td><span class="lb-score sc-high">22/35</span></td>
+          <td>
+            <div class="lb-bars">
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--chat)">Chat</span><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="51"></div></div><span style="font-size:11px;color:var(--mu)">51%</span></div>
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--api)">API</span><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="63"></div></div><span style="font-size:11px;color:var(--mu)">63%</span></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--mu)">代码越多 ≠ 图越好</td>
+        </tr>
+        <tr>
+          <td class="lb-rank" style="font-size:14px;font-weight:700;color:var(--mu)">4</td>
+          <td>
+            <div class="lb-model">Kimi K2.6 Thinking <span style="font-size:11px;color:var(--bad)">★修复后</span></div>
+            <div class="lb-vendor">Moonshot AI</div>
+            <div class="lb-note">原始版本双版渲染失败</div>
+          </td>
+          <td><span class="lb-score sc-high">21/30*</span></td>
+          <td><span class="lb-score sc-mid">16/35</span></td>
+          <td>
+            <div class="lb-bars">
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--chat)">Chat</span><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="70"></div></div><span style="font-size:11px;color:var(--mu)">70%</span></div>
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--api)">API</span><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="46"></div></div><span style="font-size:11px;color:var(--mu)">46%</span></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--mu)">一个字符错误，从 7 分到 21 分</td>
+        </tr>
+        <tr>
+          <td class="lb-rank" style="font-size:14px;font-weight:700;color:var(--mu)">5</td>
+          <td>
+            <div class="lb-model">ChatGPT 5.5 Thinking</div>
+            <div class="lb-vendor">OpenAI</div>
+            <div class="lb-note">API版外旋转 C5=4 全批次最高</div>
+          </td>
+          <td><span class="lb-score sc-low">11/25*</span></td>
+          <td><span class="lb-score sc-high">21/35</span></td>
+          <td>
+            <div class="lb-bars">
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--chat)">Chat</span><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="44"></div></div><span style="font-size:11px;color:var(--mu)">44%</span></div>
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--api)">API</span><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="60"></div></div><span style="font-size:11px;color:var(--mu)">60%</span></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--mu)">Chat版步骤编号从 3 跳至 5</td>
+        </tr>
+        <tr>
+          <td class="lb-rank" style="font-size:14px;font-weight:700;color:var(--mu)">6</td>
+          <td>
+            <div class="lb-model">MiniMax MAX</div>
+            <div class="lb-vendor">MiniMax</div>
+            <div class="lb-note">Chat版胎头有眼睛和嘴巴</div>
+          </td>
+          <td><span class="lb-score sc-high">21/35</span></td>
+          <td><span class="lb-score sc-mid">16/35</span></td>
+          <td>
+            <div class="lb-bars">
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--chat)">Chat</span><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="60"></div></div><span style="font-size:11px;color:var(--mu)">60%</span></div>
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--api)">API</span><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="46"></div></div><span style="font-size:11px;color:var(--mu)">46%</span></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--mu)">Chat优于API 5分，方向相反</td>
+        </tr>
+        <tr>
+          <td class="lb-rank" style="font-size:14px;font-weight:700;color:var(--mu)">7</td>
+          <td>
+            <div class="lb-model">Grok</div>
+            <div class="lb-vendor">xAI</div>
+            <div class="lb-note">两版均右侧截断</div>
+          </td>
+          <td><span class="lb-score sc-low">16/35</span></td>
+          <td><span class="lb-score sc-low">15/35</span></td>
+          <td>
+            <div class="lb-bars">
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--chat)">Chat</span><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="46"></div></div><span style="font-size:11px;color:var(--mu)">46%</span></div>
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--api)">API</span><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="43"></div></div><span style="font-size:11px;color:var(--mu)">43%</span></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--mu)">viewBox溢出，外旋转不可见</td>
+        </tr>
+        <tr>
+          <td class="lb-rank" style="font-size:14px;font-weight:700;color:var(--mu)">8</td>
+          <td>
+            <div class="lb-model">Doubao</div>
+            <div class="lb-vendor">字节跳动</div>
+            <div class="lb-note">Chat版XML错误；API版胎体为三角形</div>
+          </td>
+          <td><span class="lb-score sc-low">10/35</span></td>
+          <td><span class="lb-score sc-low">13/35</span></td>
+          <td>
+            <div class="lb-bars">
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--chat)">Chat</span><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="29"></div></div><span style="font-size:11px;color:var(--mu)">29%</span></div>
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--api)">API</span><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="37"></div></div><span style="font-size:11px;color:var(--mu)">37%</span></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--mu)">最低分对，技术失败为主</td>
+        </tr>
+        <tr style="opacity:.5">
+          <td class="lb-rank" style="font-size:13px;color:var(--fa)">—</td>
+          <td>
+            <div class="lb-model" style="color:var(--mu)">Kimi K2.6 Thinking <span style="font-size:11px;color:var(--bad)">原始</span></div>
+            <div class="lb-vendor">Moonshot AI</div>
+            <div class="lb-note">SVG语法错误，渲染失败，全维度得1分</div>
+          </td>
+          <td><span class="lb-score sc-gray">7/35</span></td>
+          <td><span class="lb-score sc-gray">7/35</span></td>
+          <td>
+            <div class="lb-bars">
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--chat)">Chat</span><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="20"></div></div><span style="font-size:11px;color:var(--mu)">20%</span></div>
+              <div class="lb-bar"><span class="lb-bar-label" style="color:var(--api)">API</span><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="20"></div></div><span style="font-size:11px;color:var(--mu)">20%</span></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--fa)">双版技术失败，参考数据</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────── GALLERY ────────────── -->
+<div class="section">
+  <div class="wrap">
+    <div class="sec-num">§ 02 — 输出画廊</div>
+    <div class="sec-h">各模型输出对比</div>
+    <div class="sec-sub">点击图片可全屏查看 · <span style="color:var(--chat)">橙色 = Chat 版</span> · <span style="color:var(--api)">青色 = API 版</span></div>
+
+    <!-- GLM 5.1 -->
+    <div class="model-block">
+      <div class="card-header">
+        <div class="card-num" style="background:rgba(249,115,22,.2);color:var(--chat)">1</div>
+        <div class="card-title-wrap">
+          <div class="card-model">GLM 5.1 Thinking <span class="card-vendor">/ z-ai</span></div>
+          <div class="card-tagline">全批次内旋转+外旋转视觉表达最佳 · 唯一含 FROM ABOVE 俯视图</div>
+        </div>
+        <div class="card-score-wrap">
+          <span class="lb-score sc-high">Chat 24/30*</span>
+          <span class="lb-score sc-high">API 21/30*</span>
+        </div>
+      </div>
+      <div class="img-panel">
+        <div class="img-cell">
+          <div class="img-label img-label-chat">● Chat 版 &nbsp;<span class="lb-score sc-high" style="font-size:11px;padding:1px 7px">24/30*</span></div>
+          <img class="model-img" src="GLM%205.1%20Thining/chat.png" alt="GLM 5.1 Chat" onclick="openLb(this.src)">
+        </div>
+        <div class="img-cell">
+          <div class="img-label img-label-api">● API 版 &nbsp;<span class="lb-score sc-high" style="font-size:11px;padding:1px 7px">21/30*</span></div>
+          <img class="model-img" src="GLM%205.1%20Thining/api.png" alt="GLM 5.1 API" onclick="openLb(this.src)">
+        </div>
+      </div>
+      <div class="dim-grid">
+        <div class="dim-hdr-row"><span>C1</span><span>C2</span><span>C3</span><span>C4</span><span>C5</span><span>C6</span><span>C7</span></div>
+        <div class="dim-row"><span class="dim-label ch">Chat</span><span class="dc dc-5">5</span><span class="dc dc-3">3</span><span class="dc dc-4">4</span><span class="dc dc-4">4</span><span class="dc dc-4">4</span><span class="dc dc-4">4</span><span class="dc dc-x">—</span></div>
+        <div class="dim-row"><span class="dim-label ap">API</span><span class="dc dc-4">4</span><span class="dc dc-2">2</span><span class="dc dc-3">3</span><span class="dc dc-4">4</span><span class="dc dc-4">4</span><span class="dc dc-4">4</span><span class="dc dc-x">—</span></div>
+      </div>
+      <div class="card-commentary">
+        Chat 版 8 个面板，将 Restitution 与 External Rotation 分开单独呈现，并在内旋转面板加入 <strong>FROM ABOVE 俯视插图</strong>——全批次唯一。大量青绿色箭头标注运动方向（C6=4）。两版均因 GPT-5.5 max_tokens 截断缺少 C7 评分。Chat 版解剖精度（C2=3）略优于 API 版（C2=2），两版 C4/C5 均为 4 分。
+      </div>
+    </div>
+
+    <!-- Gemini 3 Pro -->
+    <div class="model-block">
+      <div class="card-header">
+        <div class="card-num" style="background:rgba(6,182,212,.15);color:var(--api)">2</div>
+        <div class="card-title-wrap">
+          <div class="card-model">Gemini 3 Pro <span class="card-vendor">/ Google</span></div>
+          <div class="card-tagline">API版全批次最高分 23/35 · Chat版输出纯文字时间轴，差距 8 分</div>
+        </div>
+        <div class="card-score-wrap">
+          <span class="lb-score sc-low">Chat 15/35</span>
+          <span class="lb-score sc-high">API 23/35</span>
+        </div>
+      </div>
+      <div class="img-panel">
+        <div class="img-cell">
+          <div class="img-label img-label-chat">● Chat 版 &nbsp;<span class="lb-score sc-low" style="font-size:11px;padding:1px 7px">15/35</span></div>
+          <img class="model-img" src="Gemini%203%20Pro/chat.png" alt="Gemini 3 Pro Chat" onclick="openLb(this.src)">
+        </div>
+        <div class="img-cell">
+          <div class="img-label img-label-api">● API 版 &nbsp;<span class="lb-score sc-high" style="font-size:11px;padding:1px 7px">23/35</span></div>
+          <img class="model-img" src="Gemini%203%20Pro/api.png" alt="Gemini 3 Pro API" onclick="openLb(this.src)">
+        </div>
+      </div>
+      <div class="dim-grid">
+        <div class="dim-hdr-row"><span>C1</span><span>C2</span><span>C3</span><span>C4</span><span>C5</span><span>C6</span><span>C7</span></div>
+        <div class="dim-row"><span class="dim-label ch">Chat</span><span class="dc dc-5">5</span><span class="dc dc-1">1</span><span class="dc dc-1">1</span><span class="dc dc-1">1</span><span class="dc dc-1">1</span><span class="dc dc-2">2</span><span class="dc dc-4">4</span></div>
+        <div class="dim-row"><span class="dim-label ap">API</span><span class="dc dc-5">5</span><span class="dc dc-2">2</span><span class="dc dc-3">3</span><span class="dc dc-3">3</span><span class="dc dc-2">2</span><span class="dc dc-4">4</span><span class="dc dc-4">4</span></div>
+      </div>
+      <div class="card-commentary">
+        <span class="tag tag-warn">Chat-API 差 8 分，全批次最大</span>
+        Chat 版是纯文字时间轴信息图（C1=5 步骤命名完整，但 C2=C3=C4=C5=1，无任何解剖图形）。API 版完全不同：蓝色胎头在粉色骨盆内移动，每步黄色箭头（C6=4），C4=3 有弯箭头表达内旋转。同一个模型，两套截然不同的「输出风格偏好」。
+      </div>
+    </div>
+
+    <!-- Claude 4.7 Opus -->
+    <div class="model-block">
+      <div class="card-header">
+        <div class="card-num" style="background:rgba(139,92,246,.2);color:#a78bfa">3</div>
+        <div class="card-title-wrap">
+          <div class="card-model">Claude 4.7 Opus <span class="card-vendor">/ Anthropic</span></div>
+          <div class="card-tagline">Chat SVG 全批次最大（40,993 字节）· API版优于 Chat 版 4 分</div>
+        </div>
+        <div class="card-score-wrap">
+          <span class="lb-score sc-mid">Chat 18/35</span>
+          <span class="lb-score sc-high">API 22/35</span>
+        </div>
+      </div>
+      <div class="img-panel">
+        <div class="img-cell">
+          <div class="img-label img-label-chat">● Chat 版 &nbsp;<span class="lb-score sc-mid" style="font-size:11px;padding:1px 7px">18/35</span></div>
+          <img class="model-img" src="Claude%204.7%20Opus/chat.png" alt="Claude 4.7 Opus Chat" onclick="openLb(this.src)">
+        </div>
+        <div class="img-cell">
+          <div class="img-label img-label-api">● API 版 &nbsp;<span class="lb-score sc-high" style="font-size:11px;padding:1px 7px">22/35</span></div>
+          <img class="model-img" src="Claude%204.7%20Opus/api.png" alt="Claude 4.7 Opus API" onclick="openLb(this.src)">
+        </div>
+      </div>
+      <div class="dim-grid">
+        <div class="dim-hdr-row"><span>C1</span><span>C2</span><span>C3</span><span>C4</span><span>C5</span><span>C6</span><span>C7</span></div>
+        <div class="dim-row"><span class="dim-label ch">Chat</span><span class="dc dc-4">4</span><span class="dc dc-2">2</span><span class="dc dc-3">3</span><span class="dc dc-2">2</span><span class="dc dc-2">2</span><span class="dc dc-1">1</span><span class="dc dc-4">4</span></div>
+        <div class="dim-row"><span class="dim-label ap">API</span><span class="dc dc-4">4</span><span class="dc dc-2">2</span><span class="dc dc-3">3</span><span class="dc dc-3">3</span><span class="dc dc-3">3</span><span class="dc dc-3">3</span><span class="dc dc-4">4</span></div>
+      </div>
+      <div class="card-commentary">
+        <span class="tag tag-warn">C6=1 运动方向（Chat）</span>
+        Chat 版 SVG 代码 <strong>40,993 字节</strong>，全批次最大，约为 API 版（6,559 字节）的 6.3 倍。结果运动方向箭头几乎没有（C6=1，全批次最低）。API 版 C4/C5/C6 均为 3，用更少代码做出了更有信息量的图。两版整体清晰度相当（C7=4）。
+      </div>
+    </div>
+
+    <!-- Kimi K2.6 -->
+    <div class="model-block">
+      <div class="card-header">
+        <div class="card-num" style="background:rgba(248,113,113,.15);color:var(--bad)">4</div>
+        <div class="card-title-wrap">
+          <div class="card-model">Kimi K2.6 Thinking <span class="card-vendor">/ Moonshot AI</span></div>
+          <div class="card-tagline">原始版本双版渲染失败 · 修复后 Chat 版得分 21/30* 回到前列</div>
+        </div>
+        <div class="card-score-wrap">
+          <span class="lb-score sc-gray">原始 7/35</span>
+          <span class="lb-score sc-high">修复 21/30*</span>
+        </div>
+      </div>
+      <div class="img-panel">
+        <div class="img-cell">
+          <div class="img-label img-label-chat">● Chat 修复版 &nbsp;<span class="lb-score sc-high" style="font-size:11px;padding:1px 7px">21/30*</span></div>
+          <img class="model-img" src="Kimi%20K2.6%20Thinking/chat_fixed.png" alt="Kimi K2.6 Chat Fixed" onclick="openLb(this.src)">
+          <div class="fix-box">修复：移除首行 &lt;&lt;svg 双尖括号。6格覆盖全部7步，红色箭头，C4/C5/C6 均 4 分</div>
+        </div>
+        <div class="img-cell">
+          <div class="img-label img-label-api">● API 修复版 &nbsp;<span class="lb-score sc-mid" style="font-size:11px;padding:1px 7px">16/35</span></div>
+          <img class="model-img" src="Kimi%20K2.6%20Thinking/api_fixed.png" alt="Kimi K2.6 API Fixed" onclick="openLb(this.src)">
+          <div class="fix-box" style="background:rgba(6,182,212,.07);border-color:rgba(6,182,212,.25);color:var(--api)">仅含 Step 1（衔接）单帧；但解剖标注最精确：LOA、坐骨棘、耻骨联合、0站位（C2=3, C3=4）</div>
+        </div>
+      </div>
+      <div class="dim-grid">
+        <div class="dim-hdr-row"><span>C1</span><span>C2</span><span>C3</span><span>C4</span><span>C5</span><span>C6</span><span>C7</span></div>
+        <div class="dim-row"><span class="dim-label ch">Chat</span><span class="dc dc-4">4</span><span class="dc dc-2">2</span><span class="dc dc-3">3</span><span class="dc dc-4">4</span><span class="dc dc-4">4</span><span class="dc dc-4">4</span><span class="dc dc-x">—</span></div>
+        <div class="dim-row"><span class="dim-label ap">API</span><span class="dc dc-1">1</span><span class="dc dc-3">3</span><span class="dc dc-4">4</span><span class="dc dc-1">1</span><span class="dc dc-1">1</span><span class="dc dc-2">2</span><span class="dc dc-4">4</span></div>
+      </div>
+      <div class="card-commentary">
+        <span class="tag tag-warn">技术失败，非能力失败</span>
+        原始 Chat 版（<code style="font-family:var(--mono);color:var(--bad)">&lt;&lt;svg</code> 双尖括号）和原始 API 版（CSS class 定义在 HTML context 外）均渲染失败，双双得 7/35。修复后两版画像截然不同——Chat 版 C4=C5=C6=4，旋转表达出色；API 修复版 <strong>只有第 1 步（衔接）的单帧</strong>，但那一帧解剖标注是全批次最详细之一（C2=3，C3=4），可见模型的医学理解并不差。
+      </div>
+    </div>
+
+    <!-- ChatGPT 5.5 -->
+    <div class="model-block">
+      <div class="card-header">
+        <div class="card-num" style="background:rgba(6,182,212,.12);color:var(--api)">5</div>
+        <div class="card-title-wrap">
+          <div class="card-model">ChatGPT 5.5 Thinking <span class="card-vendor">/ OpenAI</span></div>
+          <div class="card-tagline">API版外旋转 C5=4 全批次最高 · Chat版步骤编号从 3 跳至 5</div>
+        </div>
+        <div class="card-score-wrap">
+          <span class="lb-score sc-low">Chat 11/25*</span>
+          <span class="lb-score sc-high">API 21/35</span>
+        </div>
+      </div>
+      <div class="img-panel">
+        <div class="img-cell">
+          <div class="img-label img-label-chat">● Chat 版 &nbsp;<span class="lb-score sc-low" style="font-size:11px;padding:1px 7px">11/25*</span></div>
+          <img class="model-img" src="Chatgpt%205.5%20thinking/chat.png" alt="GPT-5.5 Chat" onclick="openLb(this.src)">
+        </div>
+        <div class="img-cell">
+          <div class="img-label img-label-api">● API 版 &nbsp;<span class="lb-score sc-high" style="font-size:11px;padding:1px 7px">21/35</span></div>
+          <img class="model-img" src="Chatgpt%205.5%20thinking/api.png" alt="GPT-5.5 API" onclick="openLb(this.src)">
+        </div>
+      </div>
+      <div class="dim-grid">
+        <div class="dim-hdr-row"><span>C1</span><span>C2</span><span>C3</span><span>C4</span><span>C5</span><span>C6</span><span>C7</span></div>
+        <div class="dim-row"><span class="dim-label ch">Chat</span><span class="dc dc-3">3</span><span class="dc dc-2">2</span><span class="dc dc-3">3</span><span class="dc dc-1">1</span><span class="dc dc-2">2</span><span class="dc dc-x">—</span><span class="dc dc-x">—</span></div>
+        <div class="dim-row"><span class="dim-label ap">API</span><span class="dc dc-3">3</span><span class="dc dc-2">2</span><span class="dc dc-3">3</span><span class="dc dc-1">1</span><span class="dc dc-5">4</span><span class="dc dc-4">4</span><span class="dc dc-4">4</span></div>
+      </div>
+      <div class="card-commentary">
+        <span class="tag tag-ok">C5=4 外旋转</span>
+        API 版外旋转（C5=4）——紫色弧形箭头 + 完整肩部椭圆，是全批次 C5 最高之一（与 GLM 并列）。但两版内旋转均为 C4=1，与外旋转形成鲜明对比。Chat 版因 GPT-5.5 输出被截断，仅有 C1–C5 五个维度，步骤编号还跳过了内旋转（从 3 直接跳至 5）。
+      </div>
+    </div>
+
+    <!-- MiniMax MAX -->
+    <div class="model-block">
+      <div class="card-header">
+        <div class="card-num" style="background:rgba(249,115,22,.15);color:var(--chat)">6</div>
+        <div class="card-title-wrap">
+          <div class="card-model">MiniMax MAX <span class="card-vendor">/ MiniMax</span></div>
+          <div class="card-tagline">Chat版带进度条和眼睛的胎头 · API版用落球序列代表下降</div>
+        </div>
+        <div class="card-score-wrap">
+          <span class="lb-score sc-high">Chat 21/35</span>
+          <span class="lb-score sc-mid">API 16/35</span>
+        </div>
+      </div>
+      <div class="img-panel">
+        <div class="img-cell">
+          <div class="img-label img-label-chat">● Chat 版 &nbsp;<span class="lb-score sc-high" style="font-size:11px;padding:1px 7px">21/35</span></div>
+          <img class="model-img" src="MiniMax%20MAX/chat.png" alt="MiniMax MAX Chat" onclick="openLb(this.src)">
+        </div>
+        <div class="img-cell">
+          <div class="img-label img-label-api">● API 版 &nbsp;<span class="lb-score sc-mid" style="font-size:11px;padding:1px 7px">16/35</span></div>
+          <img class="model-img" src="MiniMax%20MAX/api.png" alt="MiniMax MAX API" onclick="openLb(this.src)">
+        </div>
+      </div>
+      <div class="dim-grid">
+        <div class="dim-hdr-row"><span>C1</span><span>C2</span><span>C3</span><span>C4</span><span>C5</span><span>C6</span><span>C7</span></div>
+        <div class="dim-row"><span class="dim-label ch">Chat</span><span class="dc dc-5">5</span><span class="dc dc-2">2</span><span class="dc dc-2">2</span><span class="dc dc-3">3</span><span class="dc dc-3">3</span><span class="dc dc-3">3</span><span class="dc dc-3">3</span></div>
+        <div class="dim-row"><span class="dim-label ap">API</span><span class="dc dc-4">4</span><span class="dc dc-1">1</span><span class="dc dc-2">2</span><span class="dc dc-2">2</span><span class="dc dc-2">2</span><span class="dc dc-2">2</span><span class="dc dc-3">3</span></div>
+      </div>
+      <div class="card-commentary">
+        Chat 版有「Labor Progress」进度条，C1=5 步骤命名完整，C4/C5 均为 3，有红色弧形箭头；胎头画成带眼睛嘴巴的粉色椭圆（C2=2，C3=2）。API 版是抽象落球序列：C2=1（全批次最低之一），运动标注（C6=2）和旋转表达（C4/C5=2）均弱于 Chat 版。Chat 版整体比 API 版高 5 分，方向与多数模型相反。
+      </div>
+    </div>
+
+    <!-- Grok -->
+    <div class="model-block">
+      <div class="card-header">
+        <div class="card-num" style="background:var(--b0);color:var(--mu)">7</div>
+        <div class="card-title-wrap">
+          <div class="card-model">Grok <span class="card-vendor">/ xAI</span></div>
+          <div class="card-tagline">Chat版 + API版均右侧截断 · 外旋转步骤均不可见</div>
+        </div>
+        <div class="card-score-wrap">
+          <span class="lb-score sc-low">Chat 16/35</span>
+          <span class="lb-score sc-low">API 15/35</span>
+        </div>
+      </div>
+      <div class="img-panel">
+        <div class="img-cell">
+          <div class="img-label img-label-chat">● Chat 版 &nbsp;<span class="lb-score sc-low" style="font-size:11px;padding:1px 7px">16/35</span></div>
+          <img class="model-img" src="Grok/chat.png" alt="Grok Chat" onclick="openLb(this.src)">
+        </div>
+        <div class="img-cell">
+          <div class="img-label img-label-api">● API 版 &nbsp;<span class="lb-score sc-low" style="font-size:11px;padding:1px 7px">15/35</span></div>
+          <img class="model-img" src="Grok/api.png" alt="Grok API" onclick="openLb(this.src)">
+        </div>
+      </div>
+      <div class="dim-grid">
+        <div class="dim-hdr-row"><span>C1</span><span>C2</span><span>C3</span><span>C4</span><span>C5</span><span>C6</span><span>C7</span></div>
+        <div class="dim-row"><span class="dim-label ch">Chat</span><span class="dc dc-3">3</span><span class="dc dc-2">2</span><span class="dc dc-3">3</span><span class="dc dc-2">2</span><span class="dc dc-1">1</span><span class="dc dc-2">2</span><span class="dc dc-3">3</span></div>
+        <div class="dim-row"><span class="dim-label ap">API</span><span class="dc dc-3">3</span><span class="dc dc-2">2</span><span class="dc dc-2">2</span><span class="dc dc-2">2</span><span class="dc dc-1">1</span><span class="dc dc-2">2</span><span class="dc dc-3">3</span></div>
+      </div>
+      <div class="card-commentary">
+        <span class="tag tag-warn">右侧截断</span>
+        两版得分仅差 1 分（16 vs 15），维度分布几乎一样——这本身就说明问题是系统性的。Chat 版骨盆用深蓝色矩形通道表示（C2=2），内旋转仅有文字说明"Head rotates 90°"无箭头（C4=2）；API 版骨盆改用同心椭圆环（C2=2）。两版 C5 均为 1，外旋转步骤被右侧截断完全不可见。
+      </div>
+    </div>
+
+    <!-- Doubao -->
+    <div class="model-block">
+      <div class="card-header">
+        <div class="card-num" style="background:rgba(248,113,113,.12);color:var(--bad)">8</div>
+        <div class="card-title-wrap">
+          <div class="card-model">Doubao <span class="card-vendor">/ 字节跳动</span></div>
+          <div class="card-tagline">Chat版含 XML 解析错误，部分渲染 · API版胎体为蓝色三角形</div>
+        </div>
+        <div class="card-score-wrap">
+          <span class="lb-score sc-low">Chat 10/35</span>
+          <span class="lb-score sc-low">API 13/35</span>
+        </div>
+      </div>
+      <div class="img-panel">
+        <div class="img-cell">
+          <div class="img-label img-label-chat">● Chat 版（部分渲染）&nbsp;<span class="lb-score sc-low" style="font-size:11px;padding:1px 7px">10/35</span></div>
+          <img class="model-img" src="Doubao/chat.png" alt="Doubao Chat" onclick="openLb(this.src)">
+        </div>
+        <div class="img-cell">
+          <div class="img-label img-label-api">● API 版 &nbsp;<span class="lb-score sc-low" style="font-size:11px;padding:1px 7px">13/35</span></div>
+          <img class="model-img" src="Doubao/api.png" alt="Doubao API" onclick="openLb(this.src)">
+        </div>
+      </div>
+      <div class="dim-grid">
+        <div class="dim-hdr-row"><span>C1</span><span>C2</span><span>C3</span><span>C4</span><span>C5</span><span>C6</span><span>C7</span></div>
+        <div class="dim-row"><span class="dim-label ch">Chat</span><span class="dc dc-2">2</span><span class="dc dc-1">1</span><span class="dc dc-2">2</span><span class="dc dc-1">1</span><span class="dc dc-1">1</span><span class="dc dc-1">1</span><span class="dc dc-2">2</span></div>
+        <div class="dim-row"><span class="dim-label ap">API</span><span class="dc dc-3">3</span><span class="dc dc-2">2</span><span class="dc dc-2">2</span><span class="dc dc-1">1</span><span class="dc dc-1">1</span><span class="dc dc-1">1</span><span class="dc dc-3">3</span></div>
+      </div>
+      <div class="card-commentary">
+        <span class="tag tag-warn">XML 错误（Chat）</span>
+        Chat 版 SVG 含 XML 解析错误，浏览器渲染至第一个错误即停止，仅显示前 3 步（C1=2）。API 版步骤以文字列表形式呈现在右侧（C1=3），中央标注了 Pubic Symphysis / Pelvic Inlet / Vulvar Outlet，但「胎体」是一个<strong>蓝色三角形</strong>（C3=2），C4/C5/C6 均为 1，完全没有动态表达。两版整体清晰度也在全批次垫底。
+      </div>
+    </div>
+
+    <!-- Manus (special) -->
+    <div class="model-block manus-card">
+      <div class="card-header">
+        <div class="card-num" style="background:var(--b0);color:var(--mu)">?</div>
+        <div class="card-title-wrap">
+          <div class="card-model">Manus 1.6 MAX <span class="card-vendor">/ Manus AI · AI Agent</span></div>
+          <div class="card-tagline">未纳入评分 · 输出为 SVG 源码截图，未渲染为医学图示</div>
+        </div>
+        <div class="card-score-wrap">
+          <span class="lb-score sc-gray">未评分</span>
+        </div>
+      </div>
+      <div class="img-panel">
+        <div class="img-cell" style="grid-column:1/-1">
+          <div class="img-label" style="color:var(--mu)">● Manus 输出（SVG 源码截图）</div>
+          <img class="model-img" src="Manus%201.6%20MAX/output.png" alt="Manus output" onclick="openLb(this.src)" style="max-width:520px">
+          <div style="margin-top:14px;font-size:13px;color:var(--mu);max-width:560px;line-height:1.65">
+            Manus 是 AI Agent，不是纯 LLM。本次测试中，Manus 输出了 SVG 源码文本而未进行渲染——对「描述 SVG 代码」与「生成可渲染 SVG 图示」的理解存在偏差。作为 Agent 基准，需要专门的测试设计。
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /wrap -->
+</div><!-- /section -->
+
+<!-- ────────────── VIDEO MODELS ────────────── -->
+<div class="section">
+  <div class="wrap">
+    <div class="sec-num">§ 03 — 拓展：文生视频模型</div>
+    <div class="sec-h">Sora 2 vs Veo 3</div>
+    <div class="sec-sub">同一 Prompt 在两个视频生成模型上的输出 · 视频生成 ≠ 医学动画理解</div>
+
+    <div style="background:var(--s1);border:1px solid var(--b0);border-radius:12px;overflow:hidden;margin-bottom:28px">
+      <div class="card-header">
+        <div class="card-num" style="background:var(--b0);color:var(--mu);font-size:12px">▶</div>
+        <div class="card-title-wrap">
+          <div class="card-model">文生视频模型对比 <span class="card-vendor">/ Sora 2 · Veo 3</span></div>
+          <div class="card-tagline">Prompt 与 SVG 测试一致 · 未评分 · 定性观察</div>
+        </div>
+        <div class="card-score-wrap">
+          <span class="lb-score sc-gray">未评分</span>
+        </div>
+      </div>
+
+      <div class="img-panel">
+        <div class="img-cell">
+          <div class="img-label" style="color:#a78bfa">● Sora 2 <span style="color:var(--fa);font-weight:400;text-transform:none;letter-spacing:0"> / OpenAI</span></div>
+          <video
+            controls
+            style="width:100%;border-radius:6px;border:1px solid var(--b0);background:#000;display:block"
+            preload="metadata">
+            <source src="video/sora.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="img-cell">
+          <div class="img-label" style="color:#34d399">● Veo 3 <span style="color:var(--fa);font-weight:400;text-transform:none;letter-spacing:0"> / Google DeepMind</span></div>
+          <video
+            controls
+            style="width:100%;border-radius:6px;border:1px solid var(--b0);background:#000;display:block"
+            preload="metadata">
+            <source src="video/veo3.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="card-commentary">
+        <span class="tag tag-gray">定性观察</span>
+        文生视频模型面对「分娩机转」这道题，遇到的是和 SVG 模型相同的核心困境：<strong>知道步骤名称，但空间转换能力不足</strong>。内旋转依然是最难处理的步骤——胎头在水平面旋转这件事，需要镜头角度配合才能说清楚，而两款模型都没有主动切换到俯视视角。视频格式带来了时序表达的天然优势（动画 vs 静态 SVG），但解剖准确性的瓶颈并不因为有了时间轴就消失。这和 Simon Willison 的观察一致：换了输出格式，核心能力边界不变。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────── FINDINGS ────────────── -->
+<div class="section">
+  <div class="wrap">
+    <div class="sec-num">§ 04 — 关键发现</div>
+    <div class="sec-h">5 个值得记住的结论</div>
+    <div style="margin-bottom:32px"></div>
+    <div class="finds">
+      <div class="find-card" style="border-left-color:var(--bad)">
+        <div class="find-num" style="color:rgba(248,113,113,.3)">C2</div>
+        <h3>解剖精度是全批次最弱维度</h3>
+        <p>8个模型 C2（解剖准确性）均值约 1.9/5。模型能说出「耻骨联合」「坐骨棘」，但几乎没有一个模型能把它们的形态画对。步骤知识 ≠ 空间绘图能力。</p>
+      </div>
+      <div class="find-card" style="border-left-color:var(--ok)">
+        <div class="find-num" style="color:rgba(74,222,128,.3)">GLM</div>
+        <h3>内旋转需要换视角</h3>
+        <p>内旋转是水平面旋转，矢状位侧视图根本说不清楚。全批次只有 GLM 5.1 换了俯视视角，并因此在 C4/C5 上拉开差距。7 个模型试图用侧视弧形箭头表达内旋转——全部不够准确。</p>
+      </div>
+      <div class="find-card" style="border-left-color:var(--warn)">
+        <div class="find-num" style="color:rgba(251,191,36,.3)">8分</div>
+        <h3>Gemini 的 Chat-API 断层</h3>
+        <p>Gemini Chat 版 15/35（纯文字），API 版 23/35（图示）。相同模型在不同界面的「输出风格偏好」差异显著——你不能用 Chat 版表现推断 API 版能力，反之亦然。</p>
+      </div>
+      <div class="find-card" style="border-left-color:var(--api)">
+        <div class="find-num" style="color:rgba(6,182,212,.3)">40KB</div>
+        <h3>代码量与质量无强相关</h3>
+        <p>Claude Chat 版 SVG 40,993 字节（全批次最大），C6 运动方向得 1 分（全批次最低）。GLM API 版 25,609 字节，C4+C5+C6 均得 4 分。更多代码不等于更好的图。</p>
+      </div>
+      <div class="find-card" style="border-left-color:var(--chat)">
+        <div class="find-num" style="color:rgba(249,115,22,.3)">&lt;&lt;</div>
+        <h3>技术失败比能力失败更常见</h3>
+        <p>Kimi 一个字符，Grok viewBox 溢出，Doubao XML 语法错误——这批测试里的失败案例，技术 bug 比「不理解分娩机转」更多见。渲染环境测试是 SVG 基准的必要步骤。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────── FOOTER ────────────── -->
+<div class="footer">
+  <div class="wrap">
+    <p>胎儿分娩机转 SVG 生成基准 · 测试日期 2026-05-16 · Judge: GPT-5.5</p>
+    <p style="margin-top:6px">灵感来源 <a href="https://github.com/simonw/pelican-bicycle">Simon Willison's Pelican on a Bicycle</a> · <a href="blog.html">阅读博客文章 →</a></p>
+  </div>
+</div>
+
+<!-- ────────────── LIGHTBOX ────────────── -->
+<div id="lb-overlay" onclick="closeLb()">
+  <div id="lb-close" onclick="closeLb()">✕</div>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+/* ─ Reading progress bar ─ */
+const pgbar = document.getElementById('pgbar');
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+  pgbar.style.width = pct + '%';
+}, {passive: true});
+
+/* ─ Lightbox ─ */
+function openLb(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  document.getElementById('lb-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+/* ─ IntersectionObserver: animate score bars + reveal cards ─ */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+
+    /* Score bars */
+    if (el.classList.contains('lb-bar-fill')) {
+      const w = el.dataset.w || '0';
+      el.style.width = w + '%';
+      io.unobserve(el);
+    }
+
+    /* Card reveal */
+    if (el.classList.contains('model-block')) {
+      el.classList.add('in-view');
+      io.unobserve(el);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.lb-bar-fill').forEach(el => io.observe(el));
+document.querySelectorAll('.model-block').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

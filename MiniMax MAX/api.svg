@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" font-family="Arial, sans-serif" font-size="12">
+  <!-- Background -->
+  <rect width="800" height="450" fill="#f9f9f9"/>
+
+  <!-- Title -->
+  <text x="400" y="25" text-anchor="middle" font-weight="bold" font-size="16" fill="#333">
+    Mechanism of Labor – Simplified Overview
+  </text>
+
+  <!-- ========== PELVIS OUTLINE (Side View) ========== -->
+  <!-- Pelvic inlet (top) -->
+  <path d="M100,60 Q200,30 300,60" stroke="#999" stroke-width="3" fill="none"/>
+  <!-- Pelvic cavity outline -->
+  <path d="M100,60 L80,300 Q200,380 320,300 L300,60" stroke="#999" stroke-width="3" fill="none"/>
+  <!-- Pelvic outlet (bottom) -->
+  <path d="M80,300 Q200,380 320,300" stroke="#999" stroke-width="3" fill="none"/>
+
+  <!-- Cervix (opening) -->
+  <ellipse cx="200" cy="80" rx="40" ry="12" fill="#ddd" stroke="#bbb" stroke-width="2"/>
+  <text x="200" y="100" text-anchor="middle" fill="#555">Cervix</text>
+
+  <!-- ========== FETAL HEAD (circle) ========== -->
+  <!-- We will animate a circle from stage to stage.
+       Each stage is represented by a separate <g> that can be shown/hidden.
+       For demonstration, all stages are initially visible with low opacity;
+       in a real animation you would toggle visibility.                -->
+  <g id="stage1">
+    <circle cx="200" cy="115" r="35" fill="#3498db" opacity="0.9"/>
+    <text x="200" y="160" text-anchor="middle" fill="#fff">Engagement</text>
+    <line x1="200" y1="115" x2="260" y2="100" stroke="#fff" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="270" y="100" fill="#555">Head enters inlet</text>
+  </g>
+
+  <g id="stage2" opacity="0.7">
+    <circle cx="200" cy="150" r="35" fill="#2980b9" opacity="0.9"/>
+    <text x="200" y="195" text-anchor="middle" fill="#fff">Descent &amp; Flexion</text>
+    <line x1="200" y1="150" x2="260" y2="135" stroke="#fff" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="270" y="135" fill="#555">Head descends, chin flexes to chest</text>
+  </g>
+
+  <g id="stage3" opacity="0.6">
+    <circle cx="200" cy="200" r="35" fill="#1f618d" opacity="0.9"/>
+    <text x="200" y="245" text-anchor="middle" fill="#fff">Internal Rotation</text>
+    <line x1="200" y1="200" x2="260" y2="185" stroke="#fff" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="270" y="185" fill="#555">Head rotates to fit pelvic axis</text>
+  </g>
+
+  <g id="stage4" opacity="0.5">
+    <circle cx="200" cy="250" r="35" fill="#154360" opacity="0.9"/>
+    <text x="200" y="295" text-anchor="middle" fill="#fff">Extension</text>
+    <line x1="200" y1="250" x2="260" y2="235" stroke="#fff" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="270" y="235" fill="#555">Head extends under pubic symphysis</text>
+  </g>
+
+  <g id="stage5" opacity="0.4">
+    <circle cx="200" cy="300" r="35" fill="#0e2f44" opacity="0.9"/>
+    <text x="200" y="345" text-anchor="middle" fill="#fff">Restitution &amp; External Rotation</text>
+    <line x1="200" y1="300" x2="260" y2="285" stroke="#fff" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="270" y="285" fill="#555">Shoulders rotate to antero‑posterior</text>
+  </g>
+
+  <g id="stage6" opacity="0.3">
+    <circle cx="200" cy="350" r="35" fill="#0a1f2e" opacity="0.9"/>
+    <text x="200" y="395" text-anchor="middle" fill="#fff">Expulsion</text>
+    <line x1="200" y1="350" x2="260" y2="335" stroke="#fff" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <text x="270" y="335" fill="#555">Baby is delivered</text>
+  </g>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#fff"/>
+    </marker>
+  </defs>
+
+  <!-- Legend -->
+  <g transform="translate(400, 60)">
+    <rect x="0" y="0" width="200" height="120" rx="5" fill="#fff" stroke="#ccc" stroke-width="1"/>
+    <text x="10" y="20" font-weight="bold" fill="#333">Key Stages</text>
+    <line x1="10" y1="35" x2="30" y2="35" stroke="#3498db" stroke-width="3"/>
+    <text x="35" y="40" fill="#555">Engagement</text>
+    <line x1="10" y1="55" x2="30" y2="55" stroke="#2980b9" stroke-width="3"/>
+    <text x="35" y="60" fill="#555">Descent &amp; Flexion</text>
+    <line x1="10" y1="75" x2="30" y2="75" stroke="#1f618d" stroke-width="3"/>
+    <text x="35" y="80" fill="#555">Internal Rotation</text>
+    <line x1="10" y1="95" x2="30" y2="95" stroke="#154360" stroke-width="3"/>
+    <text x="35" y="100" fill="#555">Extension</text>
+    <line x1="10" y1="115" x2="30" y2="115" stroke="#0e2f44" stroke-width="3"/>
+    <text x="35" y="120" fill="#555">Restitution &amp; External Rotation</text>
+    <line x1="10" y1="135" x2="30" y2="135" stroke="#0a1f2e" stroke-width="3"/>
+    <text x="35" y="140" fill="#555">Expulsion</text>
+  </g>
+
+  <!-- Disclaimer -->
+  <text x="400" y="440" text-anchor="middle" fill="#777" font-size="10">
+    Disclaimer: This graphic is for educational purposes only and is not a substitute for professional medical advice.
+  </text>
+</svg>

@@ -1,0 +1,410 @@
+Here's a comprehensive SVG diagram illustrating the seven cardinal movements of the mechanism of labor:
+
+```svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 1000" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <marker id="flowArr" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,1 L11,6 L0,11 Z" fill="#2c3e50"/>
+    </marker>
+    <marker id="moveArr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="rotArr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#8e44ad"/>
+    </marker>
+    <filter id="cardShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.12"/>
+    </filter>
+    <linearGradient id="hg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a3a5c"/>
+      <stop offset="100%" stop-color="#2980b9"/>
+    </linearGradient>
+    <linearGradient id="bone1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8faab5"/>
+      <stop offset="100%" stop-color="#6d8ea0"/>
+    </linearGradient>
+    <linearGradient id="bone2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#95b3bc"/>
+      <stop offset="100%" stop-color="#73939e"/>
+    </linearGradient>
+    <radialGradient id="headGrad" cx="35%" cy="35%">
+      <stop offset="0%" stop-color="#fce4d6"/>
+      <stop offset="70%" stop-color="#f4a582"/>
+      <stop offset="100%" stop-color="#e08060"/>
+    </radialGradient>
+    <radialGradient id="canalGrad" cx="50%" cy="30%">
+      <stop offset="0%" stop-color="#e8f4f8"/>
+      <stop offset="100%" stop-color="#d0e8f0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="1000" fill="#eef2f7" rx="8"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1100" height="78" fill="url(#hg)" rx="0"/>
+  <text x="550" y="38" text-anchor="middle" fill="#fff" font-size="26" font-weight="700" letter-spacing="2">MECHANISM OF LABOR</text>
+  <text x="550" y="62" text-anchor="middle" fill="#a8d0ef" font-size="15" font-weight="400" letter-spacing="1">The Seven Cardinal Movements of Fetal Descent</text>
+
+  <!-- ==================== PANEL 1: ENGAGEMENT ==================== -->
+  <g transform="translate(33,95)">
+    <rect x="0" y="0" width="240" height="395" rx="12" fill="#fff" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="240" height="52" rx="12" fill="#3498db"/>
+    <rect x="0" y="26" width="240" height="26" fill="#3498db"/>
+    <circle cx="28" cy="26" r="16" fill="#fff" opacity="0.25"/>
+    <text x="28" y="31" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">1</text>
+    <text x="130" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="600">Engagement</text>
+
+    <!-- Diagram area -->
+    <g transform="translate(10,60)">
+      <!-- Canal fill -->
+      <path d="M 45,10 C 28,55 24,115 50,175 L 130,175 C 155,115 165,55 170,10 Z" fill="url(#canalGrad)" stroke="none"/>
+      <!-- Sacrum bone -->
+      <path d="M 45,10 C 28,55 24,115 50,175" stroke="url(#bone1)" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <!-- Pubis bone -->
+      <path d="M 170,10 C 165,55 155,115 130,175" stroke="url(#bone2)" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <!-- Inlet line -->
+      <line x1="45" y1="10" x2="170" y2="10" stroke="#7fa8b8" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <!-- Landmark labels -->
+      <text x="16" y="95" fill="#5a7a8a" font-size="8" font-weight="500">Sacrum</text>
+      <text x="160" y="95" fill="#5a7a8a" font-size="8" font-weight="500">Pubis</text>
+      <text x="82" y="8" fill="#5a7a8a" font-size="8" font-weight="500">Inlet</text>
+
+      <!-- Fetal head - at inlet, slightly deflexed, occiput transverse -->
+      <g transform="translate(108,38) rotate(-8)">
+        <ellipse cx="0" cy="0" rx="17" ry="22" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.5"/>
+        <!-- Occiput bump (back of head, left side) -->
+        <ellipse cx="-15" cy="-2" rx="6" ry="10" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.2"/>
+        <!-- Face line (right side) -->
+        <path d="M 14,-5 Q 18,0 14,5" stroke="#a05535" stroke-width="1" fill="none"/>
+        <!-- Eye dot -->
+        <circle cx="10" cy="-4" r="1.5" fill="#7a3a20"/>
+      </g>
+
+      <!-- Descent arrow pointing down -->
+      <line x1="108" y1="62" x2="108" y2="85" stroke="#c0392b" stroke-width="2" marker-end="url(#moveArr)"/>
+      <text x="122" y="78" fill="#c0392b" font-size="7" font-weight="600">Descent</text>
+    </g>
+
+    <!-- Description -->
+    <text x="120" y="275" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">Biparietal diameter</text>
+    <text x="120" y="290" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">enters the pelvic inlet</text>
+    <text x="120" y="310" text-anchor="middle" fill="#7f8c8d" font-size="10">Head is engaged when the</text>
+    <text x="120" y="325" text-anchor="middle" fill="#7f8c8d" font-size="10">widest part passes through</text>
+    <text x="120" y="340" text-anchor="middle" fill="#7f8c8d" font-size="10">the plane of the inlet.</text>
+  </g>
+
+  <!-- Flow arrow 1→2 -->
+  <line x1="278" y1="290" x2="293" y2="290" stroke="#2c3e50" stroke-width="2" marker-end="url(#flowArr)"/>
+
+  <!-- ==================== PANEL 2: DESCENT ==================== -->
+  <g transform="translate(298,95)">
+    <rect x="0" y="0" width="240" height="395" rx="12" fill="#fff" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="240" height="52" rx="12" fill="#2980b9"/>
+    <rect x="0" y="26" width="240" height="26" fill="#2980b9"/>
+    <circle cx="28" cy="26" r="16" fill="#fff" opacity="0.25"/>
+    <text x="28" y="31" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">2</text>
+    <text x="130" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="600">Descent</text>
+
+    <g transform="translate(10,60)">
+      <path d="M 45,10 C 28,55 24,115 50,175 L 130,175 C 155,115 165,55 170,10 Z" fill="url(#canalGrad)" stroke="none"/>
+      <path d="M 45,10 C 28,55 24,115 50,175" stroke="url(#bone1)" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <path d="M 170,10 C 165,55 155,115 130,175" stroke="url(#bone2)" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <line x1="45" y1="10" x2="170" y2="10" stroke="#7fa8b8" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+      <!-- Fetal head - descended deeper, occiput still transverse -->
+      <g transform="translate(100,95) rotate(-5)">
+        <ellipse cx="0" cy="0" rx="17" ry="22" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.5"/>
+        <ellipse cx="-15" cy="-2" rx="6" ry="10" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.2"/>
+        <path d="M 14,-5 Q 18,0 14,5" stroke="#a05535" stroke-width="1" fill="none"/>
+        <circle cx="10" cy="-4" r="1.5" fill="#7a3a20"/>
+      </g>
+
+      <!-- Arrow continuing descent -->
+      <line x1="100" y1="120" x2="100" y2="145" stroke="#c0392b" stroke-width="2" marker-end="url(#moveArr)"/>
+    </g>
+
+    <text x="120" y="275" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">Downward movement</text>
+    <text x="120" y="290" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">through the birth canal</text>
+    <text x="120" y="310" text-anchor="middle" fill="#7f8c8d" font-size="10">Driven by uterine contractions</text>
+    <text x="120" y="325" text-anchor="middle" fill="#7f8c8d" font-size="10">and maternal pushing efforts.</text>
+    <text x="120" y="340" text-anchor="middle" fill="#7f8c8d" font-size="10">Essential for all other movements.</text>
+  </g>
+
+  <!-- Flow arrow 2→3 -->
+  <line x1="543" y1="290" x2="558" y2="290" stroke="#2c3e50" stroke-width="2" marker-end="url(#flowArr)"/>
+
+  <!-- ==================== PANEL 3: FLEXION ==================== -->
+  <g transform="translate(563,95)">
+    <rect x="0" y="0" width="240" height="395" rx="12" fill="#fff" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="240" height="52" rx="12" fill="#27ae60"/>
+    <rect x="0" y="26" width="240" height="26" fill="#27ae60"/>
+    <circle cx="28" cy="26" r="16" fill="#fff" opacity="0.25"/>
+    <text x="28" y="31" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">3</text>
+    <text x="130" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="600">Flexion</text>
+
+    <g transform="translate(10,60)">
+      <path d="M 45,10 C 28,55 24,115 50,175 L 130,175 C 155,115 165,55 170,10 Z" fill="url(#canalGrad)" stroke="none"/>
+      <path d="M 45,10 C 28,55 24,115 50,175" stroke="url(#bone1)" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <path d="M 170,10 C 165,55 155,115 130,175" stroke="url(#bone2)" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <line x1="45" y1="10" x2="170" y2="10" stroke="#7fa8b8" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+      <!-- Fetal head - flexed, chin to chest, occiput leading -->
+      <g transform="translate(92,115) rotate(20)">
+        <ellipse cx="0" cy="0" rx="17" ry="22" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.5"/>
+        <ellipse cx="-15" cy="-2" rx="6" ry="10" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.2"/>
+        <path d="M 14,-5 Q 18,0 14,5" stroke="#a05535" stroke-width="1" fill="none"/>
+        <circle cx="10" cy="-4" r="1.5" fill="#7a3a20"/>
+      </g>
+
+      <!-- Flexion arrow (curved, showing chin tucking) -->
+      <path d="M 115,95 Q 130,85 120,70" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#moveArr)"/>
+      <text x="132" y="90" fill="#c0392b" font-size="7" font-weight="600">Chin→Chest</text>
+    </g>
+
+    <text x="120" y="275" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">Chin flexes toward chest</text>
+    <text x="120" y="290" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">presenting smallest diameter</text>
+    <text x="120" y="310" text-anchor="middle" fill="#7f8c8d" font-size="10">Suboccipitobregmatic diameter</text>
+    <text x="120" y="325" text-anchor="middle" fill="#7f8c8d" font-size="10">(9.5 cm) presents. Caused by</text>
+    <text x="120" y="340" text-anchor="middle" fill="#7f8c8d" font-size="10">resistance from the pelvic floor.</text>
+  </g>
+
+  <!-- Flow arrow 3→4 -->
+  <line x1="808" y1="290" x2="823" y2="290" stroke="#2c3e50" stroke-width="2" marker-end="url(#flowArr)"/>
+
+  <!-- ==================== PANEL 4: INTERNAL ROTATION ==================== -->
+  <g transform="translate(828,95)">
+    <rect x="0" y="0" width="240" height="395" rx="12" fill="#fff" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="240" height="52" rx="12" fill="#8e44ad"/>
+    <rect x="0" y="26" width="240" height="26" fill="#8e44ad"/>
+    <circle cx="28" cy="26" r="16" fill="#fff" opacity="0.25"/>
+    <text x="28" y="31" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">4</text>
+    <text x="130" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="600">Internal Rotation</text>
+
+    <g transform="translate(10,60)">
+      <path d="M 45,10 C 28,55 24,115 50,175 L 130,175 C 155,115 165,55 170,10 Z" fill="url(#canalGrad)" stroke="none"/>
+      <path d="M 45,10 C 28,55 24,115 50,175" stroke="url(#bone1)" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <path d="M 170,10 C 165,55 155,115 130,175" stroke="url(#bone2)" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <line x1="45" y1="10" x2="170" y2="10" stroke="#7fa8b8" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+      <!-- Fetal head - occiput rotating anteriorly (toward pubis) -->
+      <g transform="translate(88,130) rotate(15)">
+        <ellipse cx="0" cy="0" rx="17" ry="22" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.5"/>
+        <ellipse cx="-15" cy="-2" rx="6" ry="10" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.2"/>
+        <path d="M 14,-5 Q 18,0 14,5" stroke="#a05535" stroke-width="1" fill="none"/>
+        <circle cx="10" cy="-4" r="1.5" fill="#7a3a20"/>
+      </g>
+
+      <!-- Rotation arrow (curved) -->
+      <path d="M 68,125 Q 55,140 65,160" stroke="#8e44ad" stroke-width="2.5" fill="none" marker-end="url(#rotArr)" stroke-dasharray="4,2"/>
+      <text x="42" y="155" fill="#8e44ad" font-size="7" font-weight="600">Rotation</text>
+      <text x="38" y="165" fill="#8e44ad" font-size="7" font-weight="600">OA →</text>
+
+      <!-- Small inset: top-down view showing rotation -->
+      <rect x="155" y="130" width="55" height="55" rx="6" fill="#f0f5fa" stroke="#8e44ad" stroke-width="1.2"/>
+      <ellipse cx="182" cy="157" rx="16" ry="18" fill="#e8e0ee" stroke="#8e44ad" stroke-width="1" stroke-dasharray="3,2"/>
+      <!-- Arrow showing rotation from transverse to anterior -->
+      <path d="M 168,140 A 15,15 0 0,1 182,140" stroke="#8e44ad" stroke-width="1.5" fill="none" marker-end="url(#rotArr)"/>
+      <text x="182" y="145" text-anchor="middle" fill="#8e44ad" font-size="6">OA</text>
+      <circle cx="182" cy="157" r="3" fill="#8e44ad" opacity="0.4"/>
+    </g>
+
+    <text x="120" y="275" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">Occiput rotates anteriorly</text>
+    <text x="120" y="290" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">from transverse position</text>
+    <text x="120" y="310" text-anchor="middle" fill="#7f8c8d" font-size="10">Head rotates 45°–90° so the</text>
+    <text x="120" y="325" text-anchor="middle" fill="#7f8c8d" font-size="10">occiput moves from transverse</text>
+    <text x="120" y="340" text-anchor="middle" fill="#7f8c8d" font-size="10">to anterior beneath the pubis.</text>
+  </g>
+
+  <!-- Flow arrow row 1 → row 2 -->
+  <path d="M 1068,500 L 1068,520 Q 1068,540 1048,540 L 600,540 Q 580,540 580,520 L 580,510" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#flowArr)"/>
+
+  <!-- ==================== PANEL 5: EXTENSION ==================== -->
+  <g transform="translate(165,510)">
+    <rect x="0" y="0" width="240" height="395" rx="12" fill="#fff" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="240" height="52" rx="12" fill="#e67e22"/>
+    <rect x="0" y="26" width="240" height="26" fill="#e67e22"/>
+    <circle cx="28" cy="26" r="16" fill="#fff" opacity="0.25"/>
+    <text x="28" y="31" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">5</text>
+    <text x="130" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="600">Extension</text>
+
+    <g transform="translate(10,60)">
+      <path d="M 45,10 C 28,55 24,115 50,175 L 130,175 C 155,115 165,55 170,10 Z" fill="url(#canalGrad)" stroke="none"/>
+      <path d="M 45,10 C 28,55 24,115 50,175" stroke="url(#bone1)" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <path d="M 170,10 C 165,55 155,115 130,175" stroke="url(#bone2)" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <line x1="45" y1="10" x2="170" y2="10" stroke="#7fa8b8" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+      <!-- Fetal head - extending, occiput under symphysis, face emerging -->
+      <g transform="translate(118,140) rotate(-25)">
+        <ellipse cx="0" cy="0" rx="17" ry="22" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.5"/>
+        <!-- Occiput now pointing anteriorly (right) since rotated -->
+        <ellipse cx="-15" cy="-2" rx="6" ry="10" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.2"/>
+        <path d="M 14,-5 Q 18,0 14,5" stroke="#a05535" stroke-width="1" fill="none"/>
+        <circle cx="10" cy="-4" r="1.5" fill="#7a3a20"/>
+      </g>
+
+      <!-- Extension arrow -->
+      <path d="M 140,115 Q 155,130 150,150" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#moveArr)"/>
+      <text x="152" y="128" fill="#c0392b" font-size="7" font-weight="600">Extension</text>
+
+      <!-- Label: pubis point -->
+      <circle cx="138" cy="168" r="2" fill="#e67e22"/>
+      <text x="145" y="172" fill="#e67e22" font-size="7" font-weight="600">Under symphysis</text>
+    </g>
+
+    <text x="120" y="275" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">Head extends around</text>
+    <text x="120" y="290" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">the pubic arch</text>
+    <text x="120" y="310" text-anchor="middle" fill="#7f8c8d" font-size="10">Occiput pivots under the</text>
+    <text x="120" y="325" text-anchor="middle" fill="#7f8c8d" font-size="10">symphysis pubis; the face</text>
+    <text x="120" y="340" text-anchor="middle" fill="#7f8c8d" font-size="10">sweeps over the perineum.</text>
+  </g>
+
+  <!-- Flow arrow 5→6 -->
+  <line x1="410" y1="705" x2="425" y2="705" stroke="#2c3e50" stroke-width="2" marker-end="url(#flowArr)"/>
+
+  <!-- ==================== PANEL 6: EXTERNAL ROTATION ==================== -->
+  <g transform="translate(430,510)">
+    <rect x="0" y="0" width="240" height="395" rx="12" fill="#fff" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="240" height="52" rx="12" fill="#e74c3c"/>
+    <rect x="0" y="26" width="240" height="26" fill="#e74c3c"/>
+    <circle cx="28" cy="26" r="16" fill="#fff" opacity="0.25"/>
+    <text x="28" y="31" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">6</text>
+    <text x="130" y="30" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">External Rotation</text>
+    <text x="130" y="44" text-anchor="middle" fill="#fdd" font-size="10">(Restitution)</text>
+
+    <g transform="translate(10,60)">
+      <path d="M 45,10 C 28,55 24,115 50,175 L 130,175 C 155,115 165,55 170,10 Z" fill="url(#canalGrad)" stroke="none"/>
+      <path d="M 45,10 C 28,55 24,115 50,175" stroke="url(#bone1)" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <path d="M 170,10 C 165,55 155,115 130,175" stroke="url(#bone2)" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <line x1="45" y1="10" x2="170" y2="10" stroke="#7fa8b8" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+      <!-- Fetal head - delivered, rotating back to align with shoulders -->
+      <g transform="translate(125,155) rotate(-10)">
+        <ellipse cx="0" cy="0" rx="17" ry="22" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.5"/>
+        <ellipse cx="-15" cy="-2" rx="6" ry="10" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.2"/>
+        <path d="M 14,-5 Q 18,0 14,5" stroke="#a05535" stroke-width="1" fill="none"/>
+        <circle cx="10" cy="-4" r="1.5" fill="#7a3a20"/>
+      </g>
+
+      <!-- Rotation arrow showing restitution -->
+      <path d="M 148,140 Q 165,145 160,165" stroke="#e74c3c" stroke-width="2.5" fill="none" marker-end="url(#rotArr)" stroke-dasharray="4,2"/>
+      <text x="163" y="152" fill="#e74c3c" font-size="7" font-weight="600">45°</text>
+      <text x="163" y="162" fill="#e74c3c" font-size="7" font-weight="600">return</text>
+
+      <!-- Small inset: top-down view showing external rotation -->
+      <rect x="5" y="125" width="55" height="55" rx="6" fill="#fef0f0" stroke="#e74c3c" stroke-width="1.2"/>
+      <ellipse cx="32" cy="152" rx="16" ry="18" fill="#f5e0e0" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3,2"/>
+      <path d="M 32,136 A 15,15 0 0,0 18,142" stroke="#e74c3c" stroke-width="1.5" fill="none" marker-end="url(#rotArr)"/>
+      <circle cx="32" cy="152" r="3" fill="#e74c3c" opacity="0.4"/>
+      <text x="32" y="140" text-anchor="middle" fill="#e74c3c" font-size="6">Shoulders</text>
+      <text x="32" y="148" text-anchor="middle" fill="#e74c3c" font-size="5">oblique</text>
+    </g>
+
+    <text x="120" y="275" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">Head rotates back 45°</text>
+    <text x="120" y="290" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">to align with shoulders</text>
+    <text x="120" y="310" text-anchor="middle" fill="#7f8c8d" font-size="10">The head returns to its</text>
+    <text x="120" y="325" text-anchor="middle" fill="#7f8c8d" font-size="10">original relationship with</text>
+    <text x="120" y="340" text-anchor="middle" fill="#7f8c8d" font-size="10">the shoulders (oblique diameter).</text>
+  </g>
+
+  <!-- Flow arrow 6→7 -->
+  <line x1="675" y1="705" x2="690" y2="705" stroke="#2c3e50" stroke-width="2" marker-end="url(#flowArr)"/>
+
+  <!-- ==================== PANEL 7: EXPULSION ==================== -->
+  <g transform="translate(695,510)">
+    <rect x="0" y="0" width="240" height="395" rx="12" fill="#fff" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="240" height="52" rx="12" fill="#c0392b"/>
+    <rect x="0" y="26" width="240" height="26" fill="#c0392b"/>
+    <circle cx="28" cy="26" r="16" fill="#fff" opacity="0.25"/>
+    <text x="28" y="31" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">7</text>
+    <text x="130" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="600">Expulsion</text>
+
+    <g transform="translate(10,60)">
+      <path d="M 45,10 C 28,55 24,115 50,175 L 130,175 C 155,115 165,55 170,10 Z" fill="url(#canalGrad)" stroke="none"/>
+      <path d="M 45,10 C 28,55 24,115 50,175" stroke="url(#bone1)" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <path d="M 170,10 C 165,55 155,115 130,175" stroke="url(#bone2)" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <line x1="45" y1="10" x2="170" y2="10" stroke="#7fa8b8" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+      <!-- Fetal head - fully delivered, emerging below the pelvis -->
+      <!-- Head below/outside the pelvis -->
+      <g transform="translate(128,170) rotate(-35)">
+        <ellipse cx="0" cy="0" rx="17" ry="22" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.5"/>
+        <ellipse cx="-15" cy="-2" rx="6" ry="10" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.2"/>
+        <path d="M 14,-5 Q 18,0 14,5" stroke="#a05535" stroke-width="1" fill="none"/>
+        <circle cx="10" cy="-4" r="1.5" fill="#7a3a20"/>
+        <!-- Simple body suggestion -->
+        <path d="M -5,22 Q -10,35 -8,50" stroke="#c0734a" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.5"/>
+        <path d="M 8,22 Q 5,38 6,52" stroke="#c0734a" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.5"/>
+      </g>
+
+      <!-- Arrows showing delivery -->
+      <path d="M 145,165 Q 160,170 165,185" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#moveArr)"/>
+      <text x="160" y="178" fill="#c0392b" font-size="7" font-weight="600">Delivery</text>
+
+      <!-- "Born!" celebration sparkles -->
+      <text x="105" y="188" fill="#27ae60" font-size="10" font-weight="700">✓ Born!</text>
+    </g>
+
+    <text x="120" y="275" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">Anterior shoulder then</text>
+    <text x="120" y="290" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="600">posterior shoulder deliver</text>
+    <text x="120" y="310" text-anchor="middle" fill="#7f8c8d" font-size="10">The anterior shoulder delivers</text>
+    <text x="120" y="325" text-anchor="middle" fill="#7f8c8d" font-size="10">under the symphysis, then the</text>
+    <text x="120" y="340" text-anchor="middle" fill="#7f8c8d" font-size="10">posterior shoulder over the perineum.</text>
+  </g>
+
+  <!-- ==================== FLOW ARROWS BETWEEN ROWS ==================== -->
+  <!-- Arrow from row 1 end to row 2 start -->
+  <path d="M 1068,490 C 1068,500 1068,505 1050,505 L 190,505 C 170,505 165,510 165,510" stroke="#2c3e50" stroke-width="2.5" fill="none" stroke-dasharray="8,4" marker-end="url(#flowArr)" opacity="0.6"/>
+
+  <!-- ==================== LEGEND / KEY ==================== -->
+  <g transform="translate(30,925)">
+    <rect x="0" y="0" width="1040" height="60" rx="10" fill="#fff" filter="url(#cardShadow)"/>
+    <text x="20" y="22" fill="#2c3e50" font-size="13" font-weight="700">KEY:</text>
+    
+    <!-- Pelvic bones -->
+    <line x1="80" y1="17" x2="110" y2="17" stroke="#6d8ea0" stroke-width="10" stroke-linecap="round"/>
+    <text x="120" y="22" fill="#555" font-size="11">Pelvic Bones</text>
+    
+    <!-- Birth canal -->
+    <rect x="220" y="8" width="40" height="18" rx="3" fill="#d0e8f0" stroke="#7fa8b8" stroke-width="1"/>
+    <text x="270" y="22" fill="#555" font-size="11">Birth Canal</text>
+    
+    <!-- Fetal head -->
+    <ellipse cx="380" cy="17" rx="12" ry="15" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.5"/>
+    <text x="400" y="22" fill="#555" font-size="11">Fetal Head</text>
+    
+    <!-- Movement arrow -->
+    <line x1="490" y1="17" x2="520" y2="17" stroke="#c0392b" stroke-width="2" marker-end="url(#moveArr)"/>
+    <text x="530" y="22" fill="#555" font-size="11">Movement</text>
+    
+    <!-- Rotation arrow -->
+    <path d="M 620,25 Q 630,5 645,10" stroke="#8e44ad" stroke-width="2" fill="none" marker-end="url(#rotArr)" stroke-dasharray="4,2"/>
+    <text x="655" y="22" fill="#555" font-size="11">Rotation</text>
+
+    <!-- Occiput -->
+    <ellipse cx="745" cy="15" rx="5" ry="8" fill="url(#headGrad)" stroke="#c0734a" stroke-width="1.2"/>
+    <text x="758" y="22" fill="#555" font-size="11">Occiput</text>
+
+    <!-- Note -->
+    <text x="840" y="15" fill="#888" font-size="9">Note: Diagrams show</text>
+    <text x="840" y="28" fill="#888" font-size="9">sagittal cross-section view</text>
+    <text x="840" y="41" fill="#888" font-size="9">of maternal pelvis</text>
+  </g>
+
+  <!-- Title for the flow -->
+  <text x="550" y="505" text-anchor="middle" fill="#2c3e50" font-size="11" font-style="italic" opacity="0.6">▼  Sequential process continues  ▼</text>
+
+</svg>
+```
+
+This SVG diagram illustrates the **seven cardinal movements of labor** in a clear, educational format:
+
+1. **Engagement** — The fetal head enters the pelvic inlet (biparietal diameter passes through)
+2. **Descent** — Downward movement through the birth canal driven by contractions
+3. **Flexion** — Chin tucks to chest, presenting the smallest diameter (suboccipitobregmatic)
+4. **Internal Rotation** — Occiput rotates from transverse to anterior beneath the pubis
+5. **Extension** — Head extends around the pubic arch as the face sweeps over the perineum
+6. **External Rotation (Restitution)** — Head rotates back 45° to realign with the shoulders
+7. **Expulsion** — Shoulders and body are delivered
+
+Each panel shows a **sagittal cross-section** of the maternal pelvis with the fetal head at the appropriate position and orientation, along with directional arrows indicating the key movement. The color-coded headers and numbered badges help track the sequential progression.

@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 850" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdfbfb" />
+      <stop offset="100%" stop-color="#ebedee" />
+    </linearGradient>
+    
+    <linearGradient id="cardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8f9fa" />
+    </linearGradient>
+
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff9a9e" />
+      <stop offset="100%" stop-color="#fecfef" />
+    </linearGradient>
+
+    <!-- Drop Shadow -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+
+    <!-- Arrowhead Marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#adb5bd" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="850" fill="url(#bgGradient )" />
+
+  <!-- Title Section -->
+  <rect x="0" y="0" width="1000" height="120" fill="url(#accentGradient)" />
+  <text x="500" y="60" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#343a40" text-anchor="middle">Mechanism of Labor</text>
+  <text x="500" y="95" font-family="Arial, sans-serif" font-size="18" fill="#495057" text-anchor="middle">The Seven Cardinal Movements of Childbirth</text>
+
+  <!-- Connecting Path (Serpentine) -->
+  <path d="M 150 250 L 850 250 A 50 50 0 0 1 900 300 L 900 450 A 50 50 0 0 1 850 500 L 150 500 A 50 50 0 0 0 100 550 L 100 700 A 50 50 0 0 0 150 750 L 500 750" 
+        fill="none" stroke="#dee2e6" stroke-width="8" stroke-linejoin="round" marker-mid="url(#arrow)" />
+        
+  <!-- Path Arrows (Overlay for direction) -->
+  <path d="M 450 250 L 460 250" fill="none" stroke="#adb5bd" stroke-width="8" marker-end="url(#arrow)"/>
+  <path d="M 750 250 L 760 250" fill="none" stroke="#adb5bd" stroke-width="8" marker-end="url(#arrow)"/>
+  <path d="M 900 360 L 900 370" fill="none" stroke="#adb5bd" stroke-width="8" marker-end="url(#arrow)"/>
+  <path d="M 650 500 L 640 500" fill="none" stroke="#adb5bd" stroke-width="8" marker-end="url(#arrow)"/>
+  <path d="M 350 500 L 340 500" fill="none" stroke="#adb5bd" stroke-width="8" marker-end="url(#arrow)"/>
+  <path d="M 100 610 L 100 620" fill="none" stroke="#adb5bd" stroke-width="8" marker-end="url(#arrow)"/>
+  <path d="M 300 750 L 310 750" fill="none" stroke="#adb5bd" stroke-width="8" marker-end="url(#arrow)"/>
+
+  <!-- ==========================================
+       STAGE 1: ENGAGEMENT
+       ========================================== -->
+  <g transform="translate(50, 170)">
+    <rect width="200" height="160" rx="15" fill="url(#cardGradient)" filter="url(#shadow)" />
+    <circle cx="100" cy="40" r="25" fill="#e8f5e9" />
+    <text x="100" y="48" font-family="Arial" font-size="20" font-weight="bold" fill="#2e7d32" text-anchor="middle">1</text>
+    <text x="100" y="90" font-family="Arial" font-size="18" font-weight="bold" fill="#343a40" text-anchor="middle">Engagement</text>
+    <text x="100" y="115" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">Fetal head enters the</text>
+    <text x="100" y="135" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">pelvic inlet (station 0).</text>
+  </g>
+
+  <!-- ==========================================
+       STAGE 2: DESCENT
+       ========================================== -->
+  <g transform="translate(400, 170)">
+    <rect width="200" height="160" rx="15" fill="url(#cardGradient)" filter="url(#shadow)" />
+    <circle cx="100" cy="40" r="25" fill="#e3f2fd" />
+    <text x="100" y="48" font-family="Arial" font-size="20" font-weight="bold" fill="#1565c0" text-anchor="middle">2</text>
+    <text x="100" y="90" font-family="Arial" font-size="18" font-weight="bold" fill="#343a40" text-anchor="middle">Descent</text>
+    <text x="100" y="115" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">Continuous downward</text>
+    <text x="100" y="135" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">movement through pelvis.</text>
+  </g>
+
+  <!-- ==========================================
+       STAGE 3: FLEXION
+       ========================================== -->
+  <g transform="translate(750, 170)">
+    <rect width="200" height="160" rx="15" fill="url(#cardGradient)" filter="url(#shadow)" />
+    <circle cx="100" cy="40" r="25" fill="#f3e5f5" />
+    <text x="100" y="48" font-family="Arial" font-size="20" font-weight="bold" fill="#6a1b9a" text-anchor="middle">3</text>
+    <text x="100" y="90" font-family="Arial" font-size="18" font-weight="bold" fill="#343a40" text-anchor="middle">Flexion</text>
+    <text x="100" y="115" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">Chin tucks to chest,</text>
+    <text x="100" y="135" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">presenting smallest diameter.</text>
+  </g>
+
+  <!-- ==========================================
+       STAGE 4: INTERNAL ROTATION
+       ========================================== -->
+  <g transform="translate(750, 420)">
+    <rect width="200" height="160" rx="15" fill="url(#cardGradient)" filter="url(#shadow)" />
+    <circle cx="100" cy="40" r="25" fill="#fff3e0" />
+    <text x="100" y="48" font-family="Arial" font-size="20" font-weight="bold" fill="#ef6c00" text-anchor="middle">4</text>
+    <text x="100" y="90" font-family="Arial" font-size="18" font-weight="bold" fill="#343a40" text-anchor="middle">Internal Rotation</text>
+    <text x="100" y="115" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">Head rotates to align</text>
+    <text x="100" y="135" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">with the pelvic outlet.</text>
+  </g>
+
+  <!-- ==========================================
+       STAGE 5: EXTENSION
+       ========================================== -->
+  <g transform="translate(400, 420)">
+    <rect width="200" height="160" rx="15" fill="url(#cardGradient)" filter="url(#shadow)" />
+    <circle cx="100" cy="40" r="25" fill="#ffebee" />
+    <text x="100" y="48" font-family="Arial" font-size="20" font-weight="bold" fill="#c62828" text-anchor="middle">5</text>
+    <text x="100" y="90" font-family="Arial" font-size="18" font-weight="bold" fill="#343a40" text-anchor="middle">Extension</text>
+    <text x="100" y="115" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">Head passes symphysis pubis,</text>
+    <text x="100" y="135" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">emerging from the vagina.</text>
+  </g>
+
+  <!-- ==========================================
+       STAGE 6: EXTERNAL ROTATION
+       ========================================== -->
+  <g transform="translate(50, 420)">
+    <rect width="200" height="160" rx="15" fill="url(#cardGradient)" filter="url(#shadow)" />
+    <circle cx="100" cy="40" r="25" fill="#e0f7fa" />
+    <text x="100" y="48" font-family="Arial" font-size="20" font-weight="bold" fill="#00838f" text-anchor="middle">6</text>
+    <text x="100" y="90" font-family="Arial" font-size="18" font-weight="bold" fill="#343a40" text-anchor="middle">External Rotation</text>
+    <text x="100" y="115" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">Head rotates back (restitution)</text>
+    <text x="100" y="135" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">to align with shoulders.</text>
+  </g>
+
+  <!-- ==========================================
+       STAGE 7: EXPULSION
+       ========================================== -->
+  <g transform="translate(400, 670)">
+    <rect width="200" height="160" rx="15" fill="url(#cardGradient)" filter="url(#shadow)" />
+    <circle cx="100" cy="40" r="25" fill="#fff8e1" />
+    <text x="100" y="48" font-family="Arial" font-size="20" font-weight="bold" fill="#f9a825" text-anchor="middle">7</text>
+    <text x="100" y="90" font-family="Arial" font-size="18" font-weight="bold" fill="#343a40" text-anchor="middle">Expulsion</text>
+    <text x="100" y="115" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">Anterior shoulder delivers,</text>
+    <text x="100" y="135" font-family="Arial" font-size="12" fill="#6c757d" text-anchor="middle">followed by the rest of body.</text>
+  </g>
+
+</svg>

@@ -1,0 +1,116 @@
+# SVG Description: Mechanism of Labor
+
+Here's an SVG illustration depicting the cardinal movements of labor (the mechanism of labor):
+
+```svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#fef5f5"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="#8b2c5e">Mechanism of Labor: Cardinal Movements</text>
+  <text x="400" y="55" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#555">Sequential fetal movements during vaginal delivery</text>
+  
+  <!-- Stage 1: Engagement -->
+  <g transform="translate(100, 150)">
+    <ellipse cx="0" cy="40" rx="55" ry="70" fill="none" stroke="#c97b9b" stroke-width="2"/>
+    <circle cx="0" cy="20" r="22" fill="#ffd9c4" stroke="#8b4513" stroke-width="2"/>
+    <text x="0" y="140" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#8b2c5e">1. Engagement</text>
+    <text x="0" y="158" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">Head enters pelvic inlet</text>
+    <text x="0" y="172" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">(biparietal diameter)</text>
+  </g>
+  
+  <!-- Stage 2: Descent -->
+  <g transform="translate(260, 150)">
+    <ellipse cx="0" cy="40" rx="55" ry="70" fill="none" stroke="#c97b9b" stroke-width="2"/>
+    <circle cx="0" cy="40" r="22" fill="#ffd9c4" stroke="#8b4513" stroke-width="2"/>
+    <path d="M -15 5 L -15 -5 M 15 5 L 15 -5" stroke="#8b2c5e" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="0" y="140" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#8b2c5e">2. Descent</text>
+    <text x="0" y="158" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">Downward passage</text>
+    <text x="0" y="172" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">through pelvis</text>
+  </g>
+  
+  <!-- Stage 3: Flexion -->
+  <g transform="translate(420, 150)">
+    <ellipse cx="0" cy="40" rx="55" ry="70" fill="none" stroke="#c97b9b" stroke-width="2"/>
+    <circle cx="0" cy="50" r="22" fill="#ffd9c4" stroke="#8b4513" stroke-width="2"/>
+    <path d="M -10 35 Q 0 25 10 35" stroke="#8b2c5e" stroke-width="2" fill="none"/>
+    <text x="0" y="140" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#8b2c5e">3. Flexion</text>
+    <text x="0" y="158" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">Chin to chest</text>
+    <text x="0" y="172" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">(smallest diameter)</text>
+  </g>
+  
+  <!-- Stage 4: Internal Rotation -->
+  <g transform="translate(580, 150)">
+    <ellipse cx="0" cy="40" rx="55" ry="70" fill="none" stroke="#c97b9b" stroke-width="2"/>
+    <ellipse cx="0" cy="60" rx="22" ry="18" fill="#ffd9c4" stroke="#8b4513" stroke-width="2"/>
+    <path d="M -25 60 A 25 25 0 0 1 25 60" stroke="#8b2c5e" stroke-width="2" fill="none" stroke-dasharray="3,2"/>
+    <text x="0" y="140" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#8b2c5e">4. Internal Rotation</text>
+    <text x="0" y="158" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">Occiput rotates anteriorly</text>
+    <text x="0" y="172" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">(OT to OA position)</text>
+  </g>
+  
+  <!-- Stage 5: Extension -->
+  <g transform="translate(180, 380)">
+    <ellipse cx="0" cy="40" rx="55" ry="70" fill="none" stroke="#c97b9b" stroke-width="2"/>
+    <circle cx="0" cy="90" r="22" fill="#ffd9c4" stroke="#8b4513" stroke-width="2"/>
+    <path d="M 0 90 L 15 105" stroke="#8b2c5e" stroke-width="2"/>
+    <text x="0" y="155" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#8b2c5e">5. Extension</text>
+    <text x="0" y="173" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">Head emerges under</text>
+    <text x="0" y="187" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">symphysis pubis</text>
+  </g>
+  
+  <!-- Stage 6: External Rotation (Restitution) -->
+  <g transform="translate(400, 380)">
+    <ellipse cx="0" cy="40" rx="55" ry="70" fill="none" stroke="#c97b9b" stroke-width="2"/>
+    <ellipse cx="0" cy="115" rx="18" ry="22" fill="#ffd9c4" stroke="#8b4513" stroke-width="2"/>
+    <path d="M -20 115 A 20 20 0 0 0 20 115" stroke="#8b2c5e" stroke-width="2" fill="none" stroke-dasharray="3,2"/>
+    <text x="0" y="155" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#8b2c5e">6. External Rotation</text>
+    <text x="0" y="173" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">Restitution; shoulders</text>
+    <text x="0" y="187" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">align anteroposteriorly</text>
+  </g>
+  
+  <!-- Stage 7: Expulsion -->
+  <g transform="translate(620, 380)">
+    <ellipse cx="0" cy="40" rx="55" ry="70" fill="none" stroke="#c97b9b" stroke-width="2"/>
+    <circle cx="0" cy="130" r="20" fill="#ffd9c4" stroke="#8b4513" stroke-width="2"/>
+    <ellipse cx="0" cy="155" rx="25" ry="15" fill="#ffd9c4" stroke="#8b4513" stroke-width="2"/>
+    <text x="0" y="195" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#8b2c5e">7. Expulsion</text>
+    <text x="0" y="213" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">Anterior shoulder, then</text>
+    <text x="0" y="227" font-family="Arial" font-size="10" text-anchor="middle" fill="#555">body delivered</text>
+  </g>
+  
+  <!-- Arrows between stages -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#8b2c5e"/>
+    </marker>
+  </defs>
+  
+  <path d="M 165 190 L 195 190" stroke="#8b2c5e" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 325 190 L 355 190" stroke="#8b2c5e" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 485 190 L 515 190" stroke="#8b2c5e" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 245 420 L 275 420" stroke="#8b2c5e" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 465 420 L 495 420" stroke="#8b2c5e" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Legend -->
+  <rect x="50" y="555" width="700" height="35" fill="#fff" stroke="#c97b9b" stroke-width="1" rx="5"/>
+  <text x="400" y="578" font-family="Arial" font-size="11" text-anchor="middle" fill="#555">
+    Pink ovals = maternal pelvis | Tan circles = fetal head | Arrows = direction of movement/rotation
+  </text>
+</svg>
+```
+
+## Description of the Visualization:
+
+The SVG illustrates the **7 cardinal movements of labor** in sequence:
+
+1. **Engagement** – Fetal head's biparietal diameter passes through the pelvic inlet
+2. **Descent** – Continuous downward movement (shown with arrows)
+3. **Flexion** – Fetal chin tucks to chest, presenting smallest diameter (suboccipitobregmatic)
+4. **Internal Rotation** – Occiput rotates from transverse to anterior position
+5. **Extension** – Head extends as it emerges beneath the pubic symphysis
+6. **External Rotation (Restitution)** – Head realigns with shoulders
+7. **Expulsion** – Anterior shoulder delivers first, followed by the rest of the body
+
+Each stage is depicted with a pink oval representing the maternal pelvis and a tan circle/ellipse representing the fetal head in its respective orientation, connected by directional arrows showing the progression.

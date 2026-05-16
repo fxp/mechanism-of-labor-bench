@@ -1,0 +1,277 @@
+```xml
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 850" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0B132B"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <!-- Fetus Gradient -->
+    <linearGradient id="fetalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7DD3FC"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    
+    <!-- Fetus Skin/Base Gradient for Expulsion -->
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#BAE6FD"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+
+    <!-- Glowing Shadow for Cards -->
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+
+    <!-- Arrow Marker for Force/Movement -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="5" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8, 2 4" fill="#FBBF24" />
+    </marker>
+
+    <!-- Maternal Pelvic Anatomy (Sagittal View) -->
+    <g id="pelvic-anatomy">
+      <!-- Uterus / Birth Canal dashed path guide -->
+      <path d="M -15,-60 L -15,-30 C -15,30 -25,70 -85,110" fill="none" stroke="#475569" stroke-width="3" stroke-dasharray="6,4" opacity="0.6"/>
+      
+      <!-- Pubic Symphysis (Anterior) -->
+      <g stroke="#BE185D" stroke-width="2" fill="#F472B6" opacity="0.85">
+        <path d="M-55,-10 C-40,-15 -35,5 -35,20 C-35,35 -40,40 -50,40 C-60,40 -65,30 -65,15 Z" />
+      </g>
+      
+      <!-- Sacrum & Coccyx (Posterior) -->
+      <g stroke="#BE185D" stroke-width="2" fill="#F472B6" opacity="0.85">
+        <path d="M 30,-50 C 45,-30 55,0 45,40 C 40,60 30,75 20,85 C 10,95 20,70 30,50 C 35,30 30,0 20,-30 Z" />
+      </g>
+    </g>
+
+    <!-- Fetal Head: Front View (Transverse entering) -->
+    <g id="fetus-head-front">
+      <ellipse cx="0" cy="0" rx="27" ry="37" fill="url(#fetalGrad)"/>
+      <!-- Closed Eyes -->
+      <path d="M -13,-4 Q -9,1 -5,-4" fill="none" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+      <path d="M 13,-4 Q 9,1 5,-4" fill="none" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+      <!-- Nose -->
+      <path d="M -2,4 Q 0,8 2,4" fill="none" stroke="#0F172A" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Mouth -->
+      <path d="M -4,14 Q 0,16 4,14" fill="none" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+      <!-- Suture lines / Anterior Fontanelle at top edge -->
+      <path d="M 0,-37 L 0,-25" fill="none" stroke="#E0F2FE" stroke-width="1.5" opacity="0.7"/>
+      <polygon points="0,-18 -5,-25 0,-32 5,-25" fill="#BAE6FD" opacity="0.8"/>
+    </g>
+
+    <!-- Fetal Head: Front View (Flexed - features move down, skull top presents) -->
+    <g id="fetus-head-front-flexed">
+      <ellipse cx="0" cy="0" rx="27" ry="37" fill="url(#fetalGrad)"/>
+      <!-- Shifted Features -->
+      <path d="M -13,7 Q -9,12 -5,7" fill="none" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+      <path d="M 13,7 Q 9,12 5,7" fill="none" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+      <path d="M -2,15 Q 0,19 2,15" fill="none" stroke="#0F172A" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M -4,23 Q 0,25 4,23" fill="none" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+      <!-- Anterior Fontanelle presents deeper -->
+      <path d="M 0,-37 L 0,-15" fill="none" stroke="#E0F2FE" stroke-width="1.5" opacity="0.7"/>
+      <polygon points="0,-8 -7,-18 0,-28 7,-18" fill="#BAE6FD" opacity="0.8"/>
+      <!-- Posterior Fontanelle begins to show at top -->
+      <polygon points="0,-37 -3,-33 0,-29 3,-33" fill="#BAE6FD" opacity="0.8"/> 
+    </g>
+
+    <!-- Fetal Head: Side View (Occiput Anterior - Profile) -->
+    <g id="fetus-head-side">
+      <!-- Base Cranium -->
+      <ellipse cx="-4" cy="-5" rx="27" ry="36" fill="url(#fetalGrad)"/>
+      <!-- Occiput (Back of Head) -->
+      <path d="M -15,-29 C -35,-25 -42,5 -30,20 C -20,28 0,31 5,20 Z" fill="url(#fetalGrad)"/>
+      <!-- Snout/Face extending outward -->
+      <path d="M 5,-33 C 25,-33 40,-15 40,5 C 40,15 33,28 20,31 C 5,34 -20,31 -22,15 Z" fill="url(#fetalGrad)"/>
+      
+      <!-- Eyelash / Closed Eye -->
+      <path d="M 18,-2 Q 22,0 26,-2" fill="none" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+      <!-- Nose -->
+      <path d="M 37,3 Q 41,6 38,10" fill="none" stroke="#0F172A" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Mouth -->
+      <path d="M 31,19 Q 34,21 31,23" fill="none" stroke="#0F172A" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Ear -->
+      <path d="M 0,5 C -2,10 4,12 5,7" fill="none" stroke="#0369A1" stroke-width="1.5" stroke-linecap="round"/>
+    </g>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <!-- Global Header -->
+  <text x="600" y="55" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="900" font-size="38" fill="#F8FAFC" letter-spacing="3">MECHANISM OF LABOR</text>
+  <text x="600" y="85" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="600" font-size="18" fill="#38BDF8" letter-spacing="5">THE 7 CARDINAL MOVEMENTS</text>
+
+  <!-- ROW 1 CARDS -->
+  
+  <!-- 1. ENGAGEMENT -->
+  <g transform="translate(60, 130)">
+    <rect width="250" height="280" rx="12" fill="#1E293B" stroke="#334155" stroke-width="2" filter="url(#glow)"/>
+    <rect width="250" height="50" rx="12" fill="#0F172A" opacity="0.6"/>
+    <text x="125" y="32" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="800" font-size="16" fill="#38BDF8">1. ENGAGEMENT</text>
+    
+    <g transform="translate(125, 140)">
+      <use href="#pelvic-anatomy"/>
+      <!-- Fetus Head Entering -->
+      <use href="#fetus-head-front" x="0" y="-30"/>
+      <!-- Action Arrow -->
+      <path d="M 35,-40 L 35,-10" fill="none" stroke="#FBBF24" stroke-width="3" marker-end="url(#arrowhead)" stroke-linecap="round"/>
+    </g>
+    
+    <text x="125" y="240" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">Fetal head enters the</text>
+    <text x="125" y="260" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">pelvic inlet (usually transverse).</text>
+  </g>
+
+  <!-- Connector 1->2 -->
+  <polyline points="318,260 326,270 318,280" fill="none" stroke="#475569" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 2. DESCENT -->
+  <g transform="translate(330, 130)">
+    <rect width="250" height="280" rx="12" fill="#1E293B" stroke="#334155" stroke-width="2" filter="url(#glow)"/>
+    <rect width="250" height="50" rx="12" fill="#0F172A" opacity="0.6"/>
+    <text x="125" y="32" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="800" font-size="16" fill="#38BDF8">2. DESCENT</text>
+    
+    <g transform="translate(125, 140)">
+      <use href="#pelvic-anatomy"/>
+      <!-- Fetus Head Descends -->
+      <use href="#fetus-head-front" x="0" y="0"/>
+      <!-- Action Arrow -->
+      <path d="M -30,-20 L -30,10" fill="none" stroke="#FBBF24" stroke-width="3" marker-end="url(#arrowhead)" stroke-linecap="round"/>
+    </g>
+    
+    <text x="125" y="240" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">Continuous downward movement</text>
+    <text x="125" y="260" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">through the pelvic canal.</text>
+  </g>
+
+  <!-- Connector 2->3 -->
+  <polyline points="588,260 596,270 588,280" fill="none" stroke="#475569" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 3. FLEXION -->
+  <g transform="translate(600, 130)">
+    <rect width="250" height="280" rx="12" fill="#1E293B" stroke="#334155" stroke-width="2" filter="url(#glow)"/>
+    <rect width="250" height="50" rx="12" fill="#0F172A" opacity="0.6"/>
+    <text x="125" y="32" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="800" font-size="16" fill="#38BDF8">3. FLEXION</text>
+    
+    <g transform="translate(125, 140)">
+      <use href="#pelvic-anatomy"/>
+      <!-- Fetus Head Flexed (Chin tucked) -->
+      <use href="#fetus-head-front-flexed" x="0" y="10"/>
+      <!-- Rotational Arrow over head -->
+      <path d="M -22,-18 A 25 25 0 0 0 22,-18" fill="none" stroke="#FBBF24" stroke-width="3" marker-end="url(#arrowhead)"/>
+    </g>
+    
+    <text x="125" y="240" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">Head meets resistance, chin</text>
+    <text x="125" y="260" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">tucks to present smaller diameter.</text>
+  </g>
+
+  <!-- Connector 3->4 -->
+  <polyline points="858,260 866,270 858,280" fill="none" stroke="#475569" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 4. INTERNAL ROTATION -->
+  <g transform="translate(870, 130)">
+    <rect width="250" height="280" rx="12" fill="#1E293B" stroke="#334155" stroke-width="2" filter="url(#glow)"/>
+    <rect width="250" height="50" rx="12" fill="#0F172A" opacity="0.6"/>
+    <text x="125" y="32" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="800" font-size="16" fill="#38BDF8">4. INTERNAL ROTATION</text>
+    
+    <g transform="translate(125, 140)">
+      <use href="#pelvic-anatomy"/>
+      <!-- Fetus Head rotates to Side Profile (Occiput Anterior), angled for flexion -->
+      <use href="#fetus-head-side" transform="translate(-10, 15) rotate(20)"/>
+      <!-- 3D Wrap Arrow -->
+      <path d="M 30, 25 Q 15, 60 -30, 20" fill="none" stroke="#FBBF24" stroke-width="3" marker-end="url(#arrowhead)" stroke-dasharray="6,3" stroke-linecap="round"/>
+    </g>
+    
+    <text x="125" y="240" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">Occiput rotates 45-90° to</text>
+    <text x="125" y="260" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">face the anterior pubic symphysis.</text>
+  </g>
+
+
+  <!-- ROW 2 CARDS (Centered for elegance) -->
+
+  <!-- 5. EXTENSION -->
+  <g transform="translate(205, 470)">
+    <rect width="250" height="280" rx="12" fill="#1E293B" stroke="#334155" stroke-width="2" filter="url(#glow)"/>
+    <rect width="250" height="50" rx="12" fill="#0F172A" opacity="0.6"/>
+    <text x="125" y="32" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="800" font-size="16" fill="#38BDF8">5. EXTENSION</text>
+    
+    <g transform="translate(125, 140)">
+      <use href="#pelvic-anatomy"/>
+      <!-- Fetus Head Extends (pivots under symphysis) -->
+      <use href="#fetus-head-side" transform="translate(-40, 50) rotate(-40)"/>
+      <!-- Sweeping Arrow under symphysis -->
+      <path d="M -15,40 C -30,75 -55,70 -80,35" fill="none" stroke="#FBBF24" stroke-width="4" marker-end="url(#arrowhead)" stroke-linecap="round"/>
+    </g>
+    
+    <text x="125" y="240" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">Head sweeps back, passing</text>
+    <text x="125" y="260" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">under symphysis to be born.</text>
+  </g>
+
+  <!-- Connector 5->6 -->
+  <polyline points="461,600 469,610 461,620" fill="none" stroke="#475569" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 6. EXTERNAL ROTATION -->
+  <g transform="translate(475, 470)">
+    <rect width="250" height="280" rx="12" fill="#1E293B" stroke="#334155" stroke-width="2" filter="url(#glow)"/>
+    <rect width="250" height="50" rx="12" fill="#0F172A" opacity="0.6"/>
+    <text x="125" y="32" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="800" font-size="16" fill="#38BDF8">6. EXTERNAL ROTATION</text>
+    
+    <g transform="translate(125, 140)">
+      <use href="#pelvic-anatomy"/>
+      <!-- Fetus Head out, rotated to transverse alignment (face us/sideways) -->
+      <use href="#fetus-head-front" transform="translate(-75, 60) rotate(-65)"/>
+      <!-- Restitution Arrow -->
+      <path d="M -45,15 C -40,30 -40,50 -55,80" fill="none" stroke="#FBBF24" stroke-width="3" marker-end="url(#arrowhead)"/>
+    </g>
+    
+    <text x="125" y="240" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">Head turns externally to</text>
+    <text x="125" y="260" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">realign with maternal pelvis &amp; fetus spine.</text>
+  </g>
+
+  <!-- Connector 6->7 -->
+  <polyline points="731,600 739,610 731,620" fill="none" stroke="#475569" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 7. EXPULSION -->
+  <g transform="translate(745, 470)">
+    <rect width="250" height="280" rx="12" fill="#1E293B" stroke="#334155" stroke-width="2" filter="url(#glow)"/>
+    <rect width="250" height="50" rx="12" fill="#0F172A" opacity="0.6"/>
+    <text x="125" y="32" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="800" font-size="16" fill="#38BDF8">7. EXPULSION</text>
+    
+    <g transform="translate(125, 140)">
+      <use href="#pelvic-anatomy"/>
+      <!-- Fetus Body -->
+      <ellipse cx="-55" cy="50" rx="35" ry="50" fill="url(#bodyGrad)" transform="rotate(-65, -55, 50)"/>
+      <!-- Arm -->
+      <path d="M -50,32 C -35,22 -25,35 -38,48" fill="none" stroke="#0284C7" stroke-width="5" stroke-linecap="round"/>
+      <!-- Fetus Head -->
+      <use href="#fetus-head-side" transform="translate(-105, 75) rotate(-60)"/>
+      <!-- Slide Arrow -->
+      <path d="M -35,35 L -85, 80" fill="none" stroke="#FBBF24" stroke-width="4" marker-end="url(#arrowhead)" stroke-linecap="round"/>
+    </g>
+    
+    <text x="125" y="240" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">Anterior shoulder delivers,</text>
+    <text x="125" y="260" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="500" font-size="13" fill="#CBD5E1">followed swiftly by whole body.</text>
+  </g>
+
+  <!-- LEGEND (Bottom Left void fill) -->
+  <g transform="translate(25, 490)">
+    <rect width="160" height="150" rx="10" fill="#0F172A" stroke="#334155" stroke-width="1.5" opacity="0.8"/>
+    <text x="80" y="30" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="800" font-size="14" fill="#64748B">ANATOMY KEY</text>
+    <line x1="20" y1="40" x2="140" y2="40" stroke="#334155" stroke-width="1"/>
+    
+    <!-- Pelvis Item -->
+    <rect x="25" y="55" width="16" height="16" rx="4" fill="#F472B6"/>
+    <text x="55" y="68" font-family="Segoe UI, Roboto, sans-serif" font-size="12" fill="#94A3B8">Maternal Pelvis</text>
+    
+    <!-- Fetus Item -->
+    <rect x="25" y="85" width="16" height="16" rx="4" fill="#38BDF8"/>
+    <text x="55" y="98" font-family="Segoe UI, Roboto, sans-serif" font-size="12" fill="#94A3B8">Fetal Head</text>
+    
+    <!-- Direction Item -->
+    <line x1="25" y1="123" x2="41" y2="123" stroke="#FBBF24" stroke-width="3" marker-end="url(#arrowhead)"/>
+    <text x="55" y="127" font-family="Segoe UI, Roboto, sans-serif" font-size="12" fill="#94A3B8">Force / Movement</text>
+  </g>
+
+  <!-- Footer text -->
+  <text x="600" y="810" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="400" font-size="12" fill="#475569">Anatomical schematic depicting the progressive adaptation &amp; rotation of the fetus through the maternal pelvis (sagittal view).</text>
+</svg>
+```

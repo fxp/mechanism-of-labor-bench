@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLM 能画出胎儿分娩机转吗？— SVG Benchmark 报告</title>
+<style>
+/* ─── TOKENS ─────────────────────────────────────── */
+:root{
+  --bg:#0b0a09;
+  --s1:#161412;
+  --s2:#1e1b18;
+  --b0:#2a2622;
+  --b1:#3a3632;
+  --tx:#e8e5e1;
+  --mu:#9e9690;
+  --fa:#5a5652;
+  --red:#dc2626;
+  --chat:#f97316;
+  --api:#06b6d4;
+  --ok:#4ade80;
+  --warn:#fbbf24;
+  --bad:#f87171;
+  --r:8px;
+  --serif:Georgia,"Times New Roman","宋体",serif;
+  --sans:-apple-system,"Helvetica Neue","微软雅黑",sans-serif;
+  --mono:"SF Mono","Fira Code","Courier New",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--tx);line-height:1.85;font-size:16px;-webkit-font-smoothing:antialiased}
+
+/* ─── PROGRESS ───────────────────────────────────── */
+#pgbar{position:fixed;top:0;left:0;height:2px;background:var(--red);width:0;z-index:999;pointer-events:none;transition:width .08s linear}
+
+/* ─── LAYOUT ─────────────────────────────────────── */
+.wrap{max-width:780px;margin:0 auto;padding:0 24px}
+.wrap-lg{max-width:1040px;margin:0 auto;padding:0 24px}
+
+/* ─── HERO ───────────────────────────────────────── */
+.hero{
+  min-height:92vh;
+  display:flex;align-items:flex-end;
+  padding:0 24px 72px;
+  background:
+    radial-gradient(ellipse 90% 70% at 10% 60%,rgba(220,38,38,.14) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 80% at 90% 20%,rgba(6,182,212,.09) 0%,transparent 50%),
+    var(--bg);
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:'';
+  position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1;max-width:820px}
+.hero-eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--red);
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:28px;
+}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--red)}
+.hero h1{
+  font-family:var(--serif);
+  font-size:clamp(40px,7vw,80px);
+  font-weight:400;line-height:1.15;
+  color:#fff;margin-bottom:22px;
+  letter-spacing:-.02em;
+}
+.hero-desc{font-size:18px;color:var(--mu);max-width:520px;line-height:1.65;margin-bottom:44px}
+.hero-pills{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--fa);border-top:1px solid var(--b0);padding-top:20px}
+.hero-pill{display:flex;align-items:center;gap:7px}
+.hero-pill-dot{width:5px;height:5px;border-radius:50%}
+.big-stats{
+  position:absolute;right:32px;bottom:72px;
+  display:flex;flex-direction:column;gap:24px;text-align:right;
+}
+.big-stat{line-height:1}
+.big-stat .n{
+  font-family:var(--serif);
+  font-size:64px;color:rgba(255,255,255,.07);display:block;
+}
+.big-stat .l{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--fa)}
+
+/* ─── SECTIONS ───────────────────────────────────── */
+.section{padding:72px 0;border-top:1px solid var(--b0)}
+.section:first-of-type{border-top:none}
+.sec-num{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--fa);margin-bottom:8px;font-family:var(--mono)}
+.sec-h{font-family:var(--serif);font-size:clamp(26px,4vw,40px);font-weight:400;color:#fff;margin-bottom:32px;line-height:1.25}
+
+/* ─── VIDEO ──────────────────────────────────────── */
+.vid-section{background:#000;padding:56px 24px;border-top:none}
+.vid-kicker{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--fa);margin-bottom:12px}
+.vid-title{font-family:var(--serif);font-size:22px;color:#fff;margin-bottom:6px;font-weight:400}
+.vid-sub{font-size:13px;color:var(--mu);margin-bottom:24px}
+.vid-frame{position:relative;padding-bottom:56.25%;height:0;border-radius:10px;overflow:hidden;border:1px solid var(--s2)}
+.vid-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.vid-cap{margin-top:14px;font-size:13px;color:var(--fa);font-style:italic}
+
+/* ─── PROSE ──────────────────────────────────────── */
+.prose p{margin-bottom:1.25em;color:#cac6c0}
+.prose p:last-child{margin-bottom:0}
+.prose strong{color:var(--tx)}
+blockquote{
+  border-left:2px solid var(--red);
+  padding:2px 20px;margin:32px 0;
+  color:var(--mu);font-style:italic;line-height:1.75;
+}
+blockquote small{display:block;margin-top:10px;font-size:12px;font-style:normal;color:var(--fa)}
+
+/* ─── PROMPT BOX ─────────────────────────────────── */
+.prompt-box{
+  background:var(--s2);
+  border:1px solid var(--b0);
+  border-radius:var(--r);
+  padding:20px 24px;margin:32px 0;
+  font-family:var(--mono);font-size:15px;color:var(--api);
+  position:relative;
+}
+.prompt-box::before{
+  content:'PROMPT';
+  position:absolute;top:-9px;left:16px;
+  background:var(--s2);padding:0 8px;
+  font-size:9px;letter-spacing:.12em;color:var(--fa);font-family:var(--sans);font-weight:600;
+}
+
+/* ─── DIM TABLE ──────────────────────────────────── */
+.dtable{width:100%;border-collapse:collapse;font-size:14px;margin:24px 0}
+.dtable th{
+  text-align:left;padding:8px 12px;
+  font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--fa);border-bottom:1px solid var(--b0);font-weight:600;font-family:var(--sans);
+}
+.dtable td{padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:#c0bcb6;vertical-align:top}
+.dtable td:first-child{font-family:var(--mono);font-size:12px;color:var(--api);width:46px}
+.dtable tr:last-child td{border-bottom:none}
+
+/* ─── LEADERBOARD ────────────────────────────────── */
+.lb{background:var(--s1);border-radius:12px;overflow:hidden;border:1px solid var(--b0)}
+.lb-row{
+  display:grid;
+  grid-template-columns:36px 1fr 90px 90px 140px;
+  align-items:center;
+  padding:0 18px;min-height:60px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  gap:0;
+}
+.lb-row:last-child{border-bottom:none}
+.lb-head{background:var(--s2);min-height:38px;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--fa);font-weight:600}
+.lb-rk{font-family:var(--serif);font-size:13px;color:var(--fa);text-align:center}
+.lb-rk.g{color:#f59e0b}.lb-rk.s{color:#94a3b8}.lb-rk.b{color:#b45309}
+.lb-nm{font-size:15px;font-weight:500;line-height:1.3}
+.lb-nm small{display:block;font-size:11px;color:var(--fa);font-weight:400;margin-top:3px}
+.lb-sc{font-family:var(--mono);font-size:13px;font-weight:700;text-align:center}
+.lb-bars{display:flex;flex-direction:column;gap:5px}
+.lb-bar-row{display:flex;align-items:center}
+.lb-bar-track{flex:1;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.lb-bar-fill{height:100%;border-radius:2px;width:0;transition:width 1.1s cubic-bezier(.19,1,.22,1)}
+.lb-bar-fill.ch{background:var(--chat)}
+.lb-bar-fill.ap{background:var(--api)}
+
+/* ─── MODEL CARD ─────────────────────────────────── */
+.model-block{padding:64px 0;border-top:1px solid var(--b0)}
+.model-head{display:flex;align-items:flex-start;gap:18px;margin-bottom:8px}
+.model-num{font-family:var(--serif);font-size:52px;color:rgba(255,255,255,.07);line-height:1;flex-shrink:0;width:64px;margin-top:-4px}
+.model-name{font-family:var(--serif);font-size:clamp(22px,3.5vw,30px);font-weight:400;color:#fff;margin-bottom:4px}
+.model-by{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--fa)}
+.model-quote{
+  font-family:var(--serif);font-style:italic;
+  font-size:16px;color:var(--mu);
+  border-left:2px solid var(--b1);
+  padding:2px 18px;margin:20px 0 24px;
+  line-height:1.7;
+}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.pill{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 12px;border-radius:100px;
+  font-size:12px;font-weight:700;font-family:var(--mono);
+}
+.pill-ch{background:rgba(249,115,22,.12);color:var(--chat);border:1px solid rgba(249,115,22,.25)}
+.pill-ap{background:rgba(6,182,212,.12);color:var(--api);border:1px solid rgba(6,182,212,.25)}
+.pill-bad{background:rgba(239,68,68,.1);color:var(--bad);border:1px solid rgba(239,68,68,.2)}
+.pill-warn{background:rgba(251,191,36,.1);color:var(--warn);border:1px solid rgba(251,191,36,.2)}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+
+/* ─── IMAGE PAIR ─────────────────────────────────── */
+.img2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.img2-col label{
+  display:block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:8px;
+}
+.img2-col label.ch{color:var(--chat)}.img2-col label.ap{color:var(--api)}.img2-col label.bad{color:var(--bad)}
+.img2-col img{
+  width:100%;border-radius:6px;border:1px solid var(--b0);display:block;
+  cursor:zoom-in;transition:border-color .2s;
+}
+.img2-col img:hover{border-color:var(--b1)}
+
+.model-prose{font-size:15px;color:#b8b2ab;line-height:1.88}
+.model-prose p{margin-bottom:1em}
+
+/* ─── CALLOUT ────────────────────────────────────── */
+.callout{
+  background:rgba(220,38,38,.07);
+  border:1px solid rgba(220,38,38,.2);
+  border-radius:var(--r);
+  padding:16px 20px;margin:24px 0;
+  font-size:14px;color:var(--mu);line-height:1.7;
+}
+.callout strong{color:#fca5a5}
+.callout code{font-family:var(--mono);font-size:.9em;background:rgba(0,0,0,.3);padding:1px 5px;border-radius:3px;color:var(--api)}
+
+/* ─── FINDINGS ───────────────────────────────────── */
+.finds{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1px;background:var(--b0);
+  border-radius:12px;overflow:hidden;border:1px solid var(--b0);
+  margin-top:36px;
+}
+.find{background:var(--s1);padding:28px 26px}
+.find-acc{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;margin-bottom:12px;display:block}
+.find h3{font-size:15px;font-weight:600;margin-bottom:9px;color:#fff;line-height:1.4}
+.find p{font-size:14px;color:var(--mu);line-height:1.72;margin:0}
+.find.wide{grid-column:1/-1}
+
+/* ─── INLINE NOTE / CODE ─────────────────────────── */
+code{font-family:var(--mono);font-size:.88em;background:var(--s2);padding:2px 6px;border-radius:4px;color:var(--api)}
+.note{font-size:13px;color:var(--fa);font-style:italic;margin-top:12px}
+.tag{display:inline-block;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:600;font-family:var(--mono)}
+.tag-fix{background:rgba(74,222,128,.12);color:#86efac}
+.tag-fail{background:rgba(239,68,68,.14);color:#fca5a5}
+
+/* ─── LIGHTBOX ───────────────────────────────────── */
+#lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out}
+#lb.open{display:flex}
+#lb img{max-width:90vw;max-height:90vh;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.7)}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{padding:44px 0;text-align:center;font-size:13px;color:var(--fa);border-top:1px solid var(--b0)}
+footer a{color:var(--api);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+/* ─── SCROLL REVEAL ──────────────────────────────── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.revealed{opacity:1;transform:none}
+
+/* ─── HIGHLIGHT & CALLOUT ────────────────────────── */
+.hl{background:rgba(249,115,22,.18);color:#fb923c;padding:1px 5px;border-radius:3px;font-weight:600;font-style:normal}
+.hl-b{background:rgba(6,182,212,.15);color:var(--api);padding:1px 5px;border-radius:3px;font-weight:600;font-style:normal}
+.callout{
+  background:var(--s1);border:1px solid var(--b0);
+  border-left:3px solid var(--red);
+  border-radius:0 var(--r) var(--r) 0;
+  padding:22px 24px;margin:32px 0;
+  font-size:15px;line-height:1.8;color:var(--mu);
+}
+.callout .ct{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:8px;font-family:var(--mono);display:block}
+.callout strong{color:var(--tx)}
+.callout-green{border-left-color:var(--ok)}
+.callout-green .ct{color:var(--ok)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:640px){
+  .big-stats{display:none}
+  .hero{min-height:auto;padding:72px 24px 48px;align-items:flex-start}
+  .lb-row{grid-template-columns:28px 1fr 72px 72px;gap:0}
+  .lb-bars{display:none}
+  .img2{grid-template-columns:1fr}
+  .finds{grid-template-columns:1fr}
+  .find.wide{grid-column:auto}
+
+  /* Dimension table → card layout */
+  .dtable thead{display:none}
+  .dtable,.dtable tbody,.dtable tr{display:block}
+  .dtable tr{padding:13px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+  .dtable tr:last-child{border-bottom:none}
+  .dtable td{display:block;border:none;padding:1px 0}
+  .dtable td:first-child{display:inline;width:auto;font-size:11px;padding:0;margin-right:6px}
+  .dtable td:nth-child(2){display:inline;font-weight:600;color:var(--tx);font-size:14px}
+  .dtable td:nth-child(3){display:block;font-size:12.5px;color:var(--fa);line-height:1.65;margin-top:5px}
+}
+</style>
+</head>
+<body>
+
+<div id="pgbar"></div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">LLM Benchmark · SVG Generation · 2026-05-16</div>
+    <h1>LLM 能画出<br>胎儿分娩机转吗？</h1>
+    <p class="hero-desc">起因是我老婆生孩子那天。8 个顶级模型，一个不可能的医学绘图任务，五个让人意外的发现。</p>
+    <div class="hero-pills">
+      <div class="hero-pill"><span class="hero-pill-dot" style="background:var(--ok)"></span>👶 2026-05-12 凌晨 顺产</div>
+      <div class="hero-pill"><span class="hero-pill-dot" style="background:var(--chat)"></span>8 个模型</div>
+      <div class="hero-pill"><span class="hero-pill-dot" style="background:var(--api)"></span>16 张输出</div>
+      <div class="hero-pill"><span class="hero-pill-dot" style="background:var(--mu)"></span>GPT-5.5 评分 · 7 维度</div>
+    </div>
+  </div>
+  <div class="big-stats">
+    <div class="big-stat"><span class="n">35</span><span class="l">满分</span></div>
+    <div class="big-stat"><span class="n">1.9</span><span class="l">解剖精度均值</span></div>
+    <div class="big-stat"><span class="n">8pt</span><span class="l">最大Chat-API差</span></div>
+  </div>
+</div>
+
+<!-- ═══════════ VIDEO ═══════════ -->
+<div class="vid-section">
+  <div class="wrap" style="max-width:860px">
+    <div class="vid-kicker">参考动画 — 人类标准</div>
+    <div class="vid-title">Seven Cardinal Movements of Labor</div>
+    <div class="vid-sub">Cal Shipley, M.D. · YouTube · 2,100,000 次播放 · 9 分 56 秒 · 先看这个，再看 LLM 的尝试</div>
+    <div class="vid-frame">
+      <iframe src="https://www.youtube.com/embed/q1jmVN3ILpY"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+    <div class="vid-cap">这是互联网上对分娩机转解释最清晰的动画，也是本次 Benchmark 的「满分参考」。</div>
+  </div>
+</div>
+
+<!-- ═══════════ §01 起因 ═══════════ -->
+<div class="section">
+<div class="wrap prose reveal">
+  <div class="sec-num">§ 01</div>
+  <h2 class="sec-h">👶 这个 Benchmark 的起因</h2>
+
+  <p>周二，我老婆生了孩子。顺产。</p>
+
+  <p>原本的计划是：<hl-b style="display:inline;background:rgba(6,182,212,.12);color:var(--api);padding:1px 6px;border-radius:3px;font-weight:600">周一住院，周二剖宫产</hl-b>。结果周一晚上，不知道是不是小崽子自己听懂了计划，开始发动——宫缩越来越强烈，越来越规律。老婆在这种情况下做了一个决定：<strong>试试顺产</strong>。</p>
+
+  <div class="callout callout-green">
+    <span class="ct">🌙 周一下午</span>
+    在老婆还没开始发动的时候，我就已经开始查资料了。我想搞清楚一件事：<strong>一个孩子到底是怎么生出来的？为什么会让产妇这么痛苦？</strong>
+  </div>
+
+  <p>💡 查着查着，我发现这件事根本不是我以为的样子。分娩不是「用力推」就结束的。胎儿在通过产道的过程中，要经历七个<hl>精确的姿态调整</hl>：衔接、下降、俯屈、内旋转、仰伸、外旋转、娩出——像是在三维迷宫里走一道精密的出口线，每一步都有它的物理逻辑，而骨盆就是那个迷宫的形状。</p>
+
+  <p>这整个过程，<hl>从力学角度看更像一道机械工程题</hl>，而不是我脑子里模糊的「生孩子」画面。我有点震惊，然后有点着迷。</p>
+
+  <p>😤 我突然想把这个过程<strong>画出来</strong>。动画也好，示意图也好——让人能直观地看到胎头在骨盆里旋转的每一步。</p>
+
+  <p>然后我开始试。用 SVG 画——太难。改用 <hl>Three.js</hl> 做三维动画——还是不行。不是「代码难写」那种难，而是<hl>「你得先真正理解这个过程，才能告诉程序该怎么画」</hl>那种难。三维场景里摄像机摆在哪里，旋转时镜头跟不跟，内旋转这一步该从正上方看还是侧面——这些决策本身就是空间理解能力的测试。</p>
+
+  <p>🤖 于是我把这个任务交给了 LLM。</p>
+
+  <hr style="border:none;border-top:1px solid var(--b0);margin:36px 0">
+
+  <p><a href="https://simonwillison.net/tags/pelican-riding-a-bicycle/" target="_blank" style="color:var(--tx);text-decoration:underline;text-underline-offset:3px">Simon Willison</a> 每次遇到新模型，就让它画一只骑自行车的鹈鹕。这个测试的妙处在于三件事同时成立：LLM 本来不该能画图；SVG 是代码，所以它们可以尝试；而鹈鹕骑自行车根本不可能发生——不存在「标准答案」，你只能判断模型是在理解还是在瞎编。</p>
+
+  <blockquote>「这是一个不合理的困难测试……试着自己画一辆自行车，不看参考图。大多数人都会发现，他们很难记住车架的确切结构。鹈鹕也很难画，更重要的是——鹈鹕根本不能骑自行车，它们的体型完全不对！」<small>— Simon Willison，AI Engineer World's Fair 主题演讲，2025</small></blockquote>
+
+  <p>✨ <strong>胎儿分娩机转</strong>（Cardinal Movements of Labor）满足同样的三个条件——而且难度比鹈鹕高出不止一个量级。</p>
+
+  <p>LLM 不该能画医学插图。SVG 是代码，所以它们可以尝试。而<hl>「内旋转需要俯视图」这件事</hl>，几乎不存在于任何训练数据里——没有人专门为 LLM 画过 SVG 格式的分娩机转示意图，所以你无法靠记忆来回答。</p>
+
+  <p>最关键的是：「<hl>婴儿头朝下出来</hl>」是人人都知道的常识。但 LLM 生成的 SVG 里，这一点频繁出错——胎头方向不对，或者根本没画出方向。这不是知识盲区，这是<hl>「知道一个事实」和「能把它表达成图形」之间的断层</hl>。在评分标准里这是一个独立维度：<span class="tag" style="background:rgba(6,182,212,.12);color:var(--api)">C3 胎儿方向</span>。当一个模型连这种常识级别的空间关系都画不对，它在更复杂的步骤上的失败就完全不让人意外了。</p>
+</div>
+</div>
+
+<!-- ═══════════ §02 方法论 ═══════════ -->
+<div class="section">
+<div class="wrap reveal">
+  <div class="sec-num">§ 02</div>
+  <h2 class="sec-h">怎么测的</h2>
+  <div class="prose">
+    <p>Prompt 只有一句话：</p>
+  </div>
+  <div class="prompt-box">Generate SVG description of the process of "mechanism of labor"</div>
+  <div class="prose">
+    <p>每个模型测两个版本。<strong>Chat 版</strong>（<span style="color:var(--chat)">橙色</span>）：打开各家网页界面，直接提问，截图，将输出 SVG 代码用 macOS <code>qlmanage -t -s 1600</code> 渲染为 1600px PNG。<strong>API 版</strong>（<span style="color:var(--api)">青色</span>）：通过 OpenRouter 直调，统一上面这一句 Prompt，同样方法渲染。</p>
+    <p>评分由 GPT-5.5（多模态视觉分析）完成，对每张渲染 PNG 盲评 7 个维度：</p>
+  </div>
+  <table class="dtable">
+    <tr><th>代号</th><th>维度</th><th>评分说明</th></tr>
+    <tr><td>C1</td><td>步骤完整性</td><td>覆盖 7 个分娩机转步骤的比例：衔接→下降→俯屈→内旋转→仰伸→外旋转→娩出</td></tr>
+    <tr><td>C2</td><td>解剖结构准确性</td><td>骨盆、耻骨联合、骶骨、坐骨棘等可辨识程度；胎头解剖细节</td></tr>
+    <tr><td>C3</td><td>胎儿方向</td><td>是否明确呈现头先露（vertex）、头朝骨盆出口方向</td></tr>
+    <tr><td>C4</td><td>内旋转视觉呈现</td><td>内旋转步骤是否有清晰图形表达（旋转箭头、俯视图等）</td></tr>
+    <tr><td>C5</td><td>外旋转视觉呈现</td><td>外旋转/复位步骤是否有清晰图形表达</td></tr>
+    <tr><td>C6</td><td>运动方向标注</td><td>是否用箭头等方式指示各步骤运动方向</td></tr>
+    <tr><td>C7</td><td>整体视觉清晰度</td><td>布局、配色、标注是否易于理解</td></tr>
+  </table>
+  <p class="note">每项 1–5 分，满分 35 分。带 * 号表示因 GPT-5.5 输出被截断，仅按可用维度计算，括号内为对应满分。</p>
+  <p style="color:var(--mu);margin-top:20px;font-size:15px">被测模型 8 个：GLM 5.1 Thinking、Gemini 3 Pro、Claude 4.7 Opus、Kimi K2.6 Thinking、ChatGPT 5.5 Thinking、MiniMax MAX、Grok、Doubao。另有 Manus 1.6 MAX 参与测试但因输出形式不同未纳入评分。</p>
+</div>
+</div>
+
+<!-- ═══════════ §03 排行榜 ═══════════ -->
+<div class="section">
+<div class="wrap-lg reveal">
+  <div class="wrap" style="padding:0">
+    <div class="sec-num">§ 03</div>
+    <h2 class="sec-h">总分排行</h2>
+    <p style="color:var(--mu);font-size:15px;margin-bottom:28px"><span style="color:var(--chat)">■</span> 橙色为 Chat 版 &nbsp;·&nbsp; <span style="color:var(--api)">■</span> 青色为 API 版 &nbsp;·&nbsp; 分数条按各自满分（30 或 35）归一化</p>
+  </div>
+  <div class="lb">
+    <div class="lb-row lb-head">
+      <div></div><div>模型</div>
+      <div style="text-align:center">Chat</div>
+      <div style="text-align:center">API</div>
+      <div>分数对比</div>
+    </div>
+
+    <div class="lb-row">
+      <div class="lb-rk g">🥇</div>
+      <div class="lb-nm">GLM 5.1 Thinking<small>z-ai · 唯一含内旋转俯视图</small></div>
+      <div class="lb-sc" style="color:var(--chat)">24/30*</div>
+      <div class="lb-sc" style="color:var(--api)">21/30*</div>
+      <div class="lb-bars">
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="80"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="70"></div></div></div>
+      </div>
+    </div>
+
+    <div class="lb-row">
+      <div class="lb-rk s">🥈</div>
+      <div class="lb-nm">Gemini 3 Pro<small>Google · Chat-API 差距最大（8 分）</small></div>
+      <div class="lb-sc" style="color:var(--bad)">15/35</div>
+      <div class="lb-sc" style="color:var(--api)">23/35</div>
+      <div class="lb-bars">
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="43"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="66"></div></div></div>
+      </div>
+    </div>
+
+    <div class="lb-row">
+      <div class="lb-rk b">🥉</div>
+      <div class="lb-nm">Claude 4.7 Opus<small>Anthropic · Chat SVG 最大（40,993 字节）</small></div>
+      <div class="lb-sc" style="color:var(--chat)">18/35</div>
+      <div class="lb-sc" style="color:var(--api)">22/35</div>
+      <div class="lb-bars">
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="51"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="63"></div></div></div>
+      </div>
+    </div>
+
+    <div class="lb-row">
+      <div class="lb-rk">4</div>
+      <div class="lb-nm">Kimi K2.6 <span class="tag tag-fix">修复</span><small>Moonshot · 原始双版渲染失败</small></div>
+      <div class="lb-sc" style="color:var(--chat)">21/30*</div>
+      <div class="lb-sc" style="color:var(--warn)">16/35</div>
+      <div class="lb-bars">
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="70"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="46"></div></div></div>
+      </div>
+    </div>
+
+    <div class="lb-row">
+      <div class="lb-rk">5</div>
+      <div class="lb-nm">ChatGPT 5.5 Thinking<small>OpenAI · API 版 C5 外旋转全批次最高</small></div>
+      <div class="lb-sc" style="color:var(--bad)">11/25*</div>
+      <div class="lb-sc" style="color:var(--api)">21/35</div>
+      <div class="lb-bars">
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="44"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="60"></div></div></div>
+      </div>
+    </div>
+
+    <div class="lb-row">
+      <div class="lb-rk">6</div>
+      <div class="lb-nm">MiniMax MAX<small>MiniMax · Chat 优于 API 5 分</small></div>
+      <div class="lb-sc" style="color:var(--chat)">21/35</div>
+      <div class="lb-sc" style="color:var(--warn)">16/35</div>
+      <div class="lb-bars">
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="60"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="46"></div></div></div>
+      </div>
+    </div>
+
+    <div class="lb-row">
+      <div class="lb-rk">7</div>
+      <div class="lb-nm">Grok<small>xAI · 两版均右侧截断</small></div>
+      <div class="lb-sc" style="color:var(--bad)">16/35</div>
+      <div class="lb-sc" style="color:var(--bad)">15/35</div>
+      <div class="lb-bars">
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="46"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="43"></div></div></div>
+      </div>
+    </div>
+
+    <div class="lb-row">
+      <div class="lb-rk">8</div>
+      <div class="lb-nm">Doubao<small>字节跳动 · Chat XML 错误，API 胎儿是三角形</small></div>
+      <div class="lb-sc" style="color:var(--bad)">10/35</div>
+      <div class="lb-sc" style="color:var(--bad)">13/35</div>
+      <div class="lb-bars">
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="29"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="37"></div></div></div>
+      </div>
+    </div>
+
+    <div class="lb-row" style="background:rgba(239,68,68,.04)">
+      <div class="lb-rk" style="color:var(--bad)">—</div>
+      <div class="lb-nm">Kimi K2.6 <span class="tag tag-fail">原始</span><small>SVG 语法错误，两版均渲染失败</small></div>
+      <div class="lb-sc" style="color:var(--bad)">7/35</div>
+      <div class="lb-sc" style="color:var(--bad)">7/35</div>
+      <div class="lb-bars">
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="20"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="20"></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ §04 各模型 ═══════════ -->
+<div class="section">
+<div class="wrap">
+  <div class="sec-num">§ 04</div>
+  <h2 class="sec-h">🤖 每个模型的故事</h2>
+</div>
+</div>
+
+<!-- GLM -->
+<div class="model-block reveal">
+<div class="wrap">
+  <div class="model-head">
+    <div class="model-num">01</div>
+    <div><div class="model-name">GLM 5.1 Thinking</div><div class="model-by">z-ai</div></div>
+  </div>
+  <div class="model-quote">「✨ 它做了一件别人都没想到的事：换了个视角。」</div>
+  <div class="pills">
+    <span class="pill pill-ch"><span class="pill-dot"></span>Chat &nbsp;24/30*</span>
+    <span class="pill pill-ap"><span class="pill-dot"></span>API &nbsp;21/30*</span>
+  </div>
+  <div class="img2">
+    <div class="img2-col"><label class="ch">● Chat 版</label><img src="GLM%205.1%20Thining/chat.png" alt="GLM 5.1 Chat" onclick="lb(this.src)"></div>
+    <div class="img2-col"><label class="ap">● API 版</label><img src="GLM%205.1%20Thining/api.png" alt="GLM 5.1 API" onclick="lb(this.src)"></div>
+  </div>
+  <div class="model-prose">
+    <p>Chat 版和 API 版都在内旋转面板里加了俯视图——一个从骨盆开口向下看的视角，显示胎头从斜径转向前后径的过程。这是<hl>唯一正确处理内旋转的方法</hl>：内旋转本质上是水平面上的旋转，矢状位侧视图根本说不清楚。全批次 8 个模型，7 个沿用了侧视图的弧形箭头——GLM ✨ 换了个视角。</p>
+    <p>Chat 版 8 个面板，大量青绿色箭头，步骤覆盖最完整（<hl>C1=5</hl>），内旋转（<hl>C4=4</hl>）和外旋转（<hl>C5=4</hl>）均居全批次最高。解剖精度（<hl>C2=3</hl>）也是所有模型里最高的——骨盆画成 U 形弧线，标注了 Pelvic inlet/outlet/Pubis/Sacrum。这依然是抽象的，但至少在尝试。两版均因 GPT-5.5 输出被截断缺少 C7 评分。</p>
+  </div>
+</div>
+</div>
+
+<!-- Gemini -->
+<div class="model-block reveal">
+<div class="wrap">
+  <div class="model-head">
+    <div class="model-num">02</div>
+    <div><div class="model-name">Gemini 3 Pro</div><div class="model-by">Google</div></div>
+  </div>
+  <div class="model-quote">「🪞 同一个模型，两种人格。Chat 版出了一张精美的产品时间轴；API 版画了一张解剖图。差了整整 8 分。」</div>
+  <div class="pills">
+    <span class="pill pill-bad" style="background:rgba(239,68,68,.1);color:var(--bad);border-color:rgba(239,68,68,.2)"><span class="pill-dot" style="background:var(--bad)"></span>Chat &nbsp;15/35</span>
+    <span class="pill pill-ap"><span class="pill-dot"></span>API &nbsp;23/35 &nbsp;← 全批次最高</span>
+  </div>
+  <div class="img2">
+    <div class="img2-col"><label class="ch">● Chat 版 — 纯文字时间轴</label><img src="Gemini%203%20Pro/chat.png" alt="Gemini Chat" onclick="lb(this.src)"></div>
+    <div class="img2-col"><label class="ap">● API 版 — 图示版本</label><img src="Gemini%203%20Pro/api.png" alt="Gemini API" onclick="lb(this.src)"></div>
+  </div>
+  <div class="model-prose">
+    <p>这是全批次最戏剧性的分裂。Chat 版产出的是一张完美的产品型时间轴信息图：7 步命名完整、布局整洁、字体清晰——但没有任何解剖图形或胎头绘制（<hl>C2=1</hl>，<hl>C3=1</hl>，<hl>C4=1</hl>，<hl>C5=1</hl>）。它不是「不好的医学插图」，而是「<strong>根本不是医学插图</strong>」。</p>
+    <p>API 版则完全是另一件事：深色背景，蓝色胎头在粉色骨盆内移动，每步均有黄色箭头，<hl>C6=4</hl>（运动方向），是 API 版里最高的。不精确，但有图，有运动感，有方向。API 版以 <hl>23/35</hl> 拿到全批次最高分。</p>
+    <p>这说明相同的模型在不同界面下的「输出风格偏好」差异显著。Chat 界面可能有「产品化」的倾向——输出更像用户可以分享的卡片，而不是原始技术图形。<hl>Chat-API 差距 8 分</hl>，全批次最大。</p>
+  </div>
+</div>
+</div>
+
+<!-- Claude -->
+<div class="model-block reveal">
+<div class="wrap">
+  <div class="model-head">
+    <div class="model-num">03</div>
+    <div><div class="model-name">Claude 4.7 Opus</div><div class="model-by">Anthropic</div></div>
+  </div>
+  <div class="model-quote">「📦 40,993 字节——全批次最大的 SVG，和全批次最少的运动箭头（C6=1）。更多代码，更少信息。」</div>
+  <div class="pills">
+    <span class="pill pill-ch"><span class="pill-dot"></span>Chat &nbsp;18/35</span>
+    <span class="pill pill-ap"><span class="pill-dot"></span>API &nbsp;22/35</span>
+  </div>
+  <div class="img2">
+    <div class="img2-col"><label class="ch">● Chat 版（40KB SVG）</label><img src="Claude%204.7%20Opus/chat.png" alt="Claude Chat" onclick="lb(this.src)"></div>
+    <div class="img2-col"><label class="ap">● API 版（6KB SVG）</label><img src="Claude%204.7%20Opus/api.png" alt="Claude API" onclick="lb(this.src)"></div>
+  </div>
+  <div class="model-prose">
+    <p>Chat 版 SVG 代码 <hl>40,993 字节</hl>，是 API 版（<hl>6,559 字节</hl>）的 <hl>6.3 倍</hl>，也是全批次最大的 SVG 文件。结果是一张深色背景 2×3 六宫格，视觉清晰度不错（<hl>C7=4</hl>）——但运动方向标注 <hl>C6=1</hl>，全批次最低。几乎没有箭头。</p>
+    <p>「代码越多 ≠ 图越好」在这里得到了清晰的数据反证。API 版用了更少的代码，箭头（<hl>C6=3</hl>）和内旋转表达（<hl>C4=3</hl>）都更好。Chat 版选择了深色背景，这可能是 Claude 在对话界面下对「精致视觉」的某种偏好——但对医学插图来说，深色背景反而增加了解读难度。</p>
+  </div>
+</div>
+</div>
+
+<!-- Kimi -->
+<div class="model-block reveal">
+<div class="wrap">
+  <div class="model-head">
+    <div class="model-num">04</div>
+    <div><div class="model-name">Kimi K2.6 Thinking</div><div class="model-by">Moonshot AI</div></div>
+  </div>
+  <div class="model-quote">「💥 一个多余的 &lt; ——让它从 21 分变成了 7 分。」</div>
+  <div class="pills">
+    <span class="pill pill-bad"><span class="pill-dot" style="background:var(--bad)"></span>原始 Chat &nbsp;7/35</span>
+    <span class="pill pill-ch"><span class="pill-dot"></span>修复 Chat &nbsp;21/30*</span>
+    <span class="pill pill-warn"><span class="pill-dot" style="background:var(--warn)"></span>修复 API &nbsp;16/35</span>
+  </div>
+  <div class="callout"><strong>技术失败，非能力失败。</strong> Chat 版原始 SVG 第一行为 <code>&lt;&lt;svg</code>（双尖括号），XML 不合法，浏览器解析失败。API 版缺少 <code>xmlns</code> 属性且 CSS class 未内嵌，渲染近乎空白。两版均得全维度 1 分（7/35）。</div>
+  <div class="img2">
+    <div class="img2-col"><label class="ch">● Chat 修复版（删去多余 &lt;）</label><img src="Kimi%20K2.6%20Thinking/chat_fixed.png" alt="Kimi Fixed" onclick="lb(this.src)"></div>
+    <div class="img2-col"><label class="bad">● Chat 原始版（渲染失败）</label><img src="Kimi%20K2.6%20Thinking/chat-err.png" alt="Kimi Error" onclick="lb(this.src)"></div>
+  </div>
+  <div class="model-prose">
+    <p>修复后的 Chat 版（仅移除一个多余的 <code>&lt;</code>）得分 <hl>21/30*</hl>，与 GLM 5.1 API 版基本相当：6 格面板，红色箭头，内旋转（<hl>C4=4</hl>）和外旋转（<hl>C5=4</hl>）均表现优秀。</p>
+    <p>这是一个「<strong>模型会画，但代码有 bug</strong>」的典型案例。区分「SVG 语法能力」和「医学图示理解能力」很重要：原始分数 <hl>7/35</hl> 掩盖了这个模型在图示概念上的实际水平。<hl>一个字符的差距，14 分</hl>。</p>
+  </div>
+</div>
+</div>
+
+<!-- GPT-5.5 -->
+<div class="model-block reveal">
+<div class="wrap">
+  <div class="model-head">
+    <div class="model-num">05</div>
+    <div><div class="model-name">ChatGPT 5.5 Thinking</div><div class="model-by">OpenAI</div></div>
+  </div>
+  <div class="model-quote">「API 版外旋转画得最好（C5=4），但内旋转基本空白（C4=1）。Chat 版步骤编号从 3 直接跳到了 5。」</div>
+  <div class="pills">
+    <span class="pill pill-bad"><span class="pill-dot" style="background:var(--bad)"></span>Chat &nbsp;11/25*</span>
+    <span class="pill pill-ap"><span class="pill-dot"></span>API &nbsp;21/35</span>
+  </div>
+  <div class="img2">
+    <div class="img2-col"><label class="ch">● Chat 版</label><img src="Chatgpt%205.5%20thinking/chat.png" alt="GPT-5.5 Chat" onclick="lb(this.src)"></div>
+    <div class="img2-col"><label class="ap">● API 版</label><img src="Chatgpt%205.5%20thinking/api.png" alt="GPT-5.5 API" onclick="lb(this.src)"></div>
+  </div>
+  <div class="model-prose">
+    <p>API 版最突出的是外旋转表达（<hl>C5=4</hl>）：紫色弧形箭头 + 肩部椭圆组合，是全批次中 C5 得分最高之一。但内旋转（<hl>C4=1</hl>）几乎空白——在外旋转上花了精力，内旋转被跳过。</p>
+    <p>Chat 版步骤编号<hl>从 3 直接跳到 5</hl>，内旋转步骤消失了。这可能反映了模型对内旋转概念的某种「回避」——它在技术上更难表达，于是在 Chat 版生成时被省略了。</p>
+  </div>
+</div>
+</div>
+
+<!-- MiniMax -->
+<div class="model-block reveal">
+<div class="wrap">
+  <div class="model-head">
+    <div class="model-num">06</div>
+    <div><div class="model-name">MiniMax MAX</div><div class="model-by">MiniMax</div></div>
+  </div>
+  <div class="model-quote">「👁️ Chat 版的胎头长了眼睛和嘴巴。API 版用一串蓝色圆圈表示下降。两个版本，两套美学，都没画对。」</div>
+  <div class="pills">
+    <span class="pill pill-ch"><span class="pill-dot"></span>Chat &nbsp;21/35</span>
+    <span class="pill pill-warn"><span class="pill-dot" style="background:var(--warn)"></span>API &nbsp;16/35</span>
+  </div>
+  <div class="img2">
+    <div class="img2-col"><label class="ch">● Chat 版</label><img src="MiniMax%20MAX/chat.png" alt="MiniMax Chat" onclick="lb(this.src)"></div>
+    <div class="img2-col"><label class="ap">● API 版</label><img src="MiniMax%20MAX/api.png" alt="MiniMax API" onclick="lb(this.src)"></div>
+  </div>
+  <div class="model-prose">
+    <p>Chat 版是这批测试中视觉设计感较强的一张：带「Labor Progress」进度条，7 步命名完整（<hl>C1=5</hl>），红色弧形箭头标注旋转。胎头画成了<hl>带眼睛嘴巴的粉色椭圆</hl>——幼儿教育插图风格，失去了产科解剖的判断价值（<hl>C2=2</hl>，<hl>C3=2</hl>），但至少是「有图」的。</p>
+    <p>API 版走向了另一个极端：<hl>一串从上到下排列的蓝色圆圈</hl>代表胎头下降，旁边附步骤文字说明。效果像是某种抽象的骨盆下雨图。运动方向（<hl>C4=2</hl>，<hl>C5=2</hl>）主要依赖文字说明，图形表达不足。</p>
+  </div>
+</div>
+</div>
+
+<!-- Grok -->
+<div class="model-block reveal">
+<div class="wrap">
+  <div class="model-head">
+    <div class="model-num">07</div>
+    <div><div class="model-name">Grok</div><div class="model-by">xAI</div></div>
+  </div>
+  <div class="model-quote">「✂️ 两版都把图画到了 viewBox 外面。外旋转，两版都看不见——被裁掉了。」</div>
+  <div class="pills">
+    <span class="pill pill-bad"><span class="pill-dot" style="background:var(--bad)"></span>Chat &nbsp;16/35</span>
+    <span class="pill pill-bad"><span class="pill-dot" style="background:var(--bad)"></span>API &nbsp;15/35</span>
+  </div>
+  <div class="img2">
+    <div class="img2-col"><label class="ch">● Chat 版（右侧截断）</label><img src="Grok/chat.png" alt="Grok Chat" onclick="lb(this.src)"></div>
+    <div class="img2-col"><label class="ap">● API 版（右侧截断）</label><img src="Grok/api.png" alt="Grok API" onclick="lb(this.src)"></div>
+  </div>
+  <div class="model-prose">
+    <p>两个版本都生成了<hl>宽度超出 viewBox</hl> 的 SVG，右侧步骤被裁掉，外旋转和娩出步骤均不可见（<hl>C5=1</hl>）。Chat 版至少用蓝色通道形状表示骨盆，标注了 PUBIS/SACRUM/INLET/OUTLET。</p>
+    <p>两版得分<hl>仅差 1 分（16 vs 15）</hl>，是「完全相同的问题」。这是系统性的 SVG 布局计算错误——Chat 版和 API 版犯了同样的错误，说明这是 Grok 在 SVG 坐标/viewport 计算上的固有缺陷，而不是随机的生成误差。</p>
+  </div>
+</div>
+</div>
+
+<!-- Doubao -->
+<div class="model-block reveal">
+<div class="wrap">
+  <div class="model-head">
+    <div class="model-num">08</div>
+    <div><div class="model-name">Doubao</div><div class="model-by">字节跳动</div></div>
+  </div>
+  <div class="model-quote">「🔺 Chat 版 XML 报错，只渲出了前三步。API 版的胎儿是一个蓝色三角形，朝向混乱。」</div>
+  <div class="pills">
+    <span class="pill pill-bad"><span class="pill-dot" style="background:var(--bad)"></span>Chat &nbsp;10/35</span>
+    <span class="pill pill-bad"><span class="pill-dot" style="background:var(--bad)"></span>API &nbsp;13/35</span>
+  </div>
+  <div class="img2">
+    <div class="img2-col"><label class="ch">● Chat 版（部分渲染）</label><img src="Doubao/chat.png" alt="Doubao Chat" onclick="lb(this.src)"></div>
+    <div class="img2-col"><label class="ap">● API 版</label><img src="Doubao/api.png" alt="Doubao API" onclick="lb(this.src)"></div>
+  </div>
+  <div class="model-prose">
+    <p>Chat 版含 XML 解析错误，浏览器渲染到第一个错误即停止，<hl>仅显示前三步</hl>，后续完全缺失。API 版有一个有意思的部分：标注了「Pubic Symphysis」「Pelvic Inlet」「Vulvar Outlet」，这些词是对的——但「胎体」是<hl>一个蓝色三角形</hl>，朝向混乱（<hl>C3=2</hl>）。</p>
+    <p>整个 SVG 完全没有动态表达（<hl>C4=1</hl>，<hl>C5=1</hl>，<hl>C6=1</hl>）。一张「<strong>知道正确词汇、但不会画图</strong>」的典型案例。</p>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ §05 关键发现 ═══════════ -->
+<div class="section">
+<div class="wrap">
+  <div class="sec-num">§ 05</div>
+  <h2 class="sec-h">五个关键发现</h2>
+  <p style="color:var(--mu);font-size:15px">这不只是一次绘图竞赛的结果——这些模式揭示了当前 LLM 在「空间知识表达」上的系统性局限。</p>
+</div>
+<div class="wrap-lg" style="margin-top:36px">
+<div class="finds reveal">
+
+  <div class="find">
+    <span class="find-acc" style="color:var(--bad)">🦴 C2 ≈ 1.9</span>
+    <h3>说得出名字，画不出形状</h3>
+    <p>所有模型 C2（解剖准确性）均值约 <hl>1.9/5</hl>，是全批次最弱维度。模型能说出「耻骨联合」「坐骨棘」，但没有一个把它们的形态画对过。步骤知识 ≠ 解剖图形能力。这个差距在更复杂的医学任务里会被放大。</p>
+  </div>
+
+  <div class="find">
+    <span class="find-acc" style="color:var(--api)">👁️ GLM Only</span>
+    <h3>换一个视角，问题就解决了</h3>
+    <p>内旋转是水平面上的旋转，矢状位侧视图表达不了它。全批次 <hl>只有 GLM 5.1</hl> 在内旋转步骤里加了俯视图，并因此在 C4 和 C5 上拉开了明显差距。这一个设计决策决定了排名第一。其余 7 个模型试着用弧形箭头从侧面表达旋转——全部失败。</p>
+  </div>
+
+  <div class="find">
+    <span class="find-acc" style="color:var(--warn)">🪞 8 分</span>
+    <h3>Gemini：同一个模型，两套人格</h3>
+    <p>Chat 版出了文字时间轴（<hl>15/35</hl>），API 版出了解剖图示（<hl>23/35</hl>），差距 <hl>8 分</hl>，全批次最大。Chat 界面对「产品化美观」的偏好会完全改变输出类型——你不能用其中一个推断另一个的能力。</p>
+  </div>
+
+  <div class="find">
+    <span class="find-acc" style="color:var(--chat)">📦 40KB</span>
+    <h3>更多代码 ≠ 更好的图</h3>
+    <p>Claude Chat 版 SVG <hl>40,993 字节</hl>（全批次最大），但运动方向 C6=1（全批次最低）。GLM API 版 25,609 字节，C4+C5+C6 全部得 4 分。体积不是质量的代理指标——对 SVG 生成，<hl>设计决策</hl>比代码行数更重要。</p>
+  </div>
+
+  <div class="find wide">
+    <span class="find-acc" style="color:var(--bad)">🐛 &lt;&lt;svg</span>
+    <h3>技术失败比能力失败更常见</h3>
+    <p>这批测试里，<hl>SVG 语法错误</hl>（Kimi：双尖括号）、<hl>布局溢出</hl>（Grok：viewBox 计算错误）、<hl>XML 解析错误</hl>（Doubao Chat）的出现频率超过了「模型根本不理解分娩机转」的案例。Kimi 修复一个字符后从 7 分跳到 21 分。评估这类 Benchmark 时，区分「SVG 代码能力」和「医学图示理解能力」是重要前提——直接看原始分数会低估部分模型。</p>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- ═══════════ §06 文生视频 ═══════════ -->
+<div class="section">
+<div class="wrap-lg reveal">
+  <div class="sec-num">§ 06</div>
+  <h2 class="sec-h">🎬 换一个输出格式：文生视频模型</h2>
+
+  <div class="prose" style="margin-bottom:28px">
+    <p>同一道题，同一套知识边界——换成视频会怎样？我用和 SVG 测试完全一致的 Prompt，分别在 Sora 2 和 Veo 3 上生成了分娩机转视频。</p>
+    <p>结论和 Simon Willison 关于鹈鹕的观察一致：<hl>换了输出格式，核心能力边界不变</hl>。视频生成带来了时序表达的天然优势——动画本来是解释「运动」最好的媒介。但解剖准确性的瓶颈并不因为有了时间轴就消失。内旋转依然是最难处理的步骤：胎头在水平面旋转，需要主动切换到俯视视角才能说清楚，而两款模型都没有做到。</p>
+  </div>
+
+  <div class="img2">
+    <div class="img2-col">
+      <label style="color:#a78bfa">▶ Sora 2 <span style="font-size:11px;color:var(--fa);font-weight:400">/ OpenAI</span></label>
+      <video controls preload="metadata"
+        style="width:100%;border-radius:8px;border:1px solid var(--b0);background:#000;display:block">
+        <source src="video/sora.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="img2-col">
+      <label style="color:#34d399">▶ Veo 3 <span style="font-size:11px;color:var(--fa);font-weight:400">/ Google DeepMind</span></label>
+      <video controls preload="metadata"
+        style="width:100%;border-radius:8px;border:1px solid var(--b0);background:#000;display:block">
+        <source src="video/veo3.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div style="background:var(--s1);border:1px solid var(--b0);border-radius:var(--r);padding:20px 24px;margin-top:20px;font-size:14px;color:var(--mu);line-height:1.75">
+    <strong style="color:var(--tx)">观察：</strong>视频格式确实比静态 SVG 更容易呈现「下降」过程（运动的连续性天然适合视频）。但内旋转——胎头从斜径旋转到前后径的水平面转动——两款模型都没有主动切换镜头角度。这和 8 个 LLM 的表现是同一个失败模式：知道要发生旋转，但不知道该怎么「让观众看见」。工具变了，盲点没变。
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ §07 结语 ═══════════ -->
+<div class="section">
+<div class="wrap prose reveal">
+  <div class="sec-num">§ 07</div>
+  <h2 class="sec-h">结语</h2>
+
+  <div class="callout callout-green">
+    <span class="ct">👶 后记</span>
+    周二凌晨，小崽子顺利出来了。头朝下，完整走完了那七步。<strong>C3 胎儿方向：满分。</strong>
+  </div>
+
+  <p>这个测试还会继续。Simon Willison 的鹈鹕基准已经运行了两年——最大的价值不是某一次测试的绝对分数，而是随着模型迭代的变化趋势。Gemini 2.5 Pro 的鹈鹕比 1.5 Pro 好了很多；o3 的鹈鹕比 GPT-4.5 好了更多。<hl>趋势才是信息。</hl></p>
+
+  <p>分娩机转测试有类似的价值。今天因为 SVG 语法错误得 7 分的模型，三个月后可能得 21 分。今天解剖精度全批次均值 <hl>1.9/5</hl> 的现状，可能随着医学专业数据的增加而改变——也可能不变。</p>
+
+  <p>有一件事大概率不会因为数据量而改变：<hl>内旋转需要换视角</hl>。这不是记忆量的问题，是空间推理的问题。一个对「顺产」有完整文字描述的训练语料，不一定能让模型理解「胎头旋转时从上方看是什么样的」。理解这一点，需要的是空间建模能力，而不只是更多文字。</p>
+
+  <p>我那个周一下午花了两个小时才大概搞清楚的事，模型<hl>几秒钟就生成了一张图</hl>——但那张图，七个维度，每个维度都不及格。速度不等于理解。✨</p>
+
+  <blockquote>「每个人都需要自己的 Benchmark……我的鹈鹕测试开始时是一个笑话，但逐渐证明了它实际上有一点用。」<small>— Simon Willison，《The last six months in LLMs》，AI Engineer World's Fair，2025</small></blockquote>
+
+  <p style="color:var(--fa);font-size:14px;margin-top:32px">原始评分数据及 SVG 文件见各模型子目录 · 评分方法详见 BENCHMARK_REPORT.md · 可视化画廊：<a href="gallery.html" style="color:var(--api)">gallery.html</a></p>
+</div>
+</div>
+
+<footer>
+  <p>胎儿分娩机转 SVG 生成基准 · 2026-05-16<br>
+  灵感来源：<a href="https://github.com/simonw/pelican-bicycle">Simon Willison's Pelican on a Bicycle</a></p>
+</footer>
+
+<div id="lb" onclick="closeLb()"><img id="lb-img" src="" alt=""></div>
+
+<script>
+// Progress bar
+const pgbar = document.getElementById('pgbar');
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  pgbar.style.width = (d.scrollTop / (d.scrollHeight - d.clientHeight) * 100) + '%';
+}, {passive:true});
+
+// Lightbox
+function lb(src){ document.getElementById('lb-img').src=src; document.getElementById('lb').classList.add('open'); }
+function closeLb(){ document.getElementById('lb').classList.remove('open'); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLb(); });
+
+// Scroll reveal + bar animation
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if(en.isIntersecting){
+      en.target.classList.add('revealed');
+      en.target.querySelectorAll('.lb-bar-fill[data-w]').forEach(b => {
+        b.style.width = b.dataset.w + '%';
+      });
+      io.unobserve(en.target);
+    }
+  });
+}, {threshold:0.12});
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+document.querySelectorAll('.lb-bar-fill[data-w]').forEach(b => b.style.width='0');
+</script>
+</body>
+</html>

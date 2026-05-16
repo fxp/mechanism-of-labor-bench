@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1450" height="650" viewBox="0 0 1450 650">
+  <!-- Definitions for reusable elements (arrow marker) -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="strokeWidth" markerWidth="3.5" markerHeight="3.5" orient="auto">
+      <polygon points="0,0 10,5 0,10" fill="#E67E22" />
+    </marker>
+  </defs>
+
+  <!-- Main title -->
+  <text 
+    x="725" 
+    y="38" 
+    text-anchor="middle" 
+    font-family="Arial, sans-serif" 
+    font-size="29" 
+    font-weight="bold" 
+    fill="#26334A">
+    Mechanism of Labor
+  </text>
+  <text 
+    x="725" 
+    y="62" 
+    text-anchor="middle" 
+    font-family="Arial, sans-serif" 
+    font-size="14" 
+    fill="#7F8C8E">
+    Cardinal Movements • Sagittal view (Pubis left • Sacrum right • Head-first vertex presentation)
+  </text>
+
+  <!-- Panel data: x-positions, stage names, head center y-position, rotation angle (degrees), short description lines -->
+  <!-- Panels are 185px wide, spaced evenly -->
+  
+  <!-- Panel 1: Engagement -->
+  <!-- Birth canal (repeated for every panel) -->
+  <!-- Anterior wall (pubis) -->
+  <path d="M 67,115 L 67,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Posterior wall (sacrum - curved) -->
+  <path d="M 137,115 C 157,155 160,215 137,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Inlet line -->
+  <line x1="67" y1="118" x2="137" y2="118" stroke="#26334A" stroke-width="7" />
+  <text x="102" y="107" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">INLET</text>
+  <!-- Outlet line -->
+  <line x1="67" y1="482" x2="137" y2="482" stroke="#26334A" stroke-width="7" />
+  <text x="102" y="500" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">OUTLET</text>
+  <!-- Labels -->
+  <text x="52" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif" transform="rotate(-90 52 285)">PUBIS</text>
+  <text x="150" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif">SACRUM</text>
+  <!-- Stage title -->
+  <text x="102" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#2980B9">1. ENGAGEMENT</text>
+  <!-- Fetal head + body group (centered in canal) -->
+  <!-- Head y = 148, angle = 8° (slightly extended) -->
+  <g transform="translate(102,148) rotate(8)">
+    <!-- Fetal head (ellipse) -->
+    <ellipse cx="0" cy="0" rx="22.5" ry="26.5" fill="#FAD0B2" stroke="#26334A" stroke-width="3.5" />
+    <!-- Occiput bump (posterior side of head) -->
+    <ellipse cx="-13" cy="-6" rx="6" ry="8" fill="#FAD0B2" stroke="none" />
+    <!-- Simple neck attachment line -->
+    <line x1="0" y1="12" x2="3" y2="28" stroke="#26334A" stroke-width="6" stroke-linecap="round" />
+    <!-- Fetal body/trunk extending upward (negative y) -->
+    <rect x="-7.5" y="-57" width="15" height="57" rx="7" fill="#FAD0B2" stroke="#26334A" stroke-width="3" />
+  </g>
+  <!-- Description -->
+  <text x="102" y="525" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">Fetal head enters</text>
+  <text x="102" y="537" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">pelvic inlet (usually</text>
+  <text x="102" y="549" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">transverse/oblique).</text>
+
+  <!-- Panel 2: Descent -->
+  <!-- Birth canal -->
+  <!-- Anterior wall (pubis) -->
+  <path d="M 257,115 L 257,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Posterior wall (sacrum - curved) -->
+  <path d="M 327,115 C 347,155 350,215 327,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Inlet line -->
+  <line x1="257" y1="118" x2="327" y2="118" stroke="#26334A" stroke-width="7" />
+  <text x="292" y="107" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">INLET</text>
+  <!-- Outlet line -->
+  <line x1="257" y1="482" x2="327" y2="482" stroke="#26334A" stroke-width="7" />
+  <text x="292" y="500" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">OUTLET</text>
+  <!-- Labels -->
+  <text x="242" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif" transform="rotate(-90 242 285)">PUBIS</text>
+  <text x="340" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif">SACRUM</text>
+  <!-- Stage title -->
+  <text x="292" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#2980B9">2. DESCENT</text>
+  <!-- Fetal head + body group -->
+  <!-- Head y = 198, angle = 0° -->
+  <g transform="translate(292,198) rotate(0)">
+    <ellipse cx="0" cy="0" rx="22.5" ry="26.5" fill="#FAD0B2" stroke="#26334A" stroke-width="3.5" />
+    <ellipse cx="-13" cy="-6" rx="6" ry="8" fill="#FAD0B2" stroke="none" />
+    <line x1="0" y1="12" x2="3" y2="28" stroke="#26334A" stroke-width="6" stroke-linecap="round" />
+    <rect x="-7.5" y="-57" width="15" height="57" rx="7" fill="#FAD0B2" stroke="#26334A" stroke-width="3" />
+  </g>
+  <!-- Description -->
+  <text x="292" y="525" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">Head moves downward</text>
+  <text x="292" y="537" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">through the birth canal</text>
+  <text x="292" y="549" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">driven by contractions.</text>
+
+  <!-- Panel 3: Flexion -->
+  <!-- Birth canal -->
+  <!-- Anterior wall (pubis) -->
+  <path d="M 447,115 L 447,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Posterior wall (sacrum - curved) -->
+  <path d="M 517,115 C 537,155 540,215 517,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Inlet line -->
+  <line x1="447" y1="118" x2="517" y2="118" stroke="#26334A" stroke-width="7" />
+  <text x="482" y="107" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">INLET</text>
+  <!-- Outlet line -->
+  <line x1="447" y1="482" x2="517" y2="482" stroke="#26334A" stroke-width="7" />
+  <text x="482" y="500" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">OUTLET</text>
+  <!-- Labels -->
+  <text x="432" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif" transform="rotate(-90 432 285)">PUBIS</text>
+  <text x="530" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif">SACRUM</text>
+  <!-- Stage title -->
+  <text x="482" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#2980B9">3. FLEXION</text>
+  <!-- Fetal head + body group -->
+  <!-- Head y = 227, angle = -28° (chin tucked) -->
+  <g transform="translate(482,227) rotate(-28)">
+    <ellipse cx="0" cy="0" rx="22.5" ry="26.5" fill="#FAD0B2" stroke="#26334A" stroke-width="3.5" />
+    <ellipse cx="-13" cy="-6" rx="6" ry="8" fill="#FAD0B2" stroke="none" />
+    <line x1="0" y1="12" x2="3" y2="28" stroke="#26334A" stroke-width="6" stroke-linecap="round" />
+    <rect x="-7.5" y="-57" width="15" height="57" rx="7" fill="#FAD0B2" stroke="#26334A" stroke-width="3" />
+  </g>
+  <!-- Description -->
+  <text x="482" y="525" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">Head flexes (chin to</text>
+  <text x="482" y="537" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">chest) → smallest</text>
+  <text x="482" y="549" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">presenting diameter.</text>
+
+  <!-- Panel 4: Internal Rotation -->
+  <!-- Birth canal -->
+  <!-- Anterior wall (pubis) -->
+  <path d="M 637,115 L 637,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Posterior wall (sacrum - curved) -->
+  <path d="M 707,115 C 727,155 730,215 707,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Inlet line -->
+  <line x1="637" y1="118" x2="707" y2="118" stroke="#26334A" stroke-width="7" />
+  <text x="672" y="107" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">INLET</text>
+  <!-- Outlet line -->
+  <line x1="637" y1="482" x2="707" y2="482" stroke="#26334A" stroke-width="7" />
+  <text x="672" y="500" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">OUTLET</text>
+  <!-- Labels -->
+  <text x="622" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif" transform="rotate(-90 622 285)">PUBIS</text>
+  <text x="720" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif">SACRUM</text>
+  <!-- Stage title -->
+  <text x="672" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#2980B9">4. INTERNAL ROTATION</text>
+  <!-- Fetal head + body group -->
+  <!-- Head y = 268, angle = 0° -->
+  <g transform="translate(672,268) rotate(0)">
+    <ellipse cx="0" cy="0" rx="22.5" ry="26.5" fill="#FAD0B2" stroke="#26334A" stroke-width="3.5" />
+    <ellipse cx="-13" cy="-6" rx="6" ry="8" fill="#FAD0B2" stroke="none" />
+    <line x1="0" y1="12" x2="3" y2="28" stroke="#26334A" stroke-width="6" stroke-linecap="round" />
+    <rect x="-7.5" y="-57" width="15" height="57" rx="7" fill="#FAD0B2" stroke="#26334A" stroke-width="3" />
+  </g>
+  <!-- Description -->
+  <text x="672" y="525" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">Head rotates 90° so</text>
+  <text x="672" y="537" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">occiput is anterior</text>
+  <text x="672" y="549" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">(aligns with outlet).</text>
+
+  <!-- Panel 5: Extension -->
+  <!-- Birth canal -->
+  <!-- Anterior wall (pubis) -->
+  <path d="M 827,115 L 827,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Posterior wall (sacrum - curved) -->
+  <path d="M 897,115 C 917,155 920,215 897,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Inlet line -->
+  <line x1="827" y1="118" x2="897" y2="118" stroke="#26334A" stroke-width="7" />
+  <text x="862" y="107" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">INLET</text>
+  <!-- Outlet line -->
+  <line x1="827" y1="482" x2="897" y2="482" stroke="#26334A" stroke-width="7" />
+  <text x="862" y="500" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">OUTLET</text>
+  <!-- Labels -->
+  <text x="812" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif" transform="rotate(-90 812 285)">PUBIS</text>
+  <text x="910" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif">SACRUM</text>
+  <!-- Stage title -->
+  <text x="862" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#2980B9">5. EXTENSION</text>
+  <!-- Fetal head + body group -->
+  <!-- Head y = 338, angle = 38° (head lifts under pubic arch) -->
+  <g transform="translate(862,338) rotate(38)">
+    <ellipse cx="0" cy="0" rx="22.5" ry="26.5" fill="#FAD0B2" stroke="#26334A" stroke-width="3.5" />
+    <ellipse cx="-13" cy="-6" rx="6" ry="8" fill="#FAD0B2" stroke="none" />
+    <line x1="0" y1="12" x2="3" y2="28" stroke="#26334A" stroke-width="6" stroke-linecap="round" />
+    <rect x="-7.5" y="-57" width="15" height="57" rx="7" fill="#FAD0B2" stroke="#26334A" stroke-width="3" />
+  </g>
+  <!-- Description -->
+  <text x="862" y="525" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">Head extends after</text>
+  <text x="862" y="537" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">passing pubic symphysis</text>
+  <text x="862" y="549" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">(crowning occurs).</text>
+
+  <!-- Panel 6: External Rotation (Restitution) -->
+  <!-- Birth canal -->
+  <!-- Anterior wall (pubis) -->
+  <path d="M 1017,115 L 1017,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Posterior wall (sacrum - curved) -->
+  <path d="M 1087,115 C 1107,155 1110,215 1087,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Inlet line -->
+  <line x1="1017" y1="118" x2="1087" y2="118" stroke="#26334A" stroke-width="7" />
+  <text x="1052" y="107" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">INLET</text>
+  <!-- Outlet line -->
+  <line x1="1017" y1="482" x2="1087" y2="482" stroke="#26334A" stroke-width="7" />
+  <text x="1052" y="500" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">OUTLET</text>
+  <!-- Labels -->
+  <text x="1002" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif" transform="rotate(-90 1002 285)">PUBIS</text>
+  <text x="1100" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif">SACRUM</text>
+  <!-- Stage title -->
+  <text x="1052" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#2980B9">6. EXTERNAL ROTATION</text>
+  <!-- Fetal head + body group -->
+  <!-- Head y = 375, angle = 0° (head realigns with shoulders) -->
+  <g transform="translate(1052,375) rotate(0)">
+    <ellipse cx="0" cy="0" rx="22.5" ry="26.5" fill="#FAD0B2" stroke="#26334A" stroke-width="3.5" />
+    <ellipse cx="-13" cy="-6" rx="6" ry="8" fill="#FAD0B2" stroke="none" />
+    <line x1="0" y1="12" x2="3" y2="28" stroke="#26334A" stroke-width="6" stroke-linecap="round" />
+    <rect x="-7.5" y="-57" width="15" height="57" rx="7" fill="#FAD0B2" stroke="#26334A" stroke-width="3" />
+  </g>
+  <!-- Description -->
+  <text x="1052" y="525" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">Head restitutes</text>
+  <text x="1052" y="537" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">(external rotation) to</text>
+  <text x="1052" y="549" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">align with shoulders.</text>
+
+  <!-- Panel 7: Expulsion -->
+  <!-- Birth canal (head now mostly delivered) -->
+  <!-- Anterior wall (pubis) -->
+  <path d="M 1207,115 L 1207,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Posterior wall (sacrum - curved) -->
+  <path d="M 1277,115 C 1297,155 1300,215 1277,485" fill="none" stroke="#26334A" stroke-width="13" stroke-linecap="round" />
+  <!-- Inlet line -->
+  <line x1="1207" y1="118" x2="1277" y2="118" stroke="#26334A" stroke-width="7" />
+  <text x="1242" y="107" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">INLET</text>
+  <!-- Outlet line -->
+  <line x1="1207" y1="482" x2="1277" y2="482" stroke="#26334A" stroke-width="7" />
+  <text x="1242" y="500" text-anchor="middle" font-size="9" fill="#26334A" font-family="Arial, sans-serif">OUTLET</text>
+  <!-- Labels -->
+  <text x="1192" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif" transform="rotate(-90 1192 285)">PUBIS</text>
+  <text x="1290" y="285" text-anchor="middle" font-size="10" fill="#E74C3C" font-family="Arial, sans-serif">SACRUM</text>
+  <!-- Stage title -->
+  <text x="1242" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#2980B9">7. EXPULSION</text>
+  <!-- Fetal head + body group (head now below outlet) -->
+  <!-- Head y = 445, angle = 0° (head delivered) -->
+  <g transform="translate(1242,445) rotate(0)">
+    <ellipse cx="0" cy="0" rx="22.5" ry="26.5" fill="#FAD0B2" stroke="#26334A" stroke-width="3.5" />
+    <ellipse cx="-13" cy="-6" rx="6" ry="8" fill="#FAD0B2" stroke="none" />
+    <line x1="0" y1="12" x2="3" y2="28" stroke="#26334A" stroke-width="6" stroke-linecap="round" />
+    <!-- Body now partially visible (shorter trunk) -->
+    <rect x="-7.5" y="-45" width="15" height="42" rx="7" fill="#FAD0B2" stroke="#26334A" stroke-width="3" />
+  </g>
+  <!-- Description -->
+  <text x="1242" y="525" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">Shoulders and body</text>
+  <text x="1242" y="537" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">are delivered after</text>
+  <text x="1242" y="549" text-anchor="middle" font-size="9.5" fill="#34495E" font-family="Arial, sans-serif">head expulsion.</text>
+
+  <!-- Connecting arrows between panels (process flow) -->
+  <!-- Arrow 1→2 -->
+  <path d="M 190,245 Q 215,225 235,245" fill="none" stroke="#E67E22" stroke-width="3" marker-end="url(#arrow)" />
+  <!-- Arrow 2→3 -->
+  <path d="M 380,245 Q 405,225 425,245" fill="none" stroke="#E67E22" stroke-width="3" marker-end="url(#arrow)" />
+  <!-- Arrow 3→4 -->
+  <path d="M 570,245 Q 595,225 615,245" fill="none" stroke="#E67E22" stroke-width="3" marker-end="url(#arrow)" />
+  <!-- Arrow 4→5 -->
+  <path d="M 760,245 Q 785,225 805,245" fill="none" stroke="#E67E22" stroke-width="3" marker-end="url(#arrow)" />
+  <!-- Arrow 5→6 -->
+  <path d="M 950,245 Q 975,225 995,245" fill="none" stroke="#E67E22" stroke-width="3" marker-end="url(#arrow)" />
+  <!-- Arrow 6→7 -->
+  <path d="M 1140,245 Q 1165,225 1185,245" fill="none" stroke="#E67E22" stroke-width="3" marker-end="url(#arrow)" />
+
+</svg>

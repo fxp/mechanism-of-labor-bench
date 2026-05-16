@@ -1,0 +1,295 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <title>Mechanism of Labor - Stages of Fetal Descent</title>
+  <desc>Medical illustration showing the seven cardinal movements of labor during childbirth</desc>
+
+  <defs>
+    <!-- Gradients for body parts -->
+    <linearGradient id="skinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8B4A0"/>
+      <stop offset="100%" style="stop-color:#D4A090"/>
+    </linearGradient>
+    <linearGradient id="pelvisGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C9B8A8"/>
+      <stop offset="100%" style="stop-color:#A89888"/>
+    </linearGradient>
+    <linearGradient id="uterusGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8C8B8"/>
+      <stop offset="100%" style="stop-color:#D4A898"/>
+    </linearGradient>
+
+    <!-- Arrow marker -->
+    <marker id="arrowHead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#E07050"/>
+    </marker>
+
+    <!-- Soft glow filter -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="#F8F4F0"/>
+
+  <!-- Title -->
+  <text x="600" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#5D4E42">Mechanism of Labor</text>
+  <text x="600" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#7D6E62">Cardinal Movements of the Fetus During Childbirth</text>
+
+  <!-- Main Pelvis Outline - Center -->
+  <g transform="translate(600, 450)">
+    <!-- Pelvis bones -->
+    <path d="M-120,-180 Q-180,-120 -160,0 Q-140,80 -80,140 Q-20,180 60,160 Q120,120 140,40 Q150,-40 120,-120 Q80,-180 20,-200"
+          fill="none" stroke="#8B7B6B" stroke-width="8" stroke-linecap="round"/>
+
+    <!-- Pelvis interior line -->
+    <path d="M-80,-150 Q-120,-100 -100,0 Q-70,80 -30,120 Q20,140 60,120"
+          fill="none" stroke="#A89888" stroke-width="4" stroke-dasharray="5,5"/>
+
+    <!-- Pelvic inlet -->
+    <ellipse cx="0" cy="-120" rx="100" ry="40" fill="none" stroke="#9B8B7B" stroke-width="3" stroke-dasharray="10,5"/>
+
+    <!-- Pelvic outlet -->
+    <ellipse cx="0" cy="140" rx="80" ry="25" fill="none" stroke="#9B8B7B" stroke-width="3" stroke-dasharray="10,5"/>
+  </g>
+
+  <!-- Stage 1: Engagement -->
+  <g transform="translate(100, 200)">
+    <rect x="0" y="0" width="180" height="140" rx="10" fill="#FFF8F0" stroke="#E0C0B0" stroke-width="2"/>
+    <text x="90" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#5D4E42">1. Engagement</text>
+
+    <!-- Fetus head entering pelvis -->
+    <g transform="translate(90, 80)">
+      <ellipse cx="0" cy="0" rx="30" ry="35" fill="url(#skinGradient)" stroke="#C4A090" stroke-width="2"/>
+      <!-- Face indicator -->
+      <circle cx="-12" cy="-8" r="4" fill="#4A3A2A"/>
+      <circle cx="12" cy="-8" r="4" fill="#4A3A2A"/>
+      <path d="M-8,10 Q0,18 8,10" fill="none" stroke="#C4A090" stroke-width="2"/>
+    </g>
+
+    <text x="90" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">Head transverse diameter</text>
+    <text x="90" y="142" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">enters pelvic inlet</text>
+  </g>
+
+  <!-- Stage 2: Descent -->
+  <g transform="translate(300, 200)">
+    <rect x="0" y="0" width="180" height="140" rx="10" fill="#FFF8F0" stroke="#E0C0B0" stroke-width="2"/>
+    <text x="90" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#5D4E42">2. Descent</text>
+
+    <!-- Fetus descending -->
+    <g transform="translate(90, 70)">
+      <ellipse cx="0" cy="15" rx="30" ry="35" fill="url(#skinGradient)" stroke="#C4A090" stroke-width="2"/>
+      <circle cx="-12" cy="-5" r="4" fill="#4A3A2A"/>
+      <circle cx="12" cy="-5" r="4" fill="#4A3A2A"/>
+      <!-- Body silhouette -->
+      <path d="M-20,50 Q-30,70 -25,90" stroke="#D4A090" stroke-width="8" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <text x="90" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">Progress through</text>
+    <text x="90" y="142" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">birth canal by gravity</text>
+
+    <!-- Down arrow -->
+    <path d="M170,100 L170,130" stroke="#E07050" stroke-width="3" marker-end="url(#arrowHead)"/>
+  </g>
+
+  <!-- Stage 3: Flexion -->
+  <g transform="translate(500, 200)">
+    <rect x="0" y="0" width="180" height="140" rx="10" fill="#FFF8F0" stroke="#E0C0B0" stroke-width="2"/>
+    <text x="90" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#5D4E42">3. Flexion</text>
+
+    <!-- Head flexed forward -->
+    <g transform="translate(90, 70)">
+      <ellipse cx="0" cy="10" rx="30" ry="38" fill="url(#skinGradient)" stroke="#C4A090" stroke-width="2" transform="rotate(-15)"/>
+      <circle cx="-15" cy="-2" r="4" fill="#4A3A2A" transform="rotate(-15)"/>
+      <circle cx="10" cy="5" r="4" fill="#4A3A2A" transform="rotate(-15)"/>
+      <!-- Chin to chest -->
+      <path d="M-25,40 Q-30,50 -25,55" stroke="#C4A090" stroke-width="6" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <text x="90" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">Chin brought to</text>
+    <text x="90" y="142" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">chest for smallest diameter</text>
+  </g>
+
+  <!-- Stage 4: Internal Rotation -->
+  <g transform="translate(700, 200)">
+    <rect x="0" y="0" width="180" height="140" rx="10" fill="#FFF8F0" stroke="#E0C0B0" stroke-width="2"/>
+    <text x="90" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#5D4E42">4. Internal Rotation</text>
+
+    <!-- Head rotating -->
+    <g transform="translate(90, 70)">
+      <ellipse cx="0" cy="10" rx="28" ry="36" fill="url(#skinGradient)" stroke="#C4A090" stroke-width="2"/>
+      <circle cx="-10" cy="-5" r="4" fill="#4A3A2A"/>
+      <circle cx="10" cy="-5" r="4" fill="#4A3A2A"/>
+      <!-- Rotation indicator -->
+      <path d="M30,20 Q50,0 30,-20" stroke="#E07050" stroke-width="2" fill="none" marker-end="url(#arrowHead)"/>
+    </g>
+
+    <text x="90" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">Head rotates to align</text>
+    <text x="90" y="142" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">with antero-posterior diameter</text>
+  </g>
+
+  <!-- Stage 5: Extension -->
+  <g transform="translate(900, 200)">
+    <rect x="0" y="0" width="180" height="140" rx="10" fill="#FFF8F0" stroke="#E0C0B0" stroke-width="2"/>
+    <text x="90" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#5D4E42">5. Extension</text>
+
+    <!-- Head extending -->
+    <g transform="translate(90, 70)">
+      <ellipse cx="0" cy="15" rx="30" ry="38" fill="url(#skinGradient)" stroke="#C4A090" stroke-width="2" transform="rotate(30)"/>
+      <circle cx="-5" cy="-8" r="4" fill="#4A3A2A" transform="rotate(30)"/>
+      <circle cx="18" cy="-2" r="4" fill="#4A3A2A" transform="rotate(30)"/>
+      <!-- Neck extended -->
+      <path d="M-20,45 Q-15,55 -10,65" stroke="#C4A090" stroke-width="6" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <text x="90" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">Head flexes backward</text>
+    <text x="90" y="142" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">under pubic symphysis</text>
+  </g>
+
+  <!-- Stage 6: External Rotation -->
+  <g transform="translate(150, 550)">
+    <rect x="0" y="0" width="180" height="140" rx="10" fill="#FFF8F0" stroke="#E0C0B0" stroke-width="2"/>
+    <text x="90" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#5D4E42">6. External Rotation</text>
+
+    <!-- Shoulders rotating -->
+    <g transform="translate(90, 70)">
+      <!-- Head completed -->
+      <ellipse cx="0" cy="-10" rx="28" ry="32" fill="url(#skinGradient)" stroke="#C4A090" stroke-width="2"/>
+      <circle cx="-8" cy="-18" r="4" fill="#4A3A2A"/>
+      <circle cx="8" cy="-18" r="4" fill="#4A3A2A"/>
+      <!-- Body with rotated shoulders -->
+      <ellipse cx="5" cy="40" rx="18" ry="30" fill="url(#skinGradient)" stroke="#C4A090" stroke-width="2"/>
+      <!-- Rotation arrow -->
+      <path d="M35,30 Q55,50 35,70" stroke="#E07050" stroke-width="2" fill="none" marker-end="url(#arrowHead)"/>
+    </g>
+
+    <text x="90" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">Shoulders align with</text>
+    <text x="90" y="142" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">antero-posterior diameter</text>
+  </g>
+
+  <!-- Stage 7: Expulsion -->
+  <g transform="translate(350, 550)">
+    <rect x="0" y="0" width="180" height="140" rx="10" fill="#FFF8F0" stroke="#E0C0B0" stroke-width="2"/>
+    <text x="90" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#5D4E42">7. Expulsion</text>
+
+    <!-- Baby being born -->
+    <g transform="translate(90, 65)">
+      <!-- Head -->
+      <ellipse cx="0" cy="-15" rx="26" ry="30" fill="url(#skinGradient)" stroke="#C4A090" stroke-width="2"/>
+      <circle cx="-7" cy="-25" r="4" fill="#4A3A2A"/>
+      <circle cx="7" cy="-25" r="4" fill="#4A3A2A"/>
+      <path d="M-5,0 Q0,5 5,0" fill="none" stroke="#C4A090" stroke-width="2"/>
+      <!-- Body emerging -->
+      <ellipse cx="0" cy="35" rx="15" ry="25" fill="url(#skinGradient)" stroke="#C4A090" stroke-width="2"/>
+      <!-- Arms visible -->
+      <path d="M-15,25 Q-30,30 -28,45" stroke="#D4A090" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M15,25 Q30,30 28,45" stroke="#D4A090" stroke-width="6" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <text x="90" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">Complete emergence</text>
+    <text x="90" y="142" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">of fetus from birth canal</text>
+
+    <!-- Outward arrow -->
+    <path d="M170,70 L195,70" stroke="#4CAF50" stroke-width="3" marker-end="url(#arrowHead)"/>
+  </g>
+
+  <!-- Uterus outline -->
+  <g transform="translate(600, 450)">
+    <path d="M-100,-220 Q-150,-200 -140,-100 Q-130,0 -90,80 Q-40,140 20,160 Q80,150 120,80 Q150,0 140,-100 Q130,-200 80,-240 Q0,-260 -100,-220"
+          fill="none" stroke="#D4A090" stroke-width="6" stroke-linecap="round" stroke-dasharray="15,8"/>
+
+    <!-- Uterus label -->
+    <text x="0" y="-250" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#B09080">Uterus</text>
+  </g>
+
+  <!-- Cervix representation -->
+  <g transform="translate(600, 520)">
+    <ellipse cx="0" cy="0" rx="40" ry="15" fill="none" stroke="#C49080" stroke-width="3"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#A08070">Cervix (dilating)</text>
+  </g>
+
+  <!-- Direction indicators -->
+  <g transform="translate(720, 350)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="11" fill="#8B7B6B">Anterior</text>
+    <path d="M0,10 L0,40" stroke="#8B7B6B" stroke-width="2" marker-end="url(#arrowHead)"/>
+  </g>
+
+  <g transform="translate(480, 350)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="11" fill="#8B7B6B">Posterior</text>
+    <path d="M0,10 L0,40" stroke="#8B7B6B" stroke-width="2"/>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(920, 550)">
+    <rect x="0" y="0" width="200" height="150" rx="8" fill="#FFF8F0" stroke="#D0C0B0" stroke-width="2"/>
+    <text x="100" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#5D4E42">Key Positions</text>
+
+    <!-- Head position indicator -->
+    <circle cx="30" cy="55" r="12" fill="url(#skinGradient)" stroke="#C4A090" stroke-width="2"/>
+    <text x="50" y="60" font-family="Arial, sans-serif" font-size="11" fill="#7D6E62">Fetal Head</text>
+
+    <!-- Direction arrows -->
+    <path d="M25,95 L55,95" stroke="#E07050" stroke-width="3" marker-end="url(#arrowHead)"/>
+    <text x="65" y="100" font-family="Arial, sans-serif" font-size="11" fill="#E07050">Rotation</text>
+
+    <path d="M25,120 L55,120" stroke="#4CAF50" stroke-width="3" marker-end="url(#arrowHead)"/>
+    <text x="65" y="125" font-family="Arial, sans-serif" font-size="11" fill="#4CAF50">Expulsion</text>
+  </g>
+
+  <!-- Description box -->
+  <g transform="translate(920, 720)">
+    <rect x="0" y="0" width="200" height="120" rx="8" fill="#FFF8F0" stroke="#D0C0B0" stroke-width="2"/>
+    <text x="100" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#5D4E42">Summary</text>
+    <text x="15" y="45" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">The mechanism of labor involves</text>
+    <text x="15" y="58" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">seven cardinal movements that help</text>
+    <text x="15" y="71" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">the fetus navigate through the</text>
+    <text x="15" y="84" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">pelvis and birth canal. These</text>
+    <text x="15" y="97" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">movements maximize the space</text>
+    <text x="15" y="110" font-family="Arial, sans-serif" font-size="10" fill="#7D6E62">available for fetal passage.</text>
+  </g>
+
+  <!-- Anatomical reference lines -->
+  <g transform="translate(600, 450)">
+    <!-- Antero-posterior line -->
+    <line x1="0" y1="-180" x2="0" y2="180" stroke="#B0A090" stroke-width="1" stroke-dasharray="8,4"/>
+    <text x="15" y="-170" font-family="Arial, sans-serif" font-size="9" fill="#9B8B7B">AP Diameter</text>
+
+    <!-- Transverse line -->
+    <line x1="-140" y1="-120" x2="140" y2="-120" stroke="#B0A090" stroke-width="1" stroke-dasharray="8,4"/>
+    <text x="-80" y="-135" font-family="Arial, sans-serif" font-size="9" fill="#9B8B7B">Transverse</text>
+  </g>
+
+  <!-- Progress indicator -->
+  <g transform="translate(50, 720)">
+    <rect x="0" y="0" width="800" height="50" rx="8" fill="#F0E8E0" stroke="#D0C0B0" stroke-width="2"/>
+    <text x="20" y="30" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#5D4E42">Labor Progress:</text>
+
+    <!-- Progress stages -->
+    <circle cx="100" cy="25" r="8" fill="#E8D8C8" stroke="#C4B4A4" stroke-width="2"/>
+    <circle cx="200" cy="25" r="8" fill="#E8D8C8" stroke="#C4B4A4" stroke-width="2"/>
+    <circle cx="300" cy="25" r="8" fill="#E8D8C8" stroke="#C4B4A4" stroke-width="2"/>
+    <circle cx="400" cy="25" r="8" fill="#E8D8C8" stroke="#C4B4A4" stroke-width="2"/>
+    <circle cx="500" cy="25" r="8" fill="#E8D8C8" stroke="#C4B4A4" stroke-width="2"/>
+    <circle cx="600" cy="25" r="8" fill="#E8D8C8" stroke="#C4B4A4" stroke-width="2"/>
+    <circle cx="700" cy="25" r="8" fill="#4CAF50" stroke="#388E3C" stroke-width="2"/>
+
+    <!-- Connecting line -->
+    <line x1="108" y1="25" x2="692" y2="25" stroke="#D0C0B0" stroke-width="2"/>
+
+    <text x="100" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7D6E62">1</text>
+    <text x="200" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7D6E62">2</text>
+    <text x="300" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7D6E62">3</text>
+    <text x="400" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7D6E62">4</text>
+    <text x="500" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7D6E62">5</text>
+    <text x="600" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7D6E62">6</text>
+    <text x="700" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#388E3C">✓</text>
+  </g>
+
+  <!-- Footer note -->
+  <text x="600" y="870" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9B8B7B">
+    Note: Illustration shows idealized representation. Actual labor may vary in sequence and timing.
+  </text>
+</svg>

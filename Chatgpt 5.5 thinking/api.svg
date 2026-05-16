@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820">
+  <defs>
+    <style>
+      .title { font: 700 30px Arial, sans-serif; fill: #1f2937; }
+      .subtitle { font: 16px Arial, sans-serif; fill: #4b5563; }
+      .panel-title { font: 700 18px Arial, sans-serif; fill: #111827; }
+      .label { font: 13px Arial, sans-serif; fill: #374151; }
+      .small { font: 12px Arial, sans-serif; fill: #4b5563; }
+      .pelvis { fill: none; stroke: #6b7280; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+      .pelvis-light { fill: none; stroke: #d1d5db; stroke-width: 18; stroke-linecap: round; stroke-linejoin: round; opacity: 0.55; }
+      .canal { fill: none; stroke: #bfdbfe; stroke-width: 34; stroke-linecap: round; opacity: 0.55; }
+      .head { fill: #fde2c8; stroke: #b45309; stroke-width: 3; }
+      .fontanelle { fill: #fff7ed; stroke: #b45309; stroke-width: 2; }
+      .suture { stroke: #92400e; stroke-width: 2; stroke-linecap: round; }
+      .body { fill: #fcd5ce; stroke: #9f1239; stroke-width: 3; }
+      .arrow { fill: none; stroke: #2563eb; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrowhead); }
+      .arrow2 { fill: none; stroke: #dc2626; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrowhead-red); }
+      .rotate { fill: none; stroke: #7c3aed; stroke-width: 4; stroke-linecap: round; marker-end: url(#arrowhead-purple); }
+      .panel { fill: #ffffff; stroke: #e5e7eb; stroke-width: 2; rx: 18; }
+      .note-box { fill: #f9fafb; stroke: #e5e7eb; stroke-width: 1.5; rx: 12; }
+    </style>
+
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrowhead-purple" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="820" fill="#f3f4f6"/>
+
+  <!-- Header -->
+  <text x="600" y="45" text-anchor="middle" class="title">Mechanism of Labor</text>
+  <text x="600" y="72" text-anchor="middle" class="subtitle">
+    Simplified cardinal movements of the fetal head and shoulders through the maternal pelvis
+  </text>
+
+  <!-- Panel layout variables:
+       left margins: 35, 420, 805
+       top rows: 105, 430
+       panel size: 360 x 290
+  -->
+
+  <!-- ===================== PANEL 1 ===================== -->
+  <g transform="translate(35,105)">
+    <rect class="panel" width="360" height="290" rx="18"/>
+    <text x="180" y="30" text-anchor="middle" class="panel-title">1. Engagement</text>
+
+    <!-- Birth canal and pelvis -->
+    <path class="canal" d="M180,65 C175,105 175,145 180,230"/>
+    <path class="pelvis-light" d="M88,72 C60,103 54,160 77,215 C99,265 143,274 180,274 C217,274 261,265 283,215 C306,160 300,103 272,72"/>
+    <path class="pelvis" d="M88,72 C60,103 54,160 77,215 C99,265 143,274 180,274 C217,274 261,265 283,215 C306,160 300,103 272,72"/>
+    <path class="pelvis" d="M115,92 C138,108 222,108 245,92"/>
+
+    <!-- Fetal head at inlet -->
+    <g transform="translate(180,94)">
+      <ellipse class="head" rx="48" ry="40"/>
+      <line class="suture" x1="-38" y1="0" x2="38" y2="0"/>
+      <circle class="fontanelle" cx="-24" cy="0" r="7"/>
+      <circle class="fontanelle" cx="24" cy="0" r="5"/>
+    </g>
+
+    <path class="arrow" d="M180,48 C180,60 180,70 180,80"/>
+    <text x="180" y="250" text-anchor="middle" class="label">Biparietal diameter enters pelvic inlet</text>
+  </g>
+
+  <!-- ===================== PANEL 2 ===================== -->
+  <g transform="translate(420,105)">
+    <rect class="panel" width="360" height="290" rx="18"/>
+    <text x="180" y="30" text-anchor="middle" class="panel-title">2. Descent and Flexion</text>
+
+    <path class="canal" d="M180,60 C176,105 177,155 182,235"/>
+    <path class="pelvis-light" d="M88,72 C60,103 54,160 77,215 C99,265 143,274 180,274 C217,274 261,265 283,215 C306,160 300,103 272,72"/>
+    <path class="pelvis" d="M88,72 C60,103 54,160 77,215 C99,265 143,274 180,274 C217,274 261,265 283,215 C306,160 300,103 272,72"/>
+    <path class="pelvis" d="M115,92 C138,108 222,108 245,92"/>
+
+    <!-- Head lower and flexed -->
+    <g transform="translate(180,145) rotate(-18)">
+      <ellipse class="head" rx="45" ry="38"/>
+      <line class="suture" x1="-34" y1="-4" x2="35" y2="6"/>
+      <circle class="fontanelle" cx="-22" cy="-2" r="7"/>
+      <circle class="fontanelle" cx="23" cy="4" r="5"/>
+      <circle cx="37" cy="-10" r="3" fill="#92400e"/>
+    </g>
+
+    <path class="arrow" d="M180,70 C176,95 176,112 179,130"/>
+    <path class="arrow2" d="M228,102 C214,116 204,126 196,140"/>
+    <text x="180" y="247" text-anchor="middle" class="label">Head descends; chin flexes toward chest</text>
+  </g>
+
+  <!-- ===================== PANEL 3 ===================== -->
+  <g transform="translate(805,105)">
+    <rect class="panel" width="360" height="290" rx="18"/>
+    <text x="180" y="30" text-anchor="middle" class="panel-title">3. Internal Rotation</text>
+
+    <path class="canal" d="M180,60 C178,105 178,160 182,238"/>
+    <path class="pelvis-light" d="M88,72 C60,103 54,160 77,215 C99,265 143,274 180,274 C217,274 261,265 283,215 C306,160 300,103 272,72"/>
+    <path class="pelvis" d="M88,72 C60,103 54,160 77,215 C99,265 143,274 180,274 C217,274 261,265 283,215 C306,160 300,103 272,72"/>
+    <path class="pelvis" d="M115,92 C138,108 222,108 245,92"/>
+
+    <!-- Head in mid pelvis, rotating to AP diameter -->
+    <g transform="translate(180,160) rotate(45)">
+      <ellipse class="head" rx="45" ry="38"/>
+      <line class="suture" x1="-35" y1="0" x2="35" y2="0"/>
+      <circle class="fontanelle" cx="-22" cy="0" r="7"/>
+      <circle class="fontanelle" cx="23" cy="0" r="5"/>
+    </g>
+
+    <path class="rotate" d="M128,155 C128,112 184,96 216,126 C246,154 230,204 190,214"/>
+    <text x="180" y="247" text-anchor="middle" class="label">Occiput rotates anteriorly under symphysis</text>
+  </g>
+
+  <!-- ===================== PANEL 4 ===================== -->
+  <g transform="translate(35,430)">
+    <rect class="panel" width="360" height="290" rx="18"/>
+    <text x="180" y="30" text-anchor="middle" class="panel-title">4. Extension</text>
+
+    <path class="canal" d="M180,60 C178,110 180,165 192,242"/>
+    <path class="pelvis-light" d="M88,72 C60,103 54,160 77,215 C99,265 143,274 180,274 C217,274 261,265 283,215 C306,160 300,103 272,72"/>
+    <path class="pelvis" d="M88,72 C60,103 54,160 77,215 C99,265 143,274 180,274 C217,274 261,265 283,215 C306,160 300,103 272,72"/>
+    <path class="pelvis" d="M115,92 C138,108 222,108 245,92"/>
+
+    <!-- Head crowning/extension at outlet -->
+    <g transform="translate(205,220) rotate(25)">
+      <ellipse class="head" rx="52" ry="42"/>
+      <line class="suture" x1="-40" y1="-2" x2="40" y2="2"/>
+      <circle class="fontanelle" cx="-25" cy="-1" r="7"/>
+      <circle class="fontanelle" cx="26" cy="1" r="5"/>
+      <circle cx="43" cy="-9" r="3" fill="#92400e"/>
+    </g>
+
+    <path class="arrow" d="M176,150 C182,178 193,198 208,217"/>
+    <path class="arrow2" d="M155,226 C170,205 190,194 212,193"/>
+    <text x="180" y="265" text-anchor="middle" class="label">Head extends as it passes beneath pubic arch</text>
+  </g>
+
+  <!-- ===================== PANEL 5 ===================== -->
+  <g transform="translate(420,430)">
+    <rect class="panel" width="360" height="290" rx="18"/>
+    <text x="180" y="30" text-anchor="middle" class="panel-title">5. Restitution and External Rotation</text>
+
+    <path class="canal" d="M180,60 C178,110 180,165 192,242"/>
+    <path class="pelvis-light" d="M88,72 C60,103 54,160 77,215 C99,265 143,274 180,274 C217,274 261,265 283,215 C306,160 300,103 272,72"/>
+    <path class="pelvis" d="M88,72 C60,103 54,160 77,215 C99,265 143,274 180,274 C217,274 261,265 283,215 C306,160 300,103 272,72"/>
+    <path class="pelvis" d="M115,92 C138,108 222,108 245,92"/>
+
+    <!-- Delivered head outside, turned -->
+    <g transform="translate(230,230) rotate(-38)">
+      <ellipse class="head" rx="52" ry="42"/>
+      <line class="suture" x1="-40" y1="0" x2="40" y2="0"/>
+      <circle class="fontanelle" cx="-25" cy="0" r="7"/>
+      <circle class="fontanelle" cx="26" cy="0" r="5"/>
+    </g>
+
+    <!-- Shoulders inside pelvis -->
+    <g transform="translate(178,188) rotate(32)">
+      <ellipse class="body" rx="48" ry="22"/>
+      <line x1="-42" y1="0" x2="42" y2="0" stroke="#9f1239" stroke-width="2"/>
+    </g>
+
+    <path class="rotate" d="M247,175 C290,187 300,235 268,259"/>
+    <text x="180" y="265" text-anchor="middle" class="label">Head realigns with shoulders as shoulders rotate</text>
+  </g>
+
+  <!-- ===================== PANEL 6 ===================== -->
+  <g transform="translate(805,430)">
+    <rect class="panel" width="360" height="290" rx="18"/>
+    <text x="180" y="30" text-anchor="middle" class="panel-title">6. Expulsion</text>
+
+    <path class="canal" d="M180,60 C178,110 180,165 192,242"/>
+    <path class="pelvis-light" d="M88,72 C60,103 54,160 77,215 C99,265 143,274 180,274 C217,274 261,265 283,215 C306,160 300,103 272,72"/>
+    <path class="pelvis" d="M88,72 C60,103 54,160 77,215 C99,265 143,274 180,274 C217,274 261,265 283,215 C306,160 300,103 272,72"/>
+    <path class="pelvis" d="M115,92 C138,108 222,108 245,92"/>
+
+    <!-- Baby body emerging -->
+    <g transform="translate(225,224) rotate(-18)">
+      <ellipse class="head" cx="42" cy="-20" rx="38" ry="32"/>
+      <line class="suture" x1="15" y1="-20" x2="68" y2="-20"/>
+      <circle class="fontanelle" cx="28" cy="-20" r="5"/>
+      <circle class="fontanelle" cx="56" cy="-20" r="4"/>
+
+      <ellipse class="body" cx="-15" cy="10" rx="62" ry="34"/>
+      <path d="M-60,3 C-87,10 -93,35 -68,42" fill="none" stroke="#9f1239" stroke-width="4" stroke-linecap="round"/>
+      <path d="M10,30 C26,53 57,48 68,25" fill="none" stroke="#9f1239" stroke-width="4" stroke-linecap="round"/>
+    </g>
+
+    <path class="arrow" d="M170,178 C190,202 214,217 245,224"/>
+    <text x="180" y="265" text-anchor="middle" class="label">Anterior shoulder, posterior shoulder, then body deliver</text>
+  </g>
+
+  <!-- Footer note -->
+  <g transform="translate(35,742)">
+    <rect class="note-box" width="1130" height="55" rx="12"/>
+    <text x="20" y="23" class="small">
+      Cardinal movements shown: engagement → descent → flexion → internal rotation → extension → restitution/external rotation → expulsion.
+    </text>
+    <text x="20" y="42" class="small">
+      This is a simplified educational diagram and does not represent all anatomic variations or clinical scenarios.
+    </text>
+  </g>
+</svg>

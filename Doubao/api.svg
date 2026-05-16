@@ -1,0 +1,92 @@
+<svg width="900" height="700" viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background & Base Styles -->
+  <rect width="100%" height="100%" fill="#f8f9fa"/>
+  <defs>
+    <filter id="shadow" x="-0.1" y="-0.1" width="1.2" height="1.2">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Main Title -->
+  <text x="450" y="40" text-anchor="middle" font-size="22" font-weight="bold" fill="#212529">Mechanism of Labor: Cardinal Movements</text>
+  <text x="450" y="65" text-anchor="middle" font-size="14" fill="#495057">Normal term vertex (occiput anterior) presentation</text>
+
+  <!-- Maternal Pelvis Illustration -->
+  <path d="M150 180 L150 550 Q200 600 350 600 Q500 600 550 550 L550 180 Q450 140 350 140 Q250 140 150 180Z" 
+        fill="#e9d8a6" stroke="#9b7b4b" stroke-width="3" filter="url(#shadow)"/>
+  <text x="350" y="170" text-anchor="middle" font-size="14" fill="#212529">Pelvic Inlet</text>
+  <text x="100" y="360" text-anchor="middle" font-size="14" fill="#212529">Pubic Symphysis</text>
+  <text x="600" y="360" text-anchor="middle" font-size="14" fill="#212529">Sacrum</text>
+  <text x="350" y="630" text-anchor="middle" font-size="14" fill="#212529">Vulvar Outlet</text>
+
+  <!-- Fetus Group (Animated through all labor stages) -->
+  <g id="fetus" filter="url(#shadow)">
+    <!-- Fetal head & body -->
+    <ellipse cx="350" cy="120" rx="45" ry="55" fill="#90e0ef" stroke="#0077b6" stroke-width="2"/>
+    <circle id="occiput" cx="350" cy="80" r="10" fill="#03045e"/> <!-- Landmark: back of fetal head -->
+    <path d="M350 175 L330 240 L370 240 Z" fill="#90e0ef" stroke="#0077b6" stroke-width="2"/>
+    <!-- Animations for sequential cardinal movements -->
+    <animate attributeName="transform" type="translate" 
+             values="0 0; 0 80; 0 130; 0 200; 0 280; 0 360; 0 420" 
+             keyTimes="0; 0.14; 0.28; 0.42; 0.57; 0.71; 0.85" dur="21s" repeatCount="indefinite"/>
+    <animate attributeName="transform" type="rotate"
+             values="0 350 175; 0 350 255; 15 350 305; 90 350 375; 0 350 455; -45 350 535; -90 350 595"
+             keyTimes="0; 0.14; 0.28; 0.42; 0.57; 0.71; 0.85" dur="21s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- Stage Legend Panel -->
+  <rect x="580" y="100" width="300" height="540" fill="#ffffff" stroke="#dee2e6" stroke-width="2" rx="8"/>
+  <text x="730" y="130" text-anchor="middle" font-size="16" font-weight="bold" fill="#212529">Labor Stages</text>
+
+  <!-- Stage 1: Engagement -->
+  <rect id="s1" x="595" y="150" width="270" height="65" fill="#f8f9fa" rx="4">
+    <animate attributeName="fill" values="#f8f9fa;#fff3cd;#f8f9fa" keyTimes="0;0.14;0.15" dur="21s" repeatCount="indefinite"/>
+  </rect>
+  <text x="610" y="175" font-size="14" font-weight="bold">1. Engagement</text>
+  <text x="610" y="195" font-size="12" fill="#495057">Fetal head enters the pelvic inlet, widest head diameter clears the mother’s pelvic brim</text>
+
+  <!-- Stage 2: Descent -->
+  <rect id="s2" x="595" y="225" width="270" height="60" fill="#f8f9fa" rx="4">
+    <animate attributeName="fill" values="#f8f9fa;#fff3cd;#f8f9fa" keyTimes="0.14;0.28;0.29" dur="21s" repeatCount="indefinite"/>
+  </rect>
+  <text x="610" y="250" font-size="14" font-weight="bold">2. Descent</text>
+  <text x="610" y="270" font-size="12" fill="#495057">Fetus moves downward through the birth canal, driven by uterine contractions</text>
+
+  <!-- Stage 3: Flexion -->
+  <rect id="s3" x="595" y="295" width="270" height="60" fill="#f8f9fa" rx="4">
+    <animate attributeName="fill" values="#f8f9fa;#fff3cd;#f8f9fa" keyTimes="0.28;0.42;0.43" dur="21s" repeatCount="indefinite"/>
+  </rect>
+  <text x="610" y="320" font-size="14" font-weight="bold">3. Flexion</text>
+  <text x="610" y="340" font-size="12" fill="#495057">Fetal head tucks, presenting the smallest possible skull diameter to the pelvis</text>
+
+  <!-- Stage 4: Internal Rotation -->
+  <rect id="s4" x="595" y="365" width="270" height="65" fill="#f8f9fa" rx="4">
+    <animate attributeName="fill" values="#f8f9fa;#fff3cd;#f8f9fa" keyTimes="0.42;0.57;0.58" dur="21s" repeatCount="indefinite"/>
+  </rect>
+  <text x="610" y="390" font-size="14" font-weight="bold">4. Internal Rotation</text>
+  <text x="610" y="410" font-size="12" fill="#495057">Occiput (back of head) turns 90° to fit under the mother’s pubic symphysis</text>
+
+  <!-- Stage 5: Extension -->
+  <rect id="s5" x="595" y="440" width="270" height="60" fill="#f8f9fa" rx="4">
+    <animate attributeName="fill" values="#f8f9fa;#fff3cd;#f8f9fa" keyTimes="0.57;0.71;0.72" dur="21s" repeatCount="indefinite"/>
+  </rect>
+  <text x="610" y="465" font-size="14" font-weight="bold">5. Extension</text>
+  <text x="610" y="485" font-size="12" fill="#495057">Fetal head unbends, emerging sequentially from the vulvar outlet</text>
+
+  <!-- Stage 6: External Rotation -->
+  <rect id="s6" x="595" y="510" width="270" height="60" fill="#f8f9fa" rx="4">
+    <animate attributeName="fill" values="#f8f9fa;#fff3cd;#f8f9fa" keyTimes="0.71;0.85;0.86" dur="21s" repeatCount="indefinite"/>
+  </rect>
+  <text x="610" y="535" font-size="14" font-weight="bold">6. External Rotation</text>
+  <text x="610" y="555" font-size="12" fill="#495057">Head turns again to align with the mother’s pelvic dimensions for shoulder delivery</text>
+
+  <!-- Stage 7: Expulsion -->
+  <rect id="s7" x="595" y="580" width="270" height="50" fill="#f8f9fa" rx="4">
+    <animate attributeName="fill" values="#f8f9fa;#fff3cd;#f8f9fa" keyTimes="0.85;1;1" dur="21s" repeatCount="indefinite"/>
+  </rect>
+  <text x="610" y="605" font-size="14" font-weight="bold">7. Expulsion</text>
+  <text x="610" y="625" font-size="12" fill="#495057">Shoulders and full fetal body are delivered, completing birth</text>
+
+  <!-- Footer Note -->
+  <text x="450" y="680" text-anchor="middle" font-size="12" fill="#6c757d">For educational purposes only; depicts uncomplicated vaginal labor</text>
+</svg>

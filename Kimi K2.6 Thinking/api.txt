@@ -1,0 +1,590 @@
+ ```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obstetric Visualization: Mechanism of Labor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #e2e8f0; /* Slate 200 */
+            overflow-x: hidden;
+        }
+
+        /* Smooth transitions for SVG elements */
+        .anatomical-structure {
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+        }
+
+        #fetal-head-group {
+            transform-box: fill-box;
+            transform-origin: center;
+            transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1); /* Slight bounce effect */
+        }
+
+        .step-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .step-card.active {
+            background-color: #1e293b; /* Slate 800 */
+            border-left-color: #38bdf8; /* Sky 400 */
+        }
+
+        .slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #38bdf8;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid #334155;
+            padding: 8px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            font-size: 0.85rem;
+            z-index: 50;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .pelvis-fill {
+            fill: rgba(255, 200, 200, 0.1);
+            stroke: #f87171;
+            stroke-width: 2;
+        }
+        
+        .bone-structure {
+            fill: none;
+            stroke: #cbd5e1;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .fetal-skin {
+            fill: #94a3b8; /* Slate 400 for generic representation */
+            stroke: #475569;
+            stroke-width: 1;
+        }
+        
+        .fetal-face {
+            fill: #fecaca; /* Pinkish for face/anterior */
+        }
+
+        .grid-bg {
+            background-image: radial-gradient(#334155 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col lg:flex-row">
+
+    <!-- LEFT PANEL: Interactive Visualization -->
+    <div class="relative w-full lg:w-2/3 h-1/2 lg:h-full bg-slate-900 overflow-hidden flex flex-col">
+        
+        <!-- Header Overlay -->
+        <div class="absolute top-0 left-0 w-full p-6 z-10 flex justify-between items-start bg-gradient-to-b from-slate-900 to-transparent pointer-events-none">
+            <div>
+                <h1 class="text-3xl font-bold text-white tracking-tight">Fetal Descent & Rotation</h1>
+                <p class="text-slate-400 text-sm mt-1">Interactive Mechanism of Labor Simulation</p>
+            </div>
+            <div class="pointer-events-auto flex gap-2">
+                 <button id="resetBtn" class="bg-slate-800 hover:bg-slate-700 text-white px-3 py-1 rounded text-xs border border-slate-600 transition">Reset</button>
+            </div>
+        </div>
+
+        <!-- Main SVG Canvas -->
+        <div class="flex-grow relative flex items-center justify-center grid-bg" id="canvas-container">
+            <!-- Tooltip Element -->
+            <div id="tooltip" class="tooltip"></div>
+
+            <svg id="main-svg" viewBox="0 0 600 600" class="w-full h-full max-w-[800px] max-h-[800px] z-0">
+                <defs>
+                    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="2" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#38bdf8" />
+                    </marker>
+                </defs>
+
+                <!-- Pelvis Structure (Static) -->
+                <g id="pelvis-group" transform="translate(300, 300)">
+                    <!-- Sacrum & Promontory -->
+                    <path d="M -60 -120 Q -40 -80 0 -80 Q 40 -80 80 -100" class="bone-structure" stroke="#f87171"/>
+                    <!-- Pelvic Inlet (Brim) -->
+                    <path d="M -80 -100 Q 0 -120 80 -100 Q 90 0 80 120 Q 0 160 -80 120 Q -90 0 -80 -100" 
+                          class="bone-structure" opacity="0.3" /> <!-- Inlet outline -->
+                    
+                    <!-- Ischial Spines (Crucial Landmark) -->
+                    <circle cx="-45" cy="0" r="3" fill="#38bdf8" opacity="0.8"/>
+                    <circle cx="45" cy="0" r="3" fill="#38bdf8" opacity="0.8"/>
+
+                    <!-- Pelvic Outlet -->
+                    <path d="M -90 140 Q 0 180 90 140" class="bone-structure" stroke="#475569" stroke-dasharray="4 2"/>
+                    
+                    <!-- Symphysis Pubis -->
+                    <path d="M -20 120 L -15 160 L 15 160 L 20 120" fill="#cbd5e1" stroke="#cbd5e1" stroke-width="2"/>
+                    
+                    <!-- Pelvic Cavity Area (Background) -->
+                    <path d="M -80 -100 Q -90 0 -80 120 L -20 120 L 20 120 L 80 120 Q 90 0 80 -100 Q 0 -120 -80 -100 Z" 
+                          fill="#1e293b" opacity="0.5" stroke="none"/>
+                </g>
+
+                <!-- Fetal Head Group -->
+                <g id="fetal-head-group" transform="translate(300, 200)">
+                    <!-- Occiput (Back of head) - Pointed down initially -->
+                    <g id="head-rotation-wrapper">
+                        <!-- Head Shape -->
+                        <ellipse cx="0" cy="0" rx="45" ry="55" class="fetal-skin" />
+                        <!-- Fontanelles/Bones detail -->
+                        <path d="M -20 -20 L 0 -10 L 20 -20" fill="none" stroke="#64748b" stroke-width="1.5" opacity="0.5"/>
+                        <path d="M 0 -10 L 0 30" fill="none" stroke="#64748b" stroke-width="1.5" opacity="0.5"/>
+                        
+                        <!-- Face/Anterior Indicator (The Pink Part) -->
+                        <!-- We draw a segment to show where the face is -->
+                        <path d="M 0 0 m -42,0 a 42,55 0 0,0 84,0" fill="#fecaca" opacity="0.4" class="fetal-face-highlight"/>
+                        <text x="0" y="25" text-anchor="middle" font-size="10" fill="#9f1239" font-weight="bold" class="opacity-75">FACE</text>
+                        
+                        <!-- Occiput Marker -->
+                        <circle cx="0" cy="-40" r="3" fill="#334155" />
+                        <text x="0" y="-45" text-anchor="middle" font-size="8" fill="#334155" font-weight="bold">OCCIPUT</text>
+                    </g>
+                </g>
+
+                <!-- Directional Arrows (Dynamic) -->
+                <g id="force-vectors" opacity="0" transform="translate(300, 300)">
+                    <!-- Extension/Descent Arrow -->
+                    <line x1="0" y1="-50" x2="0" y2="20" stroke="#a855f7" stroke-width="2" marker-end="url(#arrow)" opacity="0.8"/>
+                    <text x="10" y="-10" fill="#a855f7" font-size="12" font-weight="bold">Descent</text>
+                </g>
+
+                <!-- Measurement Lines -->
+                <g id="measurements" opacity="0.5" transform="translate(300, 300)">
+                     <!-- Station Line -->
+                     <line x1="120" y1="-120" x2="120" y2="0" stroke="#cbd5e1" stroke-dasharray="2 2"/>
+                     <text x="125" y="-60" fill="#cbd5e1" font-size="10">Ischial Spine (0 Station)</text>
+                </g>
+            </svg>
+        </div>
+
+        <!-- Playback Controls -->
+        <div class="absolute bottom-0 w-full p-4 bg-slate-900/90 backdrop-blur border-t border-slate-800 flex items-center justify-between z-20">
+            <div class="flex items-center gap-4">
+                <button id="playPauseBtn" class="bg-sky-500 hover:bg-sky-400 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-105">
+                    <svg id="playIcon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <svg id="pauseIcon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+                <div class="flex flex-col w-32 sm:w-48 md:w-64">
+                    <label class="text-xs text-slate-400 mb-1 flex justify-between">
+                        <span>Progress</span>
+                        <span id="step-indicator">Descent</span>
+                    </label>
+                    <input type="range" id="timeline" min="0" max="6" step="0.1" value="0" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                </div>
+            </div>
+            
+            <div class="hidden md:block text-right">
+                <div class="text-sm font-semibold text-sky-400">Station: <span id="station-display">-5</span> cm</div>
+                <div class="text-xs text-slate-500">Rotation: <span id="rotation-display">45°</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL: Educational Content & Controls -->
+    <div class="w-full lg:w-1/3 h-1/2 lg:h-full bg-slate-800 border-l border-slate-700 flex flex-col relative z-30 shadow-2xl">
+        
+        <!-- Step Navigation -->
+        <div class="p-4 border-b border-slate-700 bg-slate-900">
+            <h2 class="text-lg font-semibold text-white mb-3">Mechanism Steps</h2>
+            <div class="flex flex-wrap gap-2" id="step-buttons">
+                <!-- Buttons generated by JS -->
+            </div>
+        </div>
+
+        <!-- Scrollable Content Area -->
+        <div class="flex-grow overflow-y-auto p-6 space-y-6" id="info-panel">
+            
+            <!-- Dynamic Content Card -->
+            <div id="content-display" class="space-y-4">
+                <div class="bg-slate-700/50 rounded-xl p-5 border border-slate-600">
+                    <h3 class="text-xl font-bold text-sky-300 mb-2" id="step-title">Engagement</h3>
+                    <p class="text-slate-300 leading-relaxed text-sm" id="step-description">
+                        The biparietal diameter of the fetal head passes below the plane of the pelvic inlet. Usually occurs in the weeks prior to labor in nulliparous women.
+                    </p>
+                </div>
+
+                <!-- Anatomy Highlight Details -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-700">
+                        <h4 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Key Structure</h4>
+                        <p class="text-sm text-white" id="structure-detail">Pelvic Inlet</p>
+                    </div>
+                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-700">
+                        <h4 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Movement Type</h4>
+                        <p class="text-sm text-white" id="movement-type">Passive</p>
+                    </div>
+                </div>
+
+                <!-- Clinical Pearl -->
+                <div class="bg-blue-900/20 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                    <h4 class="text-sm font-bold text-blue-400 mb-1">Clinical Pearl</h4>
+                    <p class="text-xs text-slate-300" id="clinical-pearl">
+                        Engagement is defined clinically as 5/5 palpable per abdomen (or 0/5 in some conventions, depending on station system). If head is floating, engagement has not occurred.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mini Map / Overview -->
+        <div class="h-32 bg-slate-900 border-t border-slate-700 p-2">
+            <p class="text-xs text-center text-slate-500 mb-1">Anterior View (Transverse)</p>
+            <div class="w-full h-full flex justify-center items-center pb-4">
+                 <svg viewBox="0 0 200 100" class="h-full w-auto">
+                    <!-- Pelvis Outline Transverse -->
+                    <path d="M 20 80 Q 100 10 180 80" fill="none" stroke="#475569" stroke-width="2"/>
+                    <path d="M 50 85 Q 100 95 150 85" fill="none" stroke="#475569" stroke-width="2"/>
+                    <!-- Head Representation Transverse -->
+                    <circle id="mini-head" cx="100" cy="50" r="30" fill="#64748b" opacity="0.8"/>
+                 </svg>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Configuration & Data ---
+        const steps = [
+            {
+                id: 0,
+                name: "Engagement",
+                desc: "The greatest transverse diameter of the presenting part (usually biparietal diameter) passes the pelvic inlet. The head enters the pelvis either transversely or obliquely (LOA/ROA).",
+                structure: "Pelvic Inlet / Illiopectineal Lines",
+                movement: "Descent (Entry)",
+                pearl: "Engagement is a prerequisite for effacement and dilation. 'Floating' head usually means high station.",
+                transform: { x: 0, y: 0, rot: 45 }, // Relative to starting position
+                miniRot: 0
+            },
+            {
+                id: 1,
+                name: "Descent",
+                desc: "Movement of the fetal head down through the pelvic canal. It is not a continuous movement but occurs due to uterine contractions, aided by maternal bearing down efforts.",
+                structure: "Mid-Pelvis",
+                movement: "Vertical Descent",
+                pearl: "Descent is measured by fetal station (cm relative to ischial spines). Progress in station indicates labor progression.",
+                transform: { x: 0, y: 40, rot: 45 },
+                miniRot: 0
+            },
+            {
+                id: 2,
+                name: "Flexion",
+                desc: "The fetal chin flexes onto the chest. This reduces the presenting sub-occipito-bregmatic diameter, optimizing the head's fit in the pelvis.",
+                structure: "Cervix / Pelvic Floor",
+                movement: "Angular Change",
+                pearl: "When the descending head meets resistance from the cervix or pelvis, it flexes. This moves the occiput closer to the center of the pelvis.",
+                transform: { x: 0, y: 60, rot: 65 }, // Flexion changes the effective vector, visually represented by rotation of the internal marker
+                miniRot: 0
+            },
+            {
+                id: 3,
+                name: "Internal Rotation",
+                desc: "The fetal occiput rotates anteriorly towards the symphysis pubis. This aligns the widest head diameter with the widest pelvic diameter (AP at outlet).",
+                structure: "Pelvic Floor Muscles (Levator Ani)",
+                movement: "Rotation (Transverse -> AP)",
+                pearl: "This mechanism physically turns the shoulders to fit through the pelvic curve. 'Whew! Right occiput anterior... wait, turning...'",
+                transform: { x: 0, y: 100, rot: 130 }, // Now Anterior
+                miniRot: 90
+            },
+            {
+                id: 4,
+                name: "Extension",
+                desc: "Once the occiput passes under the symphysis pubis, the head extends. The occiput escapes under the pubis, and the vertex, forehead, and face emerge sequentially.",
+                structure: "Symphysis Pubis",
+                movement: "Hinging (Extension)",
+                pearl: "The birth of the head occurs by extension, NOT by further descent. The occiput serves as a fulcrum.",
+                transform: { x: 0, y: 130, rot: 175 }, // Almost looking up
+                miniRot: 180
+            },
+            {
+                id: 5,
+                name: "Restitution",
+                desc: "After the head emerges, it briefly rests with its occiput in line with the back. Then, it rotates 90° to align with the shoulders (which are still transverse).",
+                structure: "Fetal Shoulders",
+                movement: "Alignment Rotation",
+                pearl: "Restitution is a sign that the head is no longer stuck. It untwists the neck that was created by internal rotation.",
+                transform: { x: 0, y: 135, rot: 220 },
+                miniRot: 270
+            },
+            {
+                id: 6,
+                name: "External Rotation",
+                desc: "The shoulders internally rotate to OA (Occiput Anterior). This causes the head to rotate externally (further or back to transverse).",
+                structure: "Pelvic Outlet",
+                movement: "Shoulder Mechanics",
+                pearl: "We see the face rotating externally. This happens in two parts: Anterior shoulder under symphysis, posterior shoulder over perineum.",
+                transform: { x: 10, y: 145, rot: 270 },
+                miniRot: 0
+            },
+            {
+                id: 7,
+                name: "Expulsion",
+                desc: "Delivery of the body. The anterior shoulder is delivered under the symphysis, followed by the trunk and posterior shoulder.",
+                structure: "Perineum / Outlet",
+                movement: "Lateral Flexion",
+                pearl: "The completion of the process. The anterior shoulder is usually larger and requires more space, thus delivered first.",
+                transform: { x: 20, y: 160, rot: 270 },
+                miniRot: 0
+            }
+        ];
+
+        // --- State ---
+        let currentStep = 0;
+        let isPlaying = false;
+        let animationInterval;
+        
+        // --- DOM Elements ---
+        const headGroup = document.getElementById('fetal-head-group');
+        const headRotationWrapper = document.getElementById('head-rotation-wrapper');
+        const timeline = document.getElementById('timeline');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+        const stepButtonsContainer = document.getElementById('step-buttons');
+        const stepTitle = document.getElementById('step-title');
+        const stepDesc = document.getElementById('step-description');
+        const structureDetail = document.getElementById('structure-detail');
+        const movementType = document.getElementById('movement-type');
+        const clinicalPearl = document.getElementById('clinical-pearl');
+        const stationDisplay = document.getElementById('station-display');
+        const rotationDisplay = document.getElementById('rotation-display');
+        const stepIndicator = document.getElementById('step-indicator');
+        const miniHead = document.getElementById('mini-head');
+        
+        // Initial Coordinates
+        const BASE_X = 300;
+        const BASE_Y = 200; // Starting high in the pelvis
+
+        // --- Functions ---
+
+        function init() {
+            // Generate Buttons
+            steps.forEach((step, index) => {
+                const btn = document.createElement('button');
+                btn.className = `step-card px-3 py-1 text-xs rounded-full border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 transition ${index === 0 ? 'active' : ''}`;
+                btn.innerText = step.name;
+                btn.onclick = () => jumpToStep(index);
+                stepButtonsContainer.appendChild(btn);
+            });
+
+            updateVisuals(0);
+            setupEventListeners();
+        }
+
+        function setupEventListeners() {
+            timeline.addEventListener('input', (e) => {
+                const val = parseFloat(e.target.value);
+                // Determine step based on value
+                const stepIndex = Math.round(val);
+                if (currentStep !== stepIndex) {
+                    jumpToStep(val); // Pass float for smooth interpolation if we wanted, but rounding is cleaner for discrete steps
+                }
+            });
+
+            playPauseBtn.addEventListener('click', togglePlay);
+            
+            document.getElementById('resetBtn').addEventListener('click', () => {
+                stopAutoPlay();
+                jumpToStep(0);
+            });
+        }
+
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+                startAutoPlay();
+            } else {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                stopAutoPlay();
+            }
+        }
+
+        function startAutoPlay() {
+            animationInterval = setInterval(() => {
+                if (currentStep < steps.length - 1) {
+                    jumpToStep(currentStep + 1);
+                } else {
+                    togglePlay(); // Stop at end
+                }
+            }, 2500); // 2.5 seconds per step
+        }
+
+        function stopAutoPlay() {
+            clearInterval(animationInterval);
+            isPlaying = false;
+            playIcon.classList.remove('hidden');
+            pauseIcon.classList.add('hidden');
+        }
+
+        function jumpToStep(index) {
+            // Clamp index
+            if (index < 0) index = 0;
+            if (index > steps.length - 1) index = steps.length - 1;
+
+            currentStep = index;
+            timeline.value = index;
+            updateVisuals(index);
+            updateContent(index);
+        }
+
+        function updateContent(index) {
+            const stepData = steps[index];
+            
+            // Animate Text Fade
+            const contentDiv = document.getElementById('content-display');
+            contentDiv.style.opacity = '0.5';
+            
+            setTimeout(() => {
+                stepTitle.innerText = stepData.name;
+                stepDesc.innerText = stepData.desc;
+                structureDetail.innerText = stepData.structure;
+                movementType.innerText = stepData.movement;
+                clinicalPearl.innerText = stepData.pearl;
+                stepIndicator.innerText = stepData.name;
+                contentDiv.style.opacity = '1';
+            }, 100);
+
+            // Update Buttons
+            const btns = stepButtonsContainer.children;
+            for (let i = 0; i < btns.length; i++) {
+                if (i === index) {
+                    btns[i].classList.add('active');
+                    btns[i].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else {
+                    btns[i].classList.remove('active');
+                }
+            }
+        }
+
+        function updateVisuals(index) {
+            const stepData = steps[index];
+            
+            // 1. Move Head Group (Position)
+            // We add the transform values to the base coordinates
+            // Note: SVG Y is down, so +Y is down (descent)
+            // However, the pelvis drawing is centered at 300,300.
+            // Let's assume Base Y 200 is above the pelvic inlet.
+            
+            // To make it fit the drawn pelvis better:
+            // Pelvis inlet is around y=-100 relative to group (300,300) -> global y=200.
+            // Let's adjust base positions to match the visual drawing.
+            
+            // Base SVG coordinates:
+            // Head Center Start: (300, 200)
+            // Step 0 (Engagement): Just entering. (300, 220)
+            // Step 4 (Extension): Under pubis. (300, 300 + 130 = 430)
+            
+            const targetX = BASE_X + stepData.transform.x;
+            const targetY = BASE_Y + stepData.transform.y;
+            
+            headGroup.style.transform = `translate(${targetX}px, ${targetY}px)`;
+
+            // 2. Rotate Head (Orientation)
+            // The inner wrapper rotates to simulate flexion/internal rotation
+            // 0 = Occiput Up (Vertex presentation transverse)
+            // 90 = Occiput Right (Transverse)
+            // 130 = Occiput Anterior (Internal Rotation complete) -> Face is posterior
+            // Actually, let's map rotation to Occiput position.
+            // 0 deg: Occiput at 12 o'clock.
+            // 90 deg: Occiput at 9 o'clock.
+            // 130 deg: Occiput at ~7 o'clock (Anterior).
+            
+            const rotation = stepData.transform.rot;
+            headRotationWrapper.style.transform = `rotate(${rotation}deg)`;
+
+            // 3. Update Mini Map
+            miniHead.setAttribute('cx', 100 + (stepData.transform.x / 2)); // Scale down movement
+            miniHead.setAttribute('cy', 50 + (stepData.transform.y / 3));
+            // Rotate mini head based on internal rotation (90 deg rotation = mini head 90 deg)
+            let miniR = stepData.miniRot;
+            if(stepData.name === "Expulsion") {
+                 miniR += 45; // Tilt for delivery
+                 // Scale to tear drop for expulsion?
+            }
+            miniHead.setAttribute('transform', `rotate(${miniR}, ${100 + (stepData.transform.x / 2)}, ${50 + (stepData.transform.y / 3)})`);
+
+
+            // 4. Update Metrics Text
+            // Calculate Station (Approximate logic for visualizer)
+            // Ischial spines are at local(0,0) of pelvis group which is Global(300, 300).
+            // Head starts at Global(300, 200).
+            // Distance to station 0: 100px.
+            // Let's say 100px = 5cm station? That makes 1cm = 20px.
+            // Current Y center of head.
+            const currentHeadY = targetY;
+            const stationZeroY = 300; 
+            const diffY = stationZeroY - currentHeadY; // Positive if above (negative station)
+            
+            // Mapping: 
+            // Start (200) -> Diff 100 -> Station -5.
+            // Station 0 (300) -> Diff 0 -> Station 0.
+            // Extension (330) -> Diff -30 -> Station +1.5.
+            
+            // Let's simplify: 
+            // Diff / 20 = Station.
+            let stationVal = (diffY / 20); 
+            // Clamp for display
+            if(stationVal < 0) stationVal = Math.ceil(stationVal * 10) / 10;
+            else stationVal = Math.floor(stationVal * 10) / 10;
+            
+            stationDisplay.innerText = stationVal.toFixed(1);
+            rotationDisplay.innerText = rotation + "°";
+        }
+
+        // --- Tooltip Logic ---
+        const tooltip = document.getElementById('tooltip');
+        const svgContainer = document.getElementById('canvas-container');
+        
+        const areas = [
+            { id: 'fetal-head-group', text: 'Fetal Head (Vertex)' },
+            { id: 'pelvis-group', text: 'Maternal Bony Pelvis' }
+        ];
+
+        areas.forEach(area => {
+            const el = document.getElementById(area.id);
+            if(el) {
+                el.addEventListener('mousemove', (e) => {
+                    tooltip.style.opacity = '1';
+                    tooltip.style.left = (e.pageX + 10) + 'px';
+                    tooltip.style.top = (e.pageY + 10) + 'px';
+                    tooltip.innerText = area.text;
+                });
+                el.addEventListener('mouseleave', () => {
+                    tooltip.style.opacity = '0';
+                });
+            }
+        });
+
+        // Initialize
+        init();
+
+    </script>
+</body>
+</html>
+```
