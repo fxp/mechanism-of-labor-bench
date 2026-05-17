@@ -238,6 +238,41 @@ code{font-family:var(--mono);font-size:.88em;background:var(--s2);padding:2px 6p
 #lb.open{display:flex}
 #lb img{max-width:90vw;max-height:90vh;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.7)}
 
+/* ─── BACK BTN ───────────────────────────────────── */
+#back-btn{
+  position:fixed;top:16px;left:20px;z-index:200;
+  font-size:12px;font-family:var(--mono);
+  color:rgba(255,255,255,.5);text-decoration:none;
+  background:rgba(0,0,0,.35);
+  padding:5px 10px;border-radius:4px;
+  letter-spacing:.04em;
+  transition:color .2s, opacity .25s, transform .25s;
+  opacity:1;transform:translateY(0);
+}
+#back-btn:hover{color:rgba(255,255,255,.9)}
+#back-btn.hide{opacity:0;transform:translateY(-10px);pointer-events:none}
+
+/* ─── GITHUB BTN ─────────────────────────────────── */
+.gh-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 18px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:6px;
+  background:rgba(255,255,255,.05);
+  color:rgba(255,255,255,.75);
+  font-family:var(--mono);font-size:12px;font-weight:500;
+  text-decoration:none;letter-spacing:.04em;
+  transition:background .18s,border-color .18s,color .18s;
+  margin-top:20px;
+}
+.gh-btn:hover{
+  background:rgba(255,255,255,.1);
+  border-color:rgba(255,255,255,.3);
+  color:#fff;
+}
+.gh-btn svg{flex-shrink:0;opacity:.7}
+.gh-btn:hover svg{opacity:1}
+
 /* ─── FOOTER ─────────────────────────────────────── */
 footer{padding:44px 0;text-align:center;font-size:13px;color:var(--fa);border-top:1px solid var(--b0)}
 footer a{color:var(--api);text-decoration:none}
@@ -286,20 +321,28 @@ footer a:hover{text-decoration:underline}
 </head>
 <body>
 
+<a id="back-btn" href="/research/">← 研究</a>
+
 <div id="pgbar"></div>
 
 <!-- ═══════════ HERO ═══════════ -->
-<div class="hero">
+<div class="hero" id="s-hero">
   <div class="hero-inner">
     <div class="hero-eyebrow">LLM Benchmark · SVG Generation · 2026-05-16</div>
     <h1>LLM 能画出<br>胎儿分娩机转吗？</h1>
     <p class="hero-desc">起因是我老婆生孩子那天。8 个顶级模型，一个不可能的医学绘图任务，五个让人意外的发现。</p>
     <div class="hero-pills">
-      <div class="hero-pill"><span class="hero-pill-dot" style="background:var(--ok)"></span>👶 2026-05-12 凌晨 顺产</div>
+      <div class="hero-pill"><span class="hero-pill-dot" style="background:var(--ok)"></span>👶 2026-05-12 早上 5 点 顺产</div>
       <div class="hero-pill"><span class="hero-pill-dot" style="background:var(--chat)"></span>8 个模型</div>
       <div class="hero-pill"><span class="hero-pill-dot" style="background:var(--api)"></span>16 张输出</div>
       <div class="hero-pill"><span class="hero-pill-dot" style="background:var(--mu)"></span>GPT-5.5 评分 · 7 维度</div>
     </div>
+    <a class="gh-btn" href="https://github.com/fxp/mechanism-of-labor-bench" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+      数据开源 · github.com/fxp/mechanism-of-labor-bench
+    </a>
   </div>
   <div class="big-stats">
     <div class="big-stat"><span class="n">35</span><span class="l">满分</span></div>
@@ -309,7 +352,7 @@ footer a:hover{text-decoration:underline}
 </div>
 
 <!-- ═══════════ VIDEO ═══════════ -->
-<div class="vid-section">
+<div class="vid-section" id="s-video">
   <div class="wrap" style="max-width:860px">
     <div class="vid-kicker">参考动画 — 人类标准</div>
     <div class="vid-title">Seven Cardinal Movements of Labor</div>
@@ -324,7 +367,7 @@ footer a:hover{text-decoration:underline}
 </div>
 
 <!-- ═══════════ §01 起因 ═══════════ -->
-<div class="section">
+<div class="section" id="s01">
 <div class="wrap prose reveal">
   <div class="sec-num">§ 01</div>
   <h2 class="sec-h">👶 这个 Benchmark 的起因</h2>
@@ -363,7 +406,7 @@ footer a:hover{text-decoration:underline}
 </div>
 
 <!-- ═══════════ §02 方法论 ═══════════ -->
-<div class="section">
+<div class="section" id="s02">
 <div class="wrap reveal">
   <div class="sec-num">§ 02</div>
   <h2 class="sec-h">怎么测的</h2>
@@ -385,18 +428,18 @@ footer a:hover{text-decoration:underline}
     <tr><td>C6</td><td>运动方向标注</td><td>是否用箭头等方式指示各步骤运动方向</td></tr>
     <tr><td>C7</td><td>整体视觉清晰度</td><td>布局、配色、标注是否易于理解</td></tr>
   </table>
-  <p class="note">每项 1–5 分，满分 35 分。带 * 号表示因 GPT-5.5 输出被截断，仅按可用维度计算，括号内为对应满分。</p>
+  <p class="note">每项 1–5 分，满分 35 分。</p>
   <p style="color:var(--mu);margin-top:20px;font-size:15px">被测模型 8 个：GLM 5.1 Thinking、Gemini 3 Pro、Claude 4.7 Opus、Kimi K2.6 Thinking、ChatGPT 5.5 Thinking、MiniMax MAX、Grok、Doubao。另有 Manus 1.6 MAX 参与测试但因输出形式不同未纳入评分。</p>
 </div>
 </div>
 
 <!-- ═══════════ §03 排行榜 ═══════════ -->
-<div class="section">
+<div class="section" id="s03">
 <div class="wrap-lg reveal">
   <div class="wrap" style="padding:0">
     <div class="sec-num">§ 03</div>
     <h2 class="sec-h">总分排行</h2>
-    <p style="color:var(--mu);font-size:15px;margin-bottom:28px"><span style="color:var(--chat)">■</span> 橙色为 Chat 版 &nbsp;·&nbsp; <span style="color:var(--api)">■</span> 青色为 API 版 &nbsp;·&nbsp; 分数条按各自满分（30 或 35）归一化</p>
+    <p style="color:var(--mu);font-size:15px;margin-bottom:28px"><span style="color:var(--chat)">■</span> 橙色为 Chat 版 &nbsp;·&nbsp; <span style="color:var(--api)">■</span> 青色为 API 版 &nbsp;·&nbsp; 满分 35 分</p>
   </div>
   <div class="lb">
     <div class="lb-row lb-head">
@@ -408,23 +451,23 @@ footer a:hover{text-decoration:underline}
 
     <div class="lb-row">
       <div class="lb-rk g">🥇</div>
-      <div class="lb-nm">GLM 5.1 Thinking<small>z-ai · 唯一含内旋转俯视图</small></div>
-      <div class="lb-sc" style="color:var(--chat)">24/30*</div>
-      <div class="lb-sc" style="color:var(--api)">21/30*</div>
+      <div class="lb-nm">GLM 5.1 Thinking<small>z-ai · Chat 全批最高（28/35）· 唯一含俯视图</small></div>
+      <div class="lb-sc" style="color:var(--chat)">28/35</div>
+      <div class="lb-sc" style="color:var(--api)">26/35</div>
       <div class="lb-bars">
         <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="80"></div></div></div>
-        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="70"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="74"></div></div></div>
       </div>
     </div>
 
     <div class="lb-row">
       <div class="lb-rk s">🥈</div>
-      <div class="lb-nm">ChatGPT 5.5 Thinking <span class="tag tag-fix">截图修正</span><small>OpenAI · API 版全批次最高（27/35）</small></div>
+      <div class="lb-nm">ChatGPT 5.5 Thinking<small>OpenAI · API 版次高（26/35）</small></div>
       <div class="lb-sc" style="color:var(--chat)">25/35</div>
-      <div class="lb-sc" style="color:var(--api)">27/35</div>
+      <div class="lb-sc" style="color:var(--api)">26/35</div>
       <div class="lb-bars">
         <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="71"></div></div></div>
-        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="77"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="74"></div></div></div>
       </div>
     </div>
 
@@ -453,10 +496,10 @@ footer a:hover{text-decoration:underline}
     <div class="lb-row">
       <div class="lb-rk">5</div>
       <div class="lb-nm">Kimi K2.6 <span class="tag tag-fix">修复</span><small>Moonshot · 原始双版渲染失败</small></div>
-      <div class="lb-sc" style="color:var(--chat)">21/30*</div>
+      <div class="lb-sc" style="color:var(--chat)">23/35</div>
       <div class="lb-sc" style="color:var(--warn)">16/35</div>
       <div class="lb-bars">
-        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="70"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="66"></div></div></div>
         <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="46"></div></div></div>
       </div>
     </div>
@@ -474,12 +517,12 @@ footer a:hover{text-decoration:underline}
 
     <div class="lb-row">
       <div class="lb-rk">7</div>
-      <div class="lb-nm">Grok <span class="tag tag-fix">截图修正</span><small>xAI · 两版均 20/35，原始截图右侧截断</small></div>
-      <div class="lb-sc" style="color:var(--warn)">20/35</div>
-      <div class="lb-sc" style="color:var(--warn)">20/35</div>
+      <div class="lb-nm">Grok<small>xAI · Chat 22 / API 21 · 原截图截断</small></div>
+      <div class="lb-sc" style="color:var(--chat)">22/35</div>
+      <div class="lb-sc" style="color:var(--warn)">21/35</div>
       <div class="lb-bars">
-        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="57"></div></div></div>
-        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="57"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ch" data-w="63"></div></div></div>
+        <div class="lb-bar-row"><div class="lb-bar-track"><div class="lb-bar-fill ap" data-w="60"></div></div></div>
       </div>
     </div>
 
@@ -509,7 +552,7 @@ footer a:hover{text-decoration:underline}
 </div>
 
 <!-- ═══════════ §04 各模型 ═══════════ -->
-<div class="section">
+<div class="section" id="s04">
 <div class="wrap">
   <div class="sec-num">§ 04</div>
   <h2 class="sec-h">🤖 每个模型的故事</h2>
@@ -525,8 +568,8 @@ footer a:hover{text-decoration:underline}
   </div>
   <div class="model-quote">「✨ 它做了一件别人都没想到的事：换了个视角。」</div>
   <div class="pills">
-    <span class="pill pill-ch"><span class="pill-dot"></span>Chat &nbsp;24/30*</span>
-    <span class="pill pill-ap"><span class="pill-dot"></span>API &nbsp;21/30*</span>
+    <span class="pill pill-ch"><span class="pill-dot"></span>Chat &nbsp;28/35</span>
+    <span class="pill pill-ap"><span class="pill-dot"></span>API &nbsp;26/35</span>
   </div>
   <div class="img2">
     <div class="img2-col"><label class="ch">● Chat 版</label><img src="GLM%205.1%20Thining/chat.png" alt="GLM 5.1 Chat" onclick="lb(this.src)"></div>
@@ -534,7 +577,7 @@ footer a:hover{text-decoration:underline}
   </div>
   <div class="model-prose">
     <p>Chat 版和 API 版都在内旋转面板里加了俯视图——一个从骨盆开口向下看的视角，显示胎头从斜径转向前后径的过程。这是<hl>唯一正确处理内旋转的方法</hl>：内旋转本质上是水平面上的旋转，矢状位侧视图根本说不清楚。全批次 8 个模型，7 个沿用了侧视图的弧形箭头——GLM ✨ 换了个视角。</p>
-    <p>Chat 版 8 个面板，大量青绿色箭头，步骤覆盖最完整（<hl>C1=5</hl>），内旋转（<hl>C4=4</hl>）和外旋转（<hl>C5=4</hl>）均居全批次最高。解剖精度（<hl>C2=3</hl>）也是所有模型里最高的——骨盆画成 U 形弧线，标注了 Pelvic inlet/outlet/Pubis/Sacrum。这依然是抽象的，但至少在尝试。两版均因 GPT-5.5 输出被截断缺少 C7 评分。</p>
+    <p>Chat 版 8 个面板，大量青绿色箭头，步骤覆盖最完整（<hl>C1=5</hl>），内旋转（<hl>C4=4</hl>）和外旋转（<hl>C5=4</hl>）均居全批次最高。解剖精度（<hl>C2=3</hl>）也是所有模型里最高的——骨盆画成 U 形弧线，标注了 Pelvic inlet/outlet/Pubis/Sacrum。这依然是抽象的，但至少在尝试。整体视觉清晰度（<hl>C7=4</hl>），Chat 版总分 <hl>28/35</hl>。API 版总分 <hl>26/35</hl>，内旋转（<hl>C4=3</hl>）和外旋转（<hl>C5=3</hl>）略低于 Chat 版。</p>
   </div>
 </div>
 </div>
@@ -557,7 +600,7 @@ footer a:hover{text-decoration:underline}
   </div>
   <div class="model-prose">
     <p>这是全批次最戏剧性的分裂。Chat 版产出的是一张完美的产品型时间轴信息图：7 步命名完整、布局整洁、字体清晰——但没有任何解剖图形或胎头绘制（<hl>C2=1</hl>，<hl>C3=1</hl>，<hl>C4=1</hl>，<hl>C5=1</hl>）。它不是「不好的医学插图」，而是「<strong>根本不是医学插图</strong>」。</p>
-    <p>API 版则完全是另一件事：深色背景，<hl>蓝色椭圆胎头带有面部表情</hl>（眼睛、嘴巴，还有一个菱形象征前囟），在粉色骨盆内移动，每步均有黄色箭头。不精确，但有图，有运动感，有方向。<hl>C6=4</hl>（运动方向）是 API 版里最高的，API 版以 <hl>23/35</hl> 拿到 Gemini 系列最高分（后被截图修正后的 GPT-5.5 API 27/35 超越）。</p>
+    <p>API 版则完全是另一件事：深色背景，<hl>蓝色椭圆胎头带有面部表情</hl>（眼睛、嘴巴，还有一个菱形象征前囟），在粉色骨盆内移动，每步均有黄色箭头。不精确，但有图，有运动感，有方向。<hl>C6=4</hl>（运动方向）是 API 版里最高的，API 版以 <hl>23/35</hl> 拿到 Gemini 系列最高分（GPT-5.5 API 完整渲染后以 26/35 超越）。</p>
     <p>这说明相同的模型在不同界面下的「输出风格偏好」差异显著。Chat 界面可能有「产品化」的倾向——输出更像用户可以分享的卡片，而不是原始技术图形。<hl>Chat-API 差距 8 分</hl>，全批次最大。</p>
   </div>
 </div>
@@ -596,7 +639,7 @@ footer a:hover{text-decoration:underline}
   <div class="model-quote">「💥 一个多余的 &lt; ——让它从 21 分变成了 7 分。」</div>
   <div class="pills">
     <span class="pill pill-bad"><span class="pill-dot" style="background:var(--bad)"></span>原始 Chat &nbsp;7/35</span>
-    <span class="pill pill-ch"><span class="pill-dot"></span>修复 Chat &nbsp;21/30*</span>
+    <span class="pill pill-ch"><span class="pill-dot"></span>修复 Chat &nbsp;23/35</span>
     <span class="pill pill-warn"><span class="pill-dot" style="background:var(--warn)"></span>修复 API &nbsp;16/35</span>
   </div>
   <div class="callout"><strong>技术失败，非能力失败。</strong> Chat 版原始 SVG 第一行为 <code>&lt;&lt;svg</code>（双尖括号），XML 不合法，浏览器解析失败。API 版缺少 <code>xmlns</code> 属性且 CSS class 未内嵌，渲染近乎空白。两版均得全维度 1 分（7/35）。</div>
@@ -605,8 +648,8 @@ footer a:hover{text-decoration:underline}
     <div class="img2-col"><label class="bad">● Chat 原始版（渲染失败）</label><img src="Kimi%20K2.6%20Thinking/chat-err.png" alt="Kimi Error" onclick="lb(this.src)"></div>
   </div>
   <div class="model-prose">
-    <p>修复后的 Chat 版（仅移除一个多余的 <code>&lt;</code>）得分 <hl>21/30*</hl>，与 GLM 5.1 API 版基本相当：6 格面板，红色箭头，内旋转（<hl>C4=4</hl>）和外旋转（<hl>C5=4</hl>）均表现优秀。</p>
-    <p>这是一个「<strong>模型会画，但代码有 bug</strong>」的典型案例。区分「SVG 语法能力」和「医学图示理解能力」很重要：原始分数 <hl>7/35</hl> 掩盖了这个模型在图示概念上的实际水平。<hl>一个字符的差距，14 分</hl>。</p>
+    <p>修复后的 Chat 版（仅移除一个多余的 <code>&lt;</code>）得分 <hl>23/35</hl>：6 格面板，红色箭头，内旋转（<hl>C4=3</hl>）和外旋转（<hl>C5=3</hl>）均有视觉表达，整体视觉清晰度（<hl>C7=3</hl>）。</p>
+    <p>这是一个「<strong>模型会画，但代码有 bug</strong>」的典型案例。区分「SVG 语法能力」和「医学图示理解能力」很重要：原始分数 <hl>7/35</hl> 掩盖了这个模型在图示概念上的实际水平。<hl>一个字符的差距，16 分</hl>。</p>
   </div>
 </div>
 </div>
@@ -618,10 +661,10 @@ footer a:hover{text-decoration:underline}
     <div class="model-num">05</div>
     <div><div class="model-name">ChatGPT 5.5 Thinking</div><div class="model-by">OpenAI</div></div>
   </div>
-  <div class="model-quote">「原始截图裁掉了整整两列。修正后：Chat <hl>25/35</hl>，API <hl>27/35</hl>——全批次最高分。📸 不是模型跳步，是截图跳步了。」</div>
+  <div class="model-quote">「原始截图裁掉了整整两列。完整渲染后：Chat <hl>25/35</hl>，API <hl>26/35</hl>。📸 不是模型跳步，是截图跳步了。」</div>
   <div class="pills">
-    <span class="pill pill-ch"><span class="pill-dot"></span>Chat &nbsp;25/35 <span class="tag tag-fix" style="font-size:9px;margin-left:4px">截图修正</span></span>
-    <span class="pill pill-ap"><span class="pill-dot"></span>API &nbsp;27/35 &nbsp;← 全批次最高</span>
+    <span class="pill pill-ch"><span class="pill-dot"></span>Chat &nbsp;25/35</span>
+    <span class="pill pill-ap"><span class="pill-dot"></span>API &nbsp;26/35</span>
   </div>
   <div class="img2">
     <div class="img2-col"><label class="ch">● Chat 版（完整渲染）</label><img src="Chatgpt%205.5%20thinking/chat.png" alt="GPT-5.5 Chat" onclick="lb(this.src)"></div>
@@ -629,7 +672,7 @@ footer a:hover{text-decoration:underline}
   </div>
   <div class="model-prose">
     <p>原始评分的 Chat 版（11/25*）和 API 版（21/35）都是基于截图不完整的图像：Chat SVG 是 <hl>1200×760px 的 4 列 × 2 行共 8 个面板</hl>，截图窗口只抓到约 870px，把第 4 列（内旋转 + 娩出）完全裁掉；API SVG 是 1200×820px 的 3 列 × 2 行共 6 面板，截图同样裁掉了第 3 列（内旋转 + 娩出）。重新用完整 SVG 渲染后，两版评分大幅提升。</p>
-    <p>Chat 版完整版：<hl>C1=5</hl>（8 步均有）、<hl>C4=3</hl>（内旋转有蓝色弧形箭头）、<hl>C5=3</hl>（外旋转有箭头 + 肩部结构）。API 版完整版更为出色：<hl>C4=4</hl>（内旋转有紫色弧形旋转箭头）、<hl>C5=4</hl>（外旋转有肩部椭圆 + 旋转箭头）、解剖准确性 <hl>C2=3</hl>（全批最高，骨盆标注了入口/出口/耻骨/骶骨）。API 版 <hl>27/35</hl> 成为本次 Benchmark 绝对最高分。</p>
+    <p>Chat 版完整版：<hl>C1=5</hl>（8 步均有）、<hl>C4=3</hl>（内旋转有蓝色弧形箭头）、<hl>C5=3</hl>（外旋转有箭头 + 肩部结构）。API 版完整版更为出色：<hl>C4=4</hl>（内旋转有紫色弧形旋转箭头）、<hl>C5=4</hl>（外旋转有肩部椭圆 + 旋转箭头）、解剖准确性 <hl>C2=3</hl>（骨盆标注了入口/出口/耻骨/骶骨）。API 版 <hl>26/35</hl>，全批次 API 版次高分。</p>
     <p style="color:var(--fa);font-size:13px">📸 这也是这批测试里截图方法论影响最大的案例。Grok 两版同样受到截图截断影响（见下）。教训：用浏览器手动截图做 Benchmark，要确认 SVG 的完整宽度都在视口内。</p>
   </div>
 </div>
@@ -665,10 +708,10 @@ footer a:hover{text-decoration:underline}
     <div class="model-num">07</div>
     <div><div class="model-name">Grok</div><div class="model-by">xAI</div></div>
   </div>
-  <div class="model-quote">「✂️ 截图也截掉了两版的右侧内容。修正后 Chat/API 均为 <hl>20/35</hl>——步骤完整，但旋转表达依然弱。」</div>
+  <div class="model-quote">「✂️ 截图截掉了两版的右侧内容。完整渲染后 Chat <hl>22/35</hl>，API <hl>21/35</hl>——步骤完整，但旋转表达依然弱。」</div>
   <div class="pills">
-    <span class="pill pill-warn"><span class="pill-dot" style="background:var(--warn)"></span>Chat &nbsp;20/35 <span class="tag tag-fix" style="font-size:9px;margin-left:4px">截图修正</span></span>
-    <span class="pill pill-warn"><span class="pill-dot" style="background:var(--warn)"></span>API &nbsp;20/35 <span class="tag tag-fix" style="font-size:9px;margin-left:4px">截图修正</span></span>
+    <span class="pill pill-ch"><span class="pill-dot"></span>Chat &nbsp;22/35</span>
+    <span class="pill pill-warn"><span class="pill-dot" style="background:var(--warn)"></span>API &nbsp;21/35</span>
   </div>
   <div class="img2">
     <div class="img2-col"><label class="ch">● Chat 版（完整渲染）</label><img src="Grok/chat.png" alt="Grok Chat" onclick="lb(this.src)"></div>
@@ -676,7 +719,7 @@ footer a:hover{text-decoration:underline}
   </div>
   <div class="model-prose">
     <p>原始截图同样因为浏览器窗口宽度不足，裁掉了右侧内容（Chat 版 1450px 宽被截至约 870px；API 版 900px 宽步骤 5 被截断）。完整渲染后：Chat 版显示 <hl>7 个步骤全部标注</hl>（C1=5），且每个面板都有 PUBIS/SACRUM/INLET/OUTLET 方向标记，解剖方位优于大多数模型（但仍是简化骨盆形状，<hl>C2=2</hl>）。API 版显示完整 5 步（下降+俯屈合并），俯视/环形视角有助于表达旋转，但旋转箭头不够明确（<hl>C4=2</hl>）。</p>
-    <p>修正后两版同得 <hl>20/35</hl>，在有完整截图的模型里位列第 7。旋转表达（C4、C5）依然是 Grok 最弱的维度——这不是截图问题，是图示理解的真实差距。</p>
+    <p>完整渲染后 Chat <hl>22/35</hl>，API <hl>21/35</hl>，步骤完整性均提升（C1=5/4），C5 外旋转也有所改善。旋转表达（C4、C5）依然是 Grok 最弱的维度——这不是截图问题，是图示理解的真实差距。</p>
   </div>
 </div>
 </div>
@@ -705,7 +748,7 @@ footer a:hover{text-decoration:underline}
 </div>
 
 <!-- ═══════════ §05 关键发现 ═══════════ -->
-<div class="section">
+<div class="section" id="s05">
 <div class="wrap">
   <div class="sec-num">§ 05</div>
   <h2 class="sec-h">五个关键发现</h2>
@@ -747,7 +790,7 @@ footer a:hover{text-decoration:underline}
   <div class="find wide">
     <span class="find-acc" style="color:var(--mu)">📸 截图</span>
     <h3>Benchmark 方法论本身也会出错</h3>
-    <p>事后检查发现，<hl>GPT-5.5 两版</hl>和 <hl>Grok 两版</hl>的原始评分截图均因浏览器窗口宽度不足而被裁切——GPT-5.5 Chat（1200px 宽 SVG）右侧两列丢失，Grok Chat（1450px）和 API 版也有不同程度截断。用完整 SVG 重新渲染后，GPT-5.5 从 11/25*→<hl>25/35</hl>（Chat）和 21→<hl>27/35</hl>（API），Grok 从 16/15 →<hl>20/20</hl>，GPT-5.5 API <hl>27/35</hl> 成为全批次最高分。教训：手动截图做 Benchmark 时，必须确认 SVG 的完整宽度都在视口内，或直接用 cairosvg 等工具程序化渲染。</p>
+    <p>事后检查发现，<hl>GPT-5.5 两版</hl>和 <hl>Grok 两版</hl>的原始评分截图均因浏览器窗口宽度不足而被裁切——GPT-5.5 Chat（1200px 宽 SVG）右侧两列丢失，Grok Chat（1450px）和 API 版也有不同程度截断。用完整 SVG 重新渲染后，GPT-5.5 从 11/25*→<hl>25/35</hl>（Chat）和 21→<hl>26/35</hl>（API），Grok 从 16/15 →<hl>22/21</hl>。教训：手动截图做 Benchmark 时，必须确认 SVG 的完整宽度都在视口内，或直接用 cairosvg 等工具程序化渲染。</p>
   </div>
 
 </div>
@@ -755,7 +798,7 @@ footer a:hover{text-decoration:underline}
 </div>
 
 <!-- ═══════════ §06 文生视频 ═══════════ -->
-<div class="section">
+<div class="section" id="s06">
 <div class="wrap-lg reveal">
   <div class="sec-num">§ 06</div>
   <h2 class="sec-h">🎬 换一个输出格式：文生视频模型</h2>
@@ -789,14 +832,14 @@ footer a:hover{text-decoration:underline}
 </div>
 
 <!-- ═══════════ §07 结语 ═══════════ -->
-<div class="section">
+<div class="section" id="s07">
 <div class="wrap prose reveal">
   <div class="sec-num">§ 07</div>
   <h2 class="sec-h">结语</h2>
 
   <div class="callout callout-green">
     <span class="ct">👶 后记</span>
-    周二凌晨，小崽子顺利出来了。头朝下，完整走完了那七步。<strong>C3 胎儿方向：满分。</strong>
+    周二早上 5 点，小崽子顺利出来了。头朝下，完整走完了那七步。<strong>C3 胎儿方向：满分。</strong>
   </div>
 
   <p>这个测试还会继续。Simon Willison 的鹈鹕基准已经运行了两年——最大的价值不是某一次测试的绝对分数，而是随着模型迭代的变化趋势。Gemini 2.5 Pro 的鹈鹕比 1.5 Pro 好了很多；o3 的鹈鹕比 GPT-4.5 好了更多。<hl>趋势才是信息。</hl></p>
@@ -824,11 +867,24 @@ footer a:hover{text-decoration:underline}
 <div id="lb" onclick="closeLb()"><img id="lb-img" src="" alt=""></div>
 
 <script>
-// Progress bar
+// Progress bar + back button scroll direction
 const pgbar = document.getElementById('pgbar');
+const backBtn = document.getElementById('back-btn');
+let lastY = 0;
 window.addEventListener('scroll', () => {
   const d = document.documentElement;
+  const y = window.scrollY;
   pgbar.style.width = (d.scrollTop / (d.scrollHeight - d.clientHeight) * 100) + '%';
+  if (backBtn) {
+    if (y < 60) {
+      backBtn.classList.remove('hide');       // always show at top
+    } else if (y > lastY + 4) {
+      backBtn.classList.add('hide');          // scrolling down → hide
+    } else if (y < lastY - 4) {
+      backBtn.classList.remove('hide');       // scrolling up → show
+    }
+  }
+  lastY = y;
 }, {passive:true});
 
 // Lightbox
